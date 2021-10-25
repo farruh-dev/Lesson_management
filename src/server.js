@@ -14,8 +14,7 @@ async function server(port){
         app.use(express.static(path.join(__dirname, "public")));
         
         app.set("view engine", "ejs");
-        const viewsPath = path.join(path.join(__dirname, "public", "views"))
-        app.set('views', viewsPath)
+        app.set('views', path.join(__dirname, "public", "views"))
 
         app.listen(port, () => {console.log(`SERVER IS READY AT ${port}`);})
 
