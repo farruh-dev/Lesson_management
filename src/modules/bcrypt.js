@@ -1,0 +1,1 @@
+const { genSalt, compare } = require("bcrypt")
