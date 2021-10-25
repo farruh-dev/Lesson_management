@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 require("dotenv").config()
 
-require("../models/UserModel")
+require("../models/StudentModel")
 
 async function mongo(){
     try {

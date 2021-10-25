@@ -13,11 +13,11 @@ async function server(port){
         app.use(express.urlencoded({extended: true}));
         app.use(cookieParser())
         app.use(express.static(path.join(__dirname, "public")));
+
+        await mongo();
         
         app.set("view engine", "ejs");
         app.set('views', path.join(__dirname, "public", "views"))
-
-        await mongo()
 
         app.listen(port, () => {console.log(`SERVER IS READY AT ${port}`);})
 
