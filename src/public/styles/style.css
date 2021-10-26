@@ -1,1 +1,99 @@
-/* No CSS *//*# sourceMappingURL=style.css.map */
+* {
+  margin: 0;
+  padding: 0;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+.current_day {
+  -webkit-box-shadow: 0 0 30px -15px rgba(100, 255, 146, 0.8) !important;
+          box-shadow: 0 0 30px -15px rgba(100, 255, 146, 0.8) !important;
+}
+
+.card {
+  -webkit-box-shadow: 0 0 30px -15px rgba(0, 0, 0, 0.4);
+          box-shadow: 0 0 30px -15px rgba(0, 0, 0, 0.4);
+}
+
+.card .card-header {
+  background-color: #fff;
+}
+
+.card .card-body {
+  background-color: #f1f1f1;
+}
+
+.card .card-body .lessons_table_headers {
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.card .card-body .lessons_table {
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: start;
+}
+
+.card .card-body .lessons_table .lessons_table_item {
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  margin: 5px 0;
+  padding: 10px;
+  background-color: #fff;
+  border-radius: 5px;
+  -webkit-box-shadow: 0 0 10px -5px rgba(0, 0, 0, 0.4);
+          box-shadow: 0 0 10px -5px rgba(0, 0, 0, 0.4);
+}
+
+.card .card-body .lessons_table .lessons_table_item div {
+  padding: 5px;
+}
+
+.card .card-body .lessons_table .lessons_table_item .lesson_time {
+  font-size: 20px;
+}
+
+.card .card-body .lessons_table .lessons_table_item .lesson_students {
+  height: 100%;
+  -webkit-box-flex: 2;
+      -ms-flex-positive: 2;
+          flex-grow: 2;
+  padding: 5px 20px;
+  margin: 0 10px;
+  font-size: 18px;
+  border-radius: 3px;
+  -webkit-box-shadow: inset 0 0 5px 3px rgba(0, 0, 0, 0.1);
+          box-shadow: inset 0 0 5px 3px rgba(0, 0, 0, 0.1);
+}
+
+.card .card-footer {
+  background-color: #fff;
+}
+/*# sourceMappingURL=style.css.map */

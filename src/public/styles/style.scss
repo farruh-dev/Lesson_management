@@ -1,0 +1,69 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.current_day{
+    box-shadow: 0 0 30px -15px rgba($color: #64ff92, $alpha: 0.8) !important;
+}
+
+.card{
+    box-shadow: 0 0 30px -15px rgba($color: #000000, $alpha: 0.4);
+
+    .card-header{
+        background-color: #fff;
+    }
+
+    .card-body{
+        background-color: rgb(241, 241, 241);
+        
+        .lessons_table_headers{
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .lessons_table{
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: start;
+
+            .lessons_table_item{
+                width: 100%;
+                display: flex;
+                align-items: flex-start;
+                justify-content: space-between;
+                margin: 5px 0;
+                padding: 10px;
+                background-color: #fff;
+                border-radius: 5px;
+                box-shadow: 0 0 10px -5px rgba($color: #000000, $alpha: 0.4);
+
+                div{
+                    padding: 5px;
+                }
+
+                .lesson_time{
+                    font-size: 20px;
+                }
+
+                .lesson_students{
+                    height: 100%;
+                    flex-grow: 2;
+                    padding: 5px 20px;
+                    margin: 0 10px;
+                    font-size: 18px;
+                    border-radius: 3px;
+                    box-shadow: inset 0 0 5px 3px rgba($color: #000000, $alpha: 0.1);
+                }
+            }
+        }
+    }
+
+    .card-footer{
+        background-color: #fff;
+    }
+}
