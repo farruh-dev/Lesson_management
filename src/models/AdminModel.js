@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-const studentSchema = new mongoose.Schema({
+const adminSchema = new mongoose.Schema({
     name: {
         type: String,
         required: true,
@@ -13,7 +13,7 @@ const studentSchema = new mongoose.Schema({
         min: [3, "The surname must be at least 3 letters long"],
         max: [36, "The surname must consist of 36 letters"],
     },
-    username: {
+    email: {
         type: String,
         required: true,
         unique: true,
@@ -26,6 +26,6 @@ const studentSchema = new mongoose.Schema({
     },
 })
 
-const students = mongoose.model("students", studentSchema);
+const admins = mongoose.model("admins", adminSchema);
 
-module.exports = students;
+module.exports = admins;

@@ -15,7 +15,7 @@ async function AuthMiddleware(req, res, next) {
             }
 
             const user = await students.findOne({
-                _id: verify.user_id
+                _id: verify._id
             })
 
             if(!user){

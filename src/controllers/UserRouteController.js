@@ -14,7 +14,7 @@ module.exports = class UserRoute{
          try {
              const data = await SignUpValidation(req.body)
 
-             if(!data) throw new Error("Ma'lumotlarda xatolik mavjud!")
+             if(!data) throw new Error("Given information is not valid!")
 
              const user = await students.findOne({
                  username: data.username
@@ -55,7 +55,7 @@ module.exports = class UserRoute{
              }
 
              res.cookie("token", await createToken({
-                 user_id: user._id
+                 _id: user._id
              })).redirect('/')
 
          } catch (error) {

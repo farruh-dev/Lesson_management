@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 require("dotenv").config()
 
 require("../models/StudentModel")
+require("../models/AdminModel")
 
 async function mongo(){
     try {
