@@ -1,3 +1,4 @@
+const admins = require("../models/AdminModel")
 const students = require("../models/StudentModel")
 const { verifyToken } = require("../modules/jwt")
 
@@ -17,6 +18,15 @@ async function AuthMiddleware(req, res, next) {
             const user = await students.findOne({
                 _id: verify._id
             })
+
+            const admin = await admins.findOne({
+                _id: verify._id
+            })
+
+            if(admin){
+                res.redirect('/admin')
+                return
+            }
 
             if(!user){
                 res.redirect("/users/login")

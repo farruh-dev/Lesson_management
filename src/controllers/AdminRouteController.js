@@ -5,6 +5,11 @@ const { createToken } = require("../modules/jwt");
 const { AdminSignUpValidation, AdminLoginValidation } = require("../modules/validations");
 
 module.exports = class AdminRoute{
+    static async AdminPageGetController(req, res){
+        res.render("admin_page", {
+            user: req.user
+        })
+    }
     static async AdminSignUpGetController(req, res){
         res.render("admin_signup")
     }

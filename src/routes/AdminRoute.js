@@ -1,9 +1,11 @@
-const { AdminSignUpGetController, AdminLoginGetController, AdminSignUpPostController, AdminLoginPostController } = require("../controllers/AdminRouteController")
+const { AdminSignUpGetController, AdminLoginGetController, AdminSignUpPostController, AdminLoginPostController, AdminPageGetController } = require("../controllers/AdminRouteController")
+const { AdminAuthMiddleware, AdminSigUpMiddleware } = require("../middlewares/AdminMiddleware")
 
 const router = require("express").Router()
 
 // get
-router.get('/registration', AdminSignUpGetController)
+router.get('/', AdminAuthMiddleware, AdminPageGetController)
+router.get('/registration', AdminSigUpMiddleware, AdminSignUpGetController)
 router.get('/login', AdminLoginGetController)
 
 // post

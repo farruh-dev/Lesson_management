@@ -1,6 +1,7 @@
 const admins = require("../models/AdminModel")
+const { verifyToken } = require("../modules/jwt")
 
-async function AdminMiddleware(req, res, next) {
+async function AdminAuthMiddleware(req, res, next) {
     try {
         if (!req.cookies.token) {
             res.redirect("/")
@@ -30,18 +31,27 @@ async function AdminMiddleware(req, res, next) {
         res.redirect('/')
     }
 }
+
 async function AdminSigUpMiddleware(req, res, next) {
     try {
 
         const existance = await admins.find()
 
-        if (existance) {
+        if (existance.length != 0) {
             res.redirect("/admin/login")
             return
+        }else{
+            next()
         }
 
     } catch (error) {
         console.log(error);
         res.redirect('/')
     }
+}
+
+
+module.exports = {
+    AdminAuthMiddleware,
+    AdminSigUpMiddleware
 }
