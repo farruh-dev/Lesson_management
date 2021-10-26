@@ -1,22 +1,22 @@
 const admins = require("../models/AdminModel")
 
-async function AdminMiddleware(req, res, next){
+async function AdminMiddleware(req, res, next) {
     try {
-        if(!req.cookies.token){
-            res.redirect("/admin/login")
-        }else{
+        if (!req.cookies.token) {
+            res.redirect("/")
+        } else {
             const verify = await verifyToken(req.cookies.token)
 
-            if(!verify) {
+            if (!verify) {
                 res.redirect('/admin/login')
                 return
             }
 
             const admin = await admins.findOne({
-                _id: verify.user_id
+                _id: verify._id
             })
 
-            if(!admin){
+            if (!admin) {
                 res.redirect("/admin/login")
                 return
             }
@@ -25,6 +25,21 @@ async function AdminMiddleware(req, res, next){
 
             next()
         }
+    } catch (error) {
+        console.log(error);
+        res.redirect('/')
+    }
+}
+async function AdminSigUpMiddleware(req, res, next) {
+    try {
+
+        const existance = await admins.find()
+
+        if (existance) {
+            res.redirect("/admin/login")
+            return
+        }
+
     } catch (error) {
         console.log(error);
         res.redirect('/')

@@ -20,7 +20,7 @@ module.exports = class AdminRoute{
 
              const admin = await admins.find()
 
-             if(admin) throw new Error(`Admin already exists!`)
+             if(admin.length != 0) throw new Error(`Admin already exists!`)
 
              const new_admin = await admins.create({
                  name: data.name,
