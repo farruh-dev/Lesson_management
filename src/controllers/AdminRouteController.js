@@ -173,6 +173,8 @@ module.exports = class AdminRoute {
                 _id: req.params.id
             })
 
+            if(!student) throw new Error("Student not found!")
+
             const lesson_times = await lessons.find({
                 "students.student_id": student._id,
                 "students.student_name": student.fullname,
