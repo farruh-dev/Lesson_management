@@ -1,4 +1,4 @@
-const students = require("../models/StudentModel");
+const users = require("../models/UsersModel");
 const { createCrypt, compareCrypt } = require("../modules/bcrypt");
 const { createToken } = require("../modules/jwt");
 const { SignUpValidation, LoginValidation } = require("../modules/validations");
@@ -16,13 +16,13 @@ module.exports = class UserRoute{
 
              if(!data) throw new Error("Given information is not valid!")
 
-             const user = await students.findOne({
+             const user = await users.findOne({
                  username: data.username
              })
 
              if(user) throw new Error(`Nickname "${data.username}" is already in use, think another`)
 
-             const new_user = await students.create({
+             const new_user = await users.create({
                  name: data.name,
                  surname: data.surname,
                  username: data.username,
@@ -44,7 +44,7 @@ module.exports = class UserRoute{
 
              if(!data) throw new Error("Ma'lumotlarda xatolik mavjud!")
 
-             const user = await students.findOne({
+             const user = await users.findOne({
                  username: data.username,
              })
 

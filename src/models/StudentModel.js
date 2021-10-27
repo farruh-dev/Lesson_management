@@ -1,26 +1,27 @@
 const mongoose = require("mongoose");
 
 const studentSchema = new mongoose.Schema({
-    name: {
+    fullname: {
         type: String,
         required: true,
-        min: [3, "The name must be at least 3 letters long"],
-        max: [36, "The name must consist of 36 letters"],
     },
-    surname: {
+    age: {
         type: String,
         required: true,
-        min: [3, "The surname must be at least 3 letters long"],
-        max: [36, "The surname must consist of 36 letters"],
     },
-    username: {
+    gender: {
         type: String,
         required: true,
-        unique: true,
-        min: [3, "The nickname must be at least 3 letters long"],
-        max: [36, "The nickname must consist of 36 letters"],
     },
-    password: {
+    phone: {
+        type: String,
+        default: "-"
+    },
+    telegram: {
+        type: String,
+        default: "-"
+    },
+    level: {
         type: String,
         required: true,
     },

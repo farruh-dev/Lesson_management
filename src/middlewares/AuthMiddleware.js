@@ -1,5 +1,5 @@
 const admins = require("../models/AdminModel")
-const students = require("../models/StudentModel")
+const users = require("../models/UsersModel")
 const { verifyToken } = require("../modules/jwt")
 
 
@@ -15,7 +15,7 @@ async function AuthMiddleware(req, res, next) {
                 return
             }
 
-            const user = await students.findOne({
+            const user = await users.findOne({
                 _id: verify._id
             })
 

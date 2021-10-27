@@ -1,7 +1,9 @@
 const admins = require("../models/AdminModel");
 const lessons = require("../models/LessonModel");
+const levels = require("../models/LevelsModel");
 const schedule = require("../models/ScheduleModel");
 const students = require("../models/StudentModel");
+const users = require("../models/UsersModel");
 const {
     createCrypt,
     compareCrypt
@@ -12,7 +14,8 @@ const {
 const {
     AdminSignUpValidation,
     AdminLoginValidation,
-    AdminAddLessonTimeValidation
+    AdminAddLessonTimeValidation,
+    AdminAddStudentValidation
 } = require("../modules/validations");
 
 module.exports = class AdminRoute {
@@ -119,15 +122,42 @@ module.exports = class AdminRoute {
         try {
 
             const students_list = await students.find()
+            const levels_list = await levels.find()
 
             res.render("students_list", {
                 user: req.user,
-                students_list
+                students_list,
+                levels_list
             })
 
         } catch (error) {
             console.log("ADD_LESSON_ERROR:", error);
             res.redirect('/')
+        }
+    }
+    static async AdminAddStudentPostController(req, res) {
+        try {
+
+            const data = await AdminAddStudentValidation(req.body);
+
+            if(!data) throw new Error("Given information is not valid!")
+
+            const new_student = await students.create({
+                fullname: data.fullname,
+                age: data.age,
+                gender: data.gender,
+                phone: data.phone.trim() == "" ? "-" : data.phone,
+                telegram: data.telegram.trim() == "" ? "-" : data.telegram,
+                level: data.level
+            })
+
+            console.log(new_student);
+
+            res.redirect("/admin/students")
+
+        } catch (error) {
+            console.log("ADD_LESSON_ERROR:", error);
+            res.redirect('/admin/students')
         }
     }
 }

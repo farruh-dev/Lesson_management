@@ -37,4 +37,14 @@ module.exports = class Validations{
             day_name: joi.string().required().error(new Error("Something went wrong!")),
         }).validateAsync(data)
     }
+    static async AdminAddStudentValidation(data){
+        return await joi.object({
+            fullname: joi.string().required().error(new Error("Full name in not valid!")),
+            age: joi.string().required().error(new Error("Age in not valid!")),
+            gender: joi.string().required(),
+            phone: joi.string().trim().allow(null, ""),
+            telegram: joi.string().trim().allow(null, ""),
+            level: joi.string().error(new Error("Level in not valid!")),
+        }).validateAsync(data)
+    }
 }

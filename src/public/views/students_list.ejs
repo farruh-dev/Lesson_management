@@ -13,8 +13,8 @@
 
 <body>
 
-    <% var lessonsList %>
-    <% var lesson_schedule %>
+    <% var students_list %>
+    <% var levels_list %>
 
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container">
@@ -54,67 +54,85 @@
     <section id="schedule_section">
         <div class="container" style="padding: 50px 10px;">
             <h1 class="text-center mb-5">Schedule</h1>
-            <div class="row row-cols-1 row-cols-md-2 g-5">
-                <% for( let item of lesson_schedule ) { %>
-                <div class="col">
-                    <div class="card" style="height: 100%;">
-                        <div class="card-header">
-                            <h4><%= item.day %></h4>
-                        </div>
+            <button class="add_student_button btn btn-primary" data-bs-toggle="modal"
+                data-bs-target="#addStudentModal">Add Student</button>
 
-                        <div class="card-body">
-                            <div class="lessons_table_headers">
-                                <div><h6>Time</h6></div>
-                                <div><h6>Students</h6></div>
-                                <div><h6>Actions</h6></div>
-                            </div>
-                            <div class="lessons_table">
-                                <% for (let lesson of lessonsList) { %>
-                                    <% if (lesson.day_id.equals(item._id)) {%>
-                                        <div class="lessons_table_item">
-                                            <div class="lesson_time"><%= lesson.time %> </div>
-                                            <div class="lesson_students"><%= lesson.students %></div>
-                                            <div class="lesson_actions"><button data-id="<%= lesson._id %>" class="btn btn-secondary">Edit</button></div>
-                                        </div>
-                                    <% } %> 
-                                <% } %>
-                            </div>
-                            
-                        </div>
-                            
-                        <div class="card-footer d-flex justify-content-end align-items-center">
-                            <button data-id="<%= item._id %>" data-dayname="<%= item.day %>" data-bs-toggle="modal" data-bs-target="#addTimeModal" class="add_time_btn btn btn-primary">Add</button>
-                        </div>
+            <div class="row row-cols-1 row-cols-md-2 g-5">
+                <div class="d-flex align-items-start">
+                    <% for( let student of students_list ) { %>
+                    <div class="nav flex-column nav-pills me-3" id="v-pills-tab" role="tablist"
+                        aria-orientation="vertical">
+                        <button class="nav-link active" id="v-pills-home-tab" data-bs-toggle="pill"
+                            data-bs-target="#v-pills-home" type="button" role="tab" aria-controls="v-pills-home"
+                            aria-selected="true">Home</button>
+                        <button class="nav-link" id="v-pills-profile-tab" data-bs-toggle="pill"
+                            data-bs-target="#v-pills-profile" type="button" role="tab" aria-controls="v-pills-profile"
+                            aria-selected="false">Profile</button>
+                        <button class="nav-link" id="v-pills-messages-tab" data-bs-toggle="pill"
+                            data-bs-target="#v-pills-messages" type="button" role="tab" aria-controls="v-pills-messages"
+                            aria-selected="false">Messages</button>
+                        <button class="nav-link" id="v-pills-settings-tab" data-bs-toggle="pill"
+                            data-bs-target="#v-pills-settings" type="button" role="tab" aria-controls="v-pills-settings"
+                            aria-selected="false">Settings</button>
+                    </div>
+                    <% } %>
+                    <div class="tab-content" id="v-pills-tabContent">
+                        <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel"
+                            aria-labelledby="v-pills-home-tab"></div>
                     </div>
                 </div>
-                <% } %>
             </div>
         </div>
     </section>
 
-    <!-- Add Lesson Modal -->
-    <div class="modal fade" id="addTimeModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    <!-- Add Student Modal -->
+    <div class="modal fade" id="addStudentModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
         aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="add_time_modal_title modal-title" id="staticBackdropLabel"></h5>
+                    <h5 class="add_student_modal_title modal-title" id="staticBackdropLabel">Add student</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form id="addTimeForm" action="/admin/schedule" method="post">
+                    <form id="addStudentForm" action="/admin/new_student" method="post">
                         <div>
-                            <label for="time">Time</label>
-                            <input class="form-control" type="time" name="time" placeholder="Time" required>
+                            <label for="name">Full name</label>
+                            <input class="form-control" type="text" name="fullname" placeholder="Full name" required>
                         </div>
 
                         <div>
-                            <label for="time">Students</label>
-                            <textarea class="form-control" name="students" id="students" cols="30" rows="2" placeholder="Students"></textarea>
+                            <label for="age">Age</label>
+                            <input class="form-control" type="number" name="age" placeholder="Age" required>
                         </div>
 
-                        <input id="dayName" name="day_name" type="hidden">
-                        <input id="dayId" name="day_id" type="hidden">
+                        <div>
+                            <label>Gender</label><br>
+
+                            <input type="radio" id="male" name="gender" value="male">
+                            <label for="male">Male</label>
+                            <input type="radio" id="female" name="gender" value="female">
+                            <label for="female">Female</label><br>
+                        </div>
+
+                        <div>
+                            <label for="phone">Phone <span style="color: gray;">(optional)</span></label>
+                            <input class="form-control" type="number" name="phone" placeholder="+998">
+                        </div>
+
+                        <div>
+                            <label for="telegram">Telegram username <span style="color: gray;">(optional)</span></label>
+                            <input class="form-control" type="text" name="telegram" placeholder="@examle">
+                        </div>
+
+                        <div>
+                            <label for="level">Level</label>
+                            <select class="form-control" type="text" name="level" placeholder="select" required>
+                                <% for (let level of levels_list) {%> 
+                                <option value="<%= level.name %>"><%= level.name %> </option>
+                                <% } %> 
+                            </select>
+                        </div>
 
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -144,7 +162,8 @@
 
                         <div>
                             <label for="time">Students</label>
-                            <textarea class="form-control" name="students" id="students" cols="30" rows="2" placeholder="Students"></textarea>
+                            <textarea class="form-control" name="students" id="students" cols="30" rows="2"
+                                placeholder="Students"></textarea>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -162,9 +181,9 @@
 
     <script>
         const addTimeButtons = document.querySelectorAll(".add_time_btn")
-        const weekDays = document.querySelectorAll(".col")
-        const addTimeModal = document.querySelector("#addTimeModal")
-        const addTimeModalTitle = document.querySelector(".add_time_modal_title")
+        const addStudentButton = document.querySelectorAll(".add_student_button")
+        const addStudentModal = document.querySelector("#addStudentModal")
+        const addStudentModalTitle = document.querySelector(".add_student_modal_title")
         const dayName = document.querySelector("#dayName")
         const dayId = document.querySelector("#dayId")
 
@@ -177,13 +196,10 @@
 
         })
 
-        addTimeButtons.forEach(button => {
-            button.addEventListener("click", event => {
-                addTimeModalTitle.textContent = event.target.dataset.dayname
-                dayId.value = event.target.dataset.id
-                dayName.value = event.target.dataset.dayname
+        addStudentButton.addEventListener("click", event => {
+            dayId.value = event.target.dataset.id
+            dayName.value = event.target.dataset.dayname
 
-            })
         })
     </script>
 </body>
