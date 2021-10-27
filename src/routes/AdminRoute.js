@@ -1,13 +1,28 @@
-const { AdminSignUpGetController, AdminLoginGetController, AdminSignUpPostController, AdminLoginPostController, AdminSchedulePageGetController, AdminAddLessonTimeController, AdminStudentsGetController, AdminAddStudentPostController } = require("../controllers/AdminRouteController")
-const { AdminAuthMiddleware, AdminSigUpMiddleware } = require("../middlewares/AdminMiddleware")
+const {
+    AdminSignUpGetController,
+    AdminLoginGetController,
+    AdminSignUpPostController,
+    AdminLoginPostController,
+    AdminSchedulePageGetController,
+    AdminAddLessonTimeController,
+    AdminStudentsGetController,
+    AdminStudentPreviewGetController,
+    AdminAddStudentPostController
+} = require("../controllers/AdminRouteController")
+const {
+    AdminAuthMiddleware,
+    AdminSigUpMiddleware
+} = require("../middlewares/AdminMiddleware")
 
 const router = require("express").Router()
 
 // get
+router.get('/', (req, res) => {res.redirect("/admin/schedule")})
 router.get('/registration', AdminSigUpMiddleware, AdminSignUpGetController)
 router.get('/login', AdminLoginGetController)
 router.get('/schedule', AdminAuthMiddleware, AdminSchedulePageGetController)
 router.get('/students', AdminAuthMiddleware, AdminStudentsGetController)
+router.get('/students/get/:id', AdminAuthMiddleware, AdminStudentPreviewGetController)
 
 // post
 router.post('/registration', AdminSignUpPostController)

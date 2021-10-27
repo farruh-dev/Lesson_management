@@ -19,22 +19,7 @@ const {
 } = require("../modules/validations");
 
 module.exports = class AdminRoute {
-    static async AdminSchedulePageGetController(req, res) {
-        try {
-
-            const lessonsList = await lessons.find()
-            const lesson_schedule = await schedule.find()
-
-            res.render("admin_page", {
-                user: req.user,
-                lessonsList,
-                lesson_schedule
-            })
-        } catch (error) {
-            console.log(error);
-            res.redirect("/")
-        }
-    }
+   
     static async AdminSignUpGetController(req, res) {
         res.render("admin_signup")
     }
@@ -95,16 +80,62 @@ module.exports = class AdminRoute {
             })
         }
     }
+    static async AdminSchedulePageGetController(req, res) {
+        try {
+
+            const lessonsList = await lessons.find()
+            const lesson_schedule = await schedule.find()
+            const students_list = await students.find()
+
+            res.render("admin_page", {
+                user: req.user,
+                lessonsList,
+                lesson_schedule,
+                students_list
+            })
+        } catch (error) {
+            console.log(error);
+            res.redirect("/")
+        }
+    }
     static async AdminAddLessonTimeController(req, res) {
         try {
 
-            const data = await AdminAddLessonTimeValidation(req.body)
+            let selected_students = []
+            let students_array = []
+
+            if(Array.isArray(req.body.students)){
+                for (const student of req.body.students) {
+                    selected_students.push(student)
+                }
+            }else{
+                selected_students.push(req.body.students)
+            }
+
+            let request = {
+                time: req.body.time,
+                students: selected_students,
+                day_name: req.body.day_name,
+                day_id: req.body.day_id
+            }
+
+            const data = await AdminAddLessonTimeValidation(request)
 
             if (!data) throw new Error("Given information is not valid!");
 
+            for (const id of data.students) {
+                const student = await students.findOne({
+                    _id: id
+                })
+                students_array.push({
+                    student_id: student._id,
+                    student_name: student.fullname,
+                })
+            }
+
              const new_lesson = await lessons.create({
                  time: data.time,
-                 students: data.students,
+                 students: students_array,
                  day_id: data.day_id,
                  day: data.day_name,
              })
@@ -135,6 +166,31 @@ module.exports = class AdminRoute {
             res.redirect('/')
         }
     }
+    static async AdminStudentPreviewGetController(req, res) {
+        try {
+
+            const student = await students.findOne({
+                _id: req.params.id
+            })
+
+            const lesson_times = await lessons.find({
+                "students.student_id": student._id,
+                "students.student_name": student.fullname,
+            })
+
+            console.log(lesson_times);
+
+            res.render("student_preview", {
+                user: req.user, 
+                student,
+                lesson_times
+            })
+
+        } catch (error) {
+            console.log("ADD_LESSON_ERROR:", error);
+            res.redirect('/')
+        }
+    }
     static async AdminAddStudentPostController(req, res) {
         try {
 
@@ -148,16 +204,18 @@ module.exports = class AdminRoute {
                 gender: data.gender,
                 phone: data.phone.trim() == "" ? "-" : data.phone,
                 telegram: data.telegram.trim() == "" ? "-" : data.telegram,
-                level: data.level
+                level: data.level,
+                started_at: data.started_at.trim() == "" ? "-" : data.started_at
             })
 
             console.log(new_student);
 
-            res.redirect("/admin/students")
+            res.redirect("/admin/students");
 
         } catch (error) {
             console.log("ADD_LESSON_ERROR:", error);
-            res.redirect('/admin/students')
+            res.redirect('/admin/students');
         }
     }
+
 }

@@ -1,37 +1,38 @@
-*{
+* {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
-.current_day{
+.current_day {
     box-shadow: 0 0 30px -15px rgba($color: #64ff92, $alpha: 0.8) !important;
 }
 
-.card{
+.card {
     box-shadow: 0 0 30px -15px rgba($color: #000000, $alpha: 0.4);
 
-    .card-header{
+    .card-header {
         background-color: #fff;
     }
 
-    .card-body{
+    .card-body {
         background-color: rgb(241, 241, 241);
-        
-        .lessons_table_headers{
+
+        .lessons_table_headers {
             width: 100%;
             display: flex;
             align-items: center;
             justify-content: space-between;
         }
-        .lessons_table{
+
+        .lessons_table {
             width: 100%;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: start;
 
-            .lessons_table_item{
+            .lessons_table_item {
                 width: 100%;
                 display: flex;
                 align-items: flex-start;
@@ -42,15 +43,15 @@
                 border-radius: 5px;
                 box-shadow: 0 0 10px -5px rgba($color: #000000, $alpha: 0.4);
 
-                div{
+                div {
                     padding: 5px;
                 }
 
-                .lesson_time{
+                .lesson_time {
                     font-size: 20px;
                 }
 
-                .lesson_students{
+                .lesson_students {
                     height: 100%;
                     flex-grow: 2;
                     padding: 5px 20px;
@@ -63,7 +64,85 @@
         }
     }
 
-    .card-footer{
+    .card-footer {
         background-color: #fff;
     }
+}
+
+#students_section {
+    .container {
+
+        .students {
+            width: 50%;
+            margin: auto;
+
+            .students_list {
+                width: 100%;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+
+                .student_link {
+                    width: 100%;
+                    padding: 20px;
+                    margin: 10px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
+                    text-decoration: none;
+                    border-radius: 10px;
+                    background-color: #fff;
+                    box-shadow: 0 0 10px -5px rgba($color: #000000, $alpha: 0.4);
+
+                    .student_number{
+                        width: 10%;
+                    }
+                    .student_name{
+                        width: 90%;
+                        text-align: center;
+                    }
+                }
+            }
+        }
+    }
+}
+#student_section{
+    .container{
+        .student{
+            width: 50%;
+            padding: 30px;
+            margin: auto;
+            background-color: #fff;
+            box-shadow: 0 0 30px -15px rgba($color: #000000, $alpha: 0.4);
+            border-radius: 10px;
+            .student_props{
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+
+                div{
+                    padding: 10px;
+                    text-align: center;
+                }
+            }
+            .actions{
+                width: 100%;
+                margin-top: 20px;
+                display: flex;
+                align-items: center;
+                justify-content: end;
+            }
+        }
+    }
+}
+
+.students_select_list {
+    width: 100%;
+    padding: 5px 20px;
+    margin: 10px 0;
+    font-size: 18px;
+    border-radius: 3px;
+    box-shadow: inset 0 0 5px 3px rgba($color: #000000, $alpha: 0.1);
 }

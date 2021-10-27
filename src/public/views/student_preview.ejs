@@ -14,9 +14,7 @@
 
 <body>
 
-    <% var students_list %>
-    <% var levels_list %>
-    <% var num = 1 %>
+    <% var student %>
 
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container">
@@ -28,10 +26,6 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                    <li class="nav-item me-2">
-                        <button class="add_student_button btn btn-primary" data-bs-toggle="modal"
-                            data-bs-target="#addStudentModal">Add Student</button>
-                    </li>
                     <li class="nav-item">
                         <a class="nav-link" href="/admin/schedule">Schedule</a>
                     </li>
@@ -57,33 +51,13 @@
     </nav>
 
 
-    <section id="students_section">
+    <section id="student_section">
         <div class="container" style="padding: 50px 10px;">
-            <h1 class="text-center mb-5">Students</h1>
+            <h1 class="text-center mb-5"><%= student.fullname %> </h1>
 
-            <div class="students">
-                <div class="students_list">
-                    <% for( let student of students_list ) { %>
-                    <a class="student_link" href="/admin/students/get/<%= student._id %>">
-                        <div class="student_number">
-                            <h5><%= num++ %> </h5>
-                        </div>
-                        <div class="student_name">
-                            <h4><%= student.fullname %> </h5>
-                        </div>
-                    </a>
-                    <% } %>
-                </div>
-            </div>
+            <div class="student" >
+                <div class="student_props">
 
-            <div class="tab-content" id="v-pills-tabContent">
-                <% for( let student of students_list ) { %>
-                <div class="tab-pane fade" id="v-pills-<%= student._id %>" role="tabpanel"
-                    aria-labelledby="v-pills-<%= student._id %>-tab">
-                    <div>
-                        <span>name: </span><br>
-                        <h3><%= student.fullname %></h3>
-                    </div>
                     <div>
                         <span>age: </span><br>
                         <h3><%= student.age %></h3>
@@ -105,13 +79,16 @@
                         <h3><%= student.level %></h3>
                     </div>
                 </div>
-                <% } %>
+                <div class="actions"">
+                    <button class="edit_student_button btn btn-primary" data-bs-toggle="modal"
+                        data-bs-target="#editStudentModal">Edit Student</button>
+                </div>
             </div>
         </div>
     </section>
 
     <!-- Add Student Modal -->
-    <div class="modal fade" id="addStudentModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    <div class="modal fade" id="editStudentModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
         aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -148,15 +125,6 @@
                         <div>
                             <label for="telegram">Telegram username <span style="color: gray;">(optional)</span></label>
                             <input class="form-control" type="text" name="telegram" placeholder="@examle">
-                        </div>
-
-                        <div>
-                            <label for="level">Level</label>
-                            <select class="form-control" type="text" name="level" placeholder="select" required>
-                                <% for (let level of levels_list) {%>
-                                <option value="<%= level.name %>"><%= level.name %> </option>
-                                <% } %>
-                            </select>
                         </div>
 
                         <div>
@@ -210,16 +178,7 @@
     </script>
 
     <script>
-        const addTimeButtons = document.querySelectorAll(".add_time_btn")
-        const addStudentButton = document.querySelectorAll(".add_student_button")
-        const addStudentModal = document.querySelector("#addStudentModal")
-        const addStudentModalTitle = document.querySelector(".add_student_modal_title")
-        const dayName = document.querySelector("#dayName")
-        const dayId = document.querySelector("#dayId")
 
-        document.addEventListener("DOMContentLoaded", event => {
-            const date = new Date().getDay()
-        })
     </script>
 </body>
 

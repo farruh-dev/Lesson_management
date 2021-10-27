@@ -25,6 +25,10 @@ const studentSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
+    started_at: {
+        type: String,
+        default: "-"
+    },
 })
 
 const students = mongoose.model("students", studentSchema);
