@@ -7,7 +7,8 @@ const {
     AdminAddLessonTimeController,
     AdminStudentsGetController,
     AdminStudentPreviewGetController,
-    AdminAddStudentPostController
+    AdminAddStudentPostController,
+    AdminUpdateSchedulePostController
 } = require("../controllers/AdminRouteController")
 const {
     AdminAuthMiddleware,
@@ -29,6 +30,7 @@ router.post('/registration', AdminSignUpPostController)
 router.post('/login', AdminLoginPostController)
 router.post('/schedule', AdminAddLessonTimeController)
 router.post('/new_student', AdminAddStudentPostController)
+router.post('/schedule/update', AdminUpdateSchedulePostController)
 
 module.exports = {
     path: "/admin",

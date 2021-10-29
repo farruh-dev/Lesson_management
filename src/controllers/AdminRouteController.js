@@ -15,7 +15,8 @@ const {
     AdminSignUpValidation,
     AdminLoginValidation,
     AdminAddLessonTimeValidation,
-    AdminAddStudentValidation
+    AdminAddStudentValidation,
+    AdminEditLessonTimeValidation
 } = require("../modules/validations");
 
 module.exports = class AdminRoute {
@@ -180,8 +181,6 @@ module.exports = class AdminRoute {
                 "students.student_name": student.fullname,
             })
 
-            console.log(lesson_times);
-
             res.render("student_preview", {
                 user: req.user, 
                 student,
@@ -189,7 +188,7 @@ module.exports = class AdminRoute {
             })
 
         } catch (error) {
-            console.log("ADD_LESSON_ERROR:", error);
+            console.log("STUDENT_PREVIEW_ERROR:", error);
             res.redirect('/')
         }
     }
@@ -215,8 +214,61 @@ module.exports = class AdminRoute {
             res.redirect("/admin/students");
 
         } catch (error) {
-            console.log("ADD_LESSON_ERROR:", error);
+            console.log("ADD_STUDENT_ERROR:", error);
             res.redirect('/admin/students');
+        }
+    }
+
+    static async AdminUpdateSchedulePostController(req, res) {
+        try {
+
+            console.log(req.body);
+
+            let selected_students = []
+            let students_array = []
+
+            if(Array.isArray(req.body.students)){
+                for (const student of req.body.students) {
+                    selected_students.push(student)
+                }
+            }else{
+                selected_students.push(req.body.students)
+            }
+
+            let request = {
+                time: req.body.time,
+                students: selected_students,
+                lesson_id: req.body.lesson_id
+            }
+
+            const data = await AdminEditLessonTimeValidation(request)
+
+            if (!data) throw new Error("Given information is not valid!");
+
+            for (const id of data.students) {
+                const student = await students.findOne({
+                    _id: id
+                })
+                students_array.push({
+                    student_id: student._id,
+                    student_name: student.fullname,
+                })
+            }
+
+             const updated_lesson = await lessons.findOneAndUpdate({
+                 _id: data.lesson_id,
+             },{
+                time: data.time,
+                students: students_array,
+             })
+
+             console.log(updated_lesson);
+
+             res.redirect('/admin/schedule')
+
+        } catch (error) {
+            console.log("ADD_LESSON_ERROR:", error);
+            res.redirect('/')
         }
     }
 
