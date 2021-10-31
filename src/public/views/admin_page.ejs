@@ -88,9 +88,8 @@
                                     </div>
                                     <div class="lesson_actions">
                                         <button data-id="<%= lesson._id %>" data-dayname="<%= item.day %>"
-                                            data-dayid="<%= item._id %>"
-                                            data-time="<%= lesson.time %>" data-bs-toggle="modal"
-                                            data-bs-target="#editLessonModal"
+                                            data-dayid="<%= item._id %>" data-time="<%= lesson.time %>"
+                                            data-bs-toggle="modal" data-bs-target="#editLessonModal"
                                             class="edit_lesson_button btn btn-secondary">Edit</button>
                                     </div>
                                 </div>
@@ -183,7 +182,7 @@
 
                         <input id="editLessondayId" name="day_id" type="hidden">
                         <input id="editLessondayName" name="day_id" type="hidden">
-                        
+
                         <div class="modal-footer">
                             <button type="button" class="close_modal btn btn-secondary"
                                 data-bs-dismiss="modal">Close</button>
@@ -217,10 +216,24 @@
         const weekDays = document.querySelectorAll(".col")
 
         document.addEventListener("DOMContentLoaded", event => {
-            const date = new Date().getDay()
-            const current = weekDays.item(date - 1)
-            current.childNodes[1].classList.add("current_day")
-            current.childNodes[1].childNodes[1].style.backgroundColor = "#64ff92"
+
+            var a = new Date();
+            var days = new Array(7);
+            days[0] = "Sunday";
+            days[1] = "Monday";
+            days[2] = "Tuesday";
+            days[3] = "Wednesday";
+            days[4] = "Thursday";
+            days[5] = "Friday";
+            days[6] = "Saturday";
+            var r = days[a.getDay()];
+            for (let day of weekDays) {
+                let current_day_text = day.children[0].children[0].textContent.trim().toLowerCase();
+                if (current_day_text == r.trim().toLowerCase()) {
+                    day.childNodes[1].classList.add("current_day");
+                    day.childNodes[1].childNodes[1].style.backgroundColor = "#64ff92";
+                }
+            }
         })
 
         addTimeButtons.forEach(button => {

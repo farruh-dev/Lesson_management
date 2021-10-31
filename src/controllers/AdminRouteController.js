@@ -153,13 +153,17 @@ module.exports = class AdminRoute {
     static async AdminStudentsGetController(req, res) {
         try {
 
-            const students_list = await students.find()
-            const levels_list = await levels.find()
+            const students_list = await students.find();
+            const levels_list = await levels.find();
+            const schedule_list = await schedule.find();
+            const lessons_list = await lessons.find();
 
             res.render("students_list", {
                 user: req.user,
                 students_list,
-                levels_list
+                levels_list,
+                schedule_list,
+                lessons_list
             })
 
         } catch (error) {

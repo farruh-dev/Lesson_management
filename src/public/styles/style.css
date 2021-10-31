@@ -97,12 +97,36 @@
   background-color: #fff;
 }
 
-#students_section .container .students {
-  width: 50%;
-  margin: auto;
+#students_section .container .students_wrapper {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
+  -webkit-box-pack: space-evenly;
+      -ms-flex-pack: space-evenly;
+          justify-content: space-evenly;
 }
 
-#students_section .container .students .students_list {
+#students_section .container .students_wrapper .overal_wrapper {
+  padding: 20px;
+  background-color: #fff;
+  -webkit-box-shadow: 0 0 10px -5px rgba(0, 0, 0, 0.4);
+          box-shadow: 0 0 10px -5px rgba(0, 0, 0, 0.4);
+  border-radius: 7px;
+}
+
+#students_section .container .students_wrapper .overal_wrapper .filter {
+  margin-left: 10px;
+}
+
+#students_section .container .students_wrapper .students {
+  width: 50%;
+  margin: 0 auto;
+}
+
+#students_section .container .students_wrapper .students .students_list {
   width: 100%;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -119,7 +143,7 @@
           justify-content: center;
 }
 
-#students_section .container .students .students_list .student_link {
+#students_section .container .students_wrapper .students .students_list .student_link {
   width: 100%;
   padding: 20px;
   margin: 10px;
@@ -139,58 +163,42 @@
           box-shadow: 0 0 10px -5px rgba(0, 0, 0, 0.4);
 }
 
-#students_section .container .students .students_list .student_link .student_number {
+#students_section .container .students_wrapper .students .students_list .student_link .student_number {
   width: 10%;
 }
 
-#students_section .container .students .students_list .student_link .student_name {
+#students_section .container .students_wrapper .students .students_list .student_link .student_name {
   width: 90%;
   text-align: center;
 }
 
-#student_section .container .student {
-  width: 50%;
-  padding: 30px;
-  margin: auto;
-  background-color: #fff;
-  -webkit-box-shadow: 0 0 30px -15px rgba(0, 0, 0, 0.4);
-          box-shadow: 0 0 30px -15px rgba(0, 0, 0, 0.4);
-  border-radius: 10px;
-}
-
-#student_section .container .student .student_props {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-}
-
-#student_section .container .student .student_props div {
-  padding: 10px;
-  text-align: center;
-}
-
-#student_section .container .student .actions {
+.student_link {
   width: 100%;
-  margin-top: 20px;
+  padding: 20px;
+  margin: 10px;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  -webkit-box-pack: end;
-      -ms-flex-pack: end;
-          justify-content: end;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  text-decoration: none;
+  border-radius: 10px;
+  background-color: #fff;
+  -webkit-box-shadow: 0 0 10px -5px rgba(0, 0, 0, 0.4);
+          box-shadow: 0 0 10px -5px rgba(0, 0, 0, 0.4);
+}
+
+.student_link .student_number {
+  width: 10%;
+}
+
+.student_link .student_name {
+  width: 90%;
+  text-align: center;
 }
 
 .students_select_list {

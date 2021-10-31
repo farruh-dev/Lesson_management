@@ -48,7 +48,6 @@ module.exports = class Validations{
         return await joi.object({
             fullname: joi.string().required().error(new Error("Full name in not valid!")),
             age: joi.string().required().error(new Error("Age in not valid!")),
-            gender: joi.string().required(),
             phone: joi.string().trim().allow(null, ""),
             telegram: joi.string().trim().allow(null, ""),
             level: joi.string().error(new Error("Level in not valid!")),

@@ -61,54 +61,85 @@
         <div class="container" style="padding: 50px 10px;">
             <h1 class="text-center mb-5">Students</h1>
 
-            <div class="students">
-                <div class="students_list">
-                    <% for( let student of students_list ) { %>
-                    <a class="student_link" href="/admin/students/get/<%= student._id %>">
-                        <div class="student_number">
-                            <h5><%= num++ %> </h5>
-                        </div>
-                        <div class="student_name">
-                            <h4><%= student.fullname %> </h5>
-                        </div>
-                    </a>
-                    <% } %>
+            <div class="students_wrapper">
+                <div class="overal_wrapper">
+                    <h2>Filter</h2>
+                    <div class="nav flex-column nav-pills me-3" id="v-pills-tab" role="tablist"
+                        aria-orientation="vertical">
+                            <button style="text-align: start;" class="nav-link" id="v-pills-all-tab"
+                                data-bs-toggle="pill" data-bs-target="#v-pills-all" type="button" role="tab"
+                                aria-controls="v-pills-all">
+                                All
+                            </button>
+
+                            <h4>Levels</h4>
+
+                            <% for (let level of levels_list) {%>
+
+                            <button style="text-align: start;" class="nav-link" id="v-pills-<%= level.name %>-tab"
+                                data-bs-toggle="pill" data-bs-target="#v-pills-<%= level.name %>" type="button"
+                                role="tab" aria-controls="v-pills-<%= level.name %>">
+                                <%= level.name %>
+                            </button>
+
+                            <% } %>
+
+                        <h4>Days</h4>
+                        <% for (let day of schedule_list) {%>
+                        <button style="text-align: start;" class="nav-link" id="v-pills-<%= day.day %>>-tab"
+                            data-bs-toggle="pill" data-bs-target="#v-pills-<%= day.day %>" type="button" role="tab"
+                            aria-controls="v-pills-<%= day.day %>">
+                            <%= day.day %>
+                        </button>
+                        <% } %>
+
+
+                    </div>
+
+                    <!-- 
+                     -->
                 </div>
+
+                <div class="students tab-content" id="v-pills-tabContent">
+                    <% for (let day of schedule_list) {%>
+                    <div class="tab-pane fade" id="v-pills-<%= day.day %>" role="tabpanel"
+                        aria-labelledby="v-pills-<%= day.day %>-tab">
+                        <% for( let lesson of lessons_list ) { %>
+                        <% if (lesson.day_id.equals(day._id)) {%>
+                        <% for( let student of lesson.students ) { %>
+                        <a class="student_link" href="/admin/students/get/<%= student.student_id %>">
+                            <div class="student_number">
+                                <h5><%= num++ %> </h5>
+                            </div>
+                            <div class="student_name">
+                                <h4><%= student.student_name %> </h5>
+                            </div>
+                        </a>
+                        <% } %>
+                        <% } %>
+                        <% } %>
+                    </div>
+                    <% } %>
+                    <div class="tab-pane student_list fade" id="v-pills-all" role="tabpanel"
+                        aria-labelledby="v-pills-all-tab">
+                        <% for( let student of students_list ) { %>
+                        <a class="student_link" href="/admin/students/get/<%= student._id %>">
+                            <div class="student_number">
+                                <h5><%= num++ %> </h5>
+                            </div>
+                            <div class="student_name">
+                                <h4><%= student.fullname %> </h5>
+                            </div>
+                        </a>
+                        <% } %>
+                    </div>
+                </div>
+
             </div>
 
-            <div class="tab-content" id="v-pills-tabContent">
-                <% for( let student of students_list ) { %>
-                <div class="tab-pane fade" id="v-pills-<%= student._id %>" role="tabpanel"
-                    aria-labelledby="v-pills-<%= student._id %>-tab">
-                    <div>
-                        <span>name: </span><br>
-                        <h3><%= student.fullname %></h3>
-                    </div>
-                    <div>
-                        <span>age: </span><br>
-                        <h3><%= student.age %></h3>
-                    </div>
-                    <div>
-                        <span>gender: </span><br>
-                        <h3><%= student.gender %></h3>
-                    </div>
-                    <div>
-                        <span>phone: </span><br>
-                        <h3><%= student.phone %></h3>
-                    </div>
-                    <div>
-                        <span>telegram: </span><br>
-                        <h3><%= student.telegram %></h3>
-                    </div>
-                    <div>
-                        <span>level: </span><br>
-                        <h3><%= student.level %></h3>
-                    </div>
-                </div>
-                <% } %>
-            </div>
         </div>
     </section>
+
 
     <!-- Add Student Modal -->
     <div class="modal fade" id="addStudentModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
@@ -129,15 +160,6 @@
                         <div>
                             <label for="age">Age</label>
                             <input class="form-control" type="number" name="age" placeholder="Age" required>
-                        </div>
-
-                        <div>
-                            <label>Gender</label><br>
-
-                            <input type="radio" id="male" name="gender" value="male">
-                            <label for="male">Male</label>
-                            <input type="radio" id="female" name="gender" value="female">
-                            <label for="female">Female</label><br>
                         </div>
 
                         <div>
