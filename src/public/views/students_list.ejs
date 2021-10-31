@@ -16,7 +16,7 @@
 
     <% var students_list %>
     <% var levels_list %>
-    <% var num = 1 %>
+
 
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container">
@@ -66,10 +66,10 @@
                     <h2>Filter</h2>
                     <div class="nav flex-column nav-pills me-3" id="v-pills-tab" role="tablist"
                         aria-orientation="vertical">
-                            <button style="text-align: start;" class="nav-link" id="v-pills-all-tab"
+                            <button style="text-align: start;" class="nav-link active" id="v-pills-all-tab"
                                 data-bs-toggle="pill" data-bs-target="#v-pills-all" type="button" role="tab"
-                                aria-controls="v-pills-all">
-                                All
+                                aria-controls="v-pills-all" aria-selected="true">
+                                All <span><%= students_list.length %></span>
                             </button>
 
                             <h4>Levels</h4>
@@ -101,6 +101,8 @@
                 </div>
 
                 <div class="students tab-content" id="v-pills-tabContent">
+
+                    <!-- Days filter -->
                     <% for (let day of schedule_list) {%>
                     <div class="tab-pane fade" id="v-pills-<%= day.day %>" role="tabpanel"
                         aria-labelledby="v-pills-<%= day.day %>-tab">
@@ -108,9 +110,7 @@
                         <% if (lesson.day_id.equals(day._id)) {%>
                         <% for( let student of lesson.students ) { %>
                         <a class="student_link" href="/admin/students/get/<%= student.student_id %>">
-                            <div class="student_number">
-                                <h5><%= num++ %> </h5>
-                            </div>
+
                             <div class="student_name">
                                 <h4><%= student.student_name %> </h5>
                             </div>
@@ -120,13 +120,30 @@
                         <% } %>
                     </div>
                     <% } %>
-                    <div class="tab-pane student_list fade" id="v-pills-all" role="tabpanel"
+
+                    <!-- Levels filter -->
+                    <% for (let level of levels_list) {%>
+                    <div class="tab-pane fade" id="v-pills-<%= level.name %>" role="tabpanel"
+                        aria-labelledby="v-pills-<%= level.name %>-tab">
+                        <% for( let student of students_list ) { %>
+                        <% if (student.level_id.equals(level._id)) {%>
+                        <a class="student_link" href="/admin/students/get/<%= student._id %>">
+
+                            <div class="student_name">
+                                <h4><%= student.fullname %> </h5>
+                            </div>
+                        </a>
+                        <% } %>
+                        <% } %>
+                    </div>
+                    <% } %>
+
+                    <!-- All -->
+                    <div class="tab-pane student_list fade show active" id="v-pills-all" role="tabpanel"
                         aria-labelledby="v-pills-all-tab">
                         <% for( let student of students_list ) { %>
                         <a class="student_link" href="/admin/students/get/<%= student._id %>">
-                            <div class="student_number">
-                                <h5><%= num++ %> </h5>
-                            </div>
+
                             <div class="student_name">
                                 <h4><%= student.fullname %> </h5>
                             </div>
@@ -158,11 +175,6 @@
                         </div>
 
                         <div>
-                            <label for="age">Age</label>
-                            <input class="form-control" type="number" name="age" placeholder="Age" required>
-                        </div>
-
-                        <div>
                             <label for="phone">Phone <span style="color: gray;">(optional)</span></label>
                             <input class="form-control" type="number" name="phone" placeholder="+998">
                         </div>
@@ -174,9 +186,9 @@
 
                         <div>
                             <label for="level">Level</label>
-                            <select class="form-control" type="text" name="level" placeholder="select" required>
+                            <select class="form-control" type="text" name="level_id" placeholder="select" required>
                                 <% for (let level of levels_list) {%>
-                                <option value="<%= level.name %>"><%= level.name %> </option>
+                                <option value="<%= level._id %>"><%= level.name %></option>
                                 <% } %>
                             </select>
                         </div>

@@ -143,33 +143,49 @@
           justify-content: center;
 }
 
-#students_section .container .students_wrapper .students .students_list .student_link {
+#student_section .container .student {
+  width: 50%;
+  padding: 30px;
+  margin: auto;
+  background-color: #fff;
+  -webkit-box-shadow: 0 0 30px -15px rgba(0, 0, 0, 0.4);
+          box-shadow: 0 0 30px -15px rgba(0, 0, 0, 0.4);
+  border-radius: 10px;
+}
+
+#student_section .container .student .student_props {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+#student_section .container .student .student_props div {
+  padding: 10px;
+  text-align: center;
+}
+
+#student_section .container .student .actions {
   width: 100%;
-  padding: 20px;
-  margin: 10px;
+  margin-top: 20px;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
-  text-decoration: none;
-  border-radius: 10px;
-  background-color: #fff;
-  -webkit-box-shadow: 0 0 10px -5px rgba(0, 0, 0, 0.4);
-          box-shadow: 0 0 10px -5px rgba(0, 0, 0, 0.4);
-}
-
-#students_section .container .students_wrapper .students .students_list .student_link .student_number {
-  width: 10%;
-}
-
-#students_section .container .students_wrapper .students .students_list .student_link .student_name {
-  width: 90%;
-  text-align: center;
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: end;
 }
 
 .student_link {
@@ -182,9 +198,9 @@
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   text-decoration: none;
   border-radius: 10px;
   background-color: #fff;
@@ -192,12 +208,8 @@
           box-shadow: 0 0 10px -5px rgba(0, 0, 0, 0.4);
 }
 
-.student_link .student_number {
-  width: 10%;
-}
-
 .student_link .student_name {
-  width: 90%;
+  width: 100%;
   text-align: center;
 }
 

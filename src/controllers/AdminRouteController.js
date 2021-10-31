@@ -185,10 +185,13 @@ module.exports = class AdminRoute {
                 "students.student_name": student.fullname,
             })
 
+            const levels_list = await levels.find();
+
             res.render("student_preview", {
                 user: req.user, 
                 student,
-                lesson_times
+                lesson_times,
+                levels_list
             })
 
         } catch (error) {
@@ -203,13 +206,17 @@ module.exports = class AdminRoute {
 
             if(!data) throw new Error("Given information is not valid!")
 
+            const level = await levels.findOne({
+                _id: data.level_id
+            })
+
             const new_student = await students.create({
                 fullname: data.fullname,
-                age: data.age,
                 gender: data.gender,
                 phone: data.phone.trim() == "" ? "-" : data.phone,
                 telegram: data.telegram.trim() == "" ? "-" : data.telegram,
-                level: data.level,
+                level: level.name,
+                level_id: level._id,
                 started_at: data.started_at.trim() == "" ? "-" : data.started_at
             })
 
@@ -219,6 +226,41 @@ module.exports = class AdminRoute {
 
         } catch (error) {
             console.log("ADD_STUDENT_ERROR:", error);
+            res.redirect('/admin/students');
+        }
+    }
+    static async AdminUpdateStudentPostController(req, res) {
+        try {
+
+            const data = await AdminAddStudentValidation(req.body);
+
+            if(!data) throw new Error("Given information is not valid!")
+
+            const level = await levels.findOne({
+                _id: data.level_id
+            })
+
+            const updated_student = await students.findOneAndUpdate({
+                _id: req.params.id
+            },{
+                fullname: data.fullname,
+                gender: data.gender,
+                phone: data.phone.trim() == "" ? "-" : data.phone,
+                telegram: data.telegram.trim() == "" ? "-" : data.telegram,
+                level: level.name,
+                level_id: level._id,
+                started_at: data.started_at.trim() == "" ? "-" : data.started_at
+            })
+
+            if(!updated_student) throw new Error("Given information is not valid!")
+
+
+            console.log(updated_student);
+
+            res.redirect(`/admin/students/get/${updated_student._id}`);
+
+        } catch (error) {
+            console.log("UPDATE_STUDENT_ERROR:", error);
             res.redirect('/admin/students');
         }
     }

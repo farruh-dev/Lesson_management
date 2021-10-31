@@ -5,10 +5,6 @@ const studentSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
-    age: {
-        type: String,
-        required: true,
-    },
     phone: {
         type: String,
         default: "-"
@@ -19,6 +15,10 @@ const studentSchema = new mongoose.Schema({
     },
     level: {
         type: String,
+        required: true,
+    },
+    level_id: {
+        type: mongoose.Types.ObjectId,
         required: true,
     },
     started_at: {

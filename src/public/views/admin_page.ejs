@@ -181,7 +181,8 @@
                         </div>
 
                         <input id="editLessondayId" name="day_id" type="hidden">
-                        <input id="editLessondayName" name="day_id" type="hidden">
+                        <input id="editLessondayName" name="day_name" type="hidden">
+                        <input id="editLessonlessonId" name="lesson_id" type="hidden">
 
                         <div class="modal-footer">
                             <button type="button" class="close_modal btn btn-secondary"
@@ -249,8 +250,8 @@
                 editTimeModalTitle.textContent =
                     `${event.target.dataset.dayname}: ${event.target.dataset.time}`
                 editTimeModalTimeInput.value = `${event.target.dataset.time}`
-                // editLessonLessonId.value = event.target.dataset.id
-                // editLessondayId.value = event.target.dataset.dayid
+                editLessonLessonId.value = event.target.dataset.id
+                editLessondayId.value = event.target.dataset.dayid
                 editLessondayName.value = event.target.dataset.dayname
 
                 console.log(editLessondayId.value, editLessondayName.value);
