@@ -1,4 +1,5 @@
 const admins = require("../models/AdminModel");
+const groups = require("../models/GroupModel");
 const lessons = require("../models/LessonModel");
 const levels = require("../models/LevelsModel");
 const schedule = require("../models/ScheduleModel");
@@ -229,6 +230,7 @@ module.exports = class AdminRoute {
             res.redirect('/admin/students');
         }
     }
+
     static async AdminUpdateStudentPostController(req, res) {
         try {
 
@@ -315,6 +317,46 @@ module.exports = class AdminRoute {
         } catch (error) {
             console.log("ADD_LESSON_ERROR:", error);
             res.redirect('/')
+        }
+    }
+
+    static async AdminGroupsGetController(req, res){
+        try {
+
+            const group_list = await groups.find()
+
+            if(!group_list) throw new Error("No groups found!")
+            
+            console.log(group_list);
+
+            res.render("groups", {
+                group_list
+            });
+
+        } catch (error) {
+            console.log("ADD_GROUP_ERROR:", error);
+            res.redirect('/admin/groups');
+        }
+    }
+
+    static async AdminCreateGroupPostController(req, res){
+        try {
+
+            const data = await AdminCreateGroupValidation(req.body);
+
+            if(!data) throw new Error("Given information is not valid!")
+
+            const group = await groups.create({
+                name: data.name,
+            })
+
+            console.log(group);
+
+            res.redirect("/admin/groups");
+
+        } catch (error) {
+            console.log("ADD_GROUP_ERROR:", error);
+            res.redirect('/admin/groups');
         }
     }
 

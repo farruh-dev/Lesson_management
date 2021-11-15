@@ -53,4 +53,9 @@ module.exports = class Validations{
             started_at: joi.string().trim().allow(null, ""),
         }).validateAsync(data)
     }
+    static async AdminCreateGroupValidation(data){
+        return await joi.object({
+            name: joi.string().required().error(new Error("Name is not valid!")),            
+        }).validateAsync(data)
+    }
 }

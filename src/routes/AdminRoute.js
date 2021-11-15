@@ -9,7 +9,9 @@ const {
     AdminStudentPreviewGetController,
     AdminAddStudentPostController,
     AdminUpdateSchedulePostController,
-    AdminUpdateStudentPostController
+    AdminUpdateStudentPostController,
+    AdminGroupsGetController,
+    AdminCreateGroupPostController
 } = require("../controllers/AdminRouteController")
 const {
     AdminAuthMiddleware,
@@ -24,6 +26,7 @@ router.get('/registration', AdminSigUpMiddleware, AdminSignUpGetController)
 router.get('/login', AdminLoginGetController)
 router.get('/schedule', AdminAuthMiddleware, AdminSchedulePageGetController)
 router.get('/students', AdminAuthMiddleware, AdminStudentsGetController)
+router.get('/groups', AdminAuthMiddleware, AdminGroupsGetController)
 router.get('/students/get/:id', AdminAuthMiddleware, AdminStudentPreviewGetController)
 
 // post
@@ -31,6 +34,7 @@ router.post('/registration', AdminSignUpPostController)
 router.post('/login', AdminLoginPostController)
 router.post('/schedule', AdminAddLessonTimeController)
 router.post('/new_student', AdminAddStudentPostController)
+router.post('/new_group', AdminCreateGroupPostController)
 router.post('/students/update/:id', AdminUpdateStudentPostController)
 router.post('/schedule/update', AdminUpdateSchedulePostController)
 

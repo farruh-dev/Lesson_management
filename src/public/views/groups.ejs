@@ -30,18 +30,16 @@
                 <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                     <li class="nav-item me-2">
                         <button class="add_student_button btn btn-primary" data-bs-toggle="modal"
-                            data-bs-target="#addStudentModal">Add Student</button>
+                            data-bs-target="#addGroupModal">Add Group</button>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="/admin/schedule">Schedule</a>
                     </li>
-                    
                     <li class="nav-item">
-                        <a class="nav-link" href="/admin/groups">Groups</a>
+                        <a class="nav-link active" aria-current="page" href="/admin/groups">Groups</a>
                     </li>
-
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="/admin/students">Students</a>
+                        <a class="nav-link" href="/admin/students">Students</a>
                     </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
@@ -67,90 +65,17 @@
             <h1 class="text-center mb-5">Students</h1>
 
             <div class="students_wrapper">
-                <div class="overal_wrapper">
-                    <h2>Filter</h2>
-                    <div class="nav flex-column nav-pills me-3" id="v-pills-tab" role="tablist"
-                        aria-orientation="vertical">
-                            <button style="text-align: start;" class="nav-link active" id="v-pills-all-tab"
-                                data-bs-toggle="pill" data-bs-target="#v-pills-all" type="button" role="tab"
-                                aria-controls="v-pills-all" aria-selected="true">
-                                All <span><%= students_list.length %></span>
-                            </button>
-
-                            <h4>Levels</h4>
-
-                            <% for (let level of levels_list) {%>
-
-                            <button style="text-align: start;" class="nav-link" id="v-pills-<%= level.name %>-tab"
-                                data-bs-toggle="pill" data-bs-target="#v-pills-<%= level.name %>" type="button"
-                                role="tab" aria-controls="v-pills-<%= level.name %>">
-                                <%= level.name %>
-                            </button>
-
-                            <% } %>
-
-                        <h4>Days</h4>
-                        <% for (let day of schedule_list) {%>
-                        <button style="text-align: start;" class="nav-link" id="v-pills-<%= day.day %>>-tab"
-                            data-bs-toggle="pill" data-bs-target="#v-pills-<%= day.day %>" type="button" role="tab"
-                            aria-controls="v-pills-<%= day.day %>">
-                            <%= day.day %>
-                        </button>
-                        <% } %>
-
-
-                    </div>
-
-                    <!-- 
-                     -->
-                </div>
 
                 <div class="students tab-content" id="v-pills-tabContent">
-
-                    <!-- Days filter -->
-                    <% for (let day of schedule_list) {%>
-                    <div class="tab-pane fade" id="v-pills-<%= day.day %>" role="tabpanel"
-                        aria-labelledby="v-pills-<%= day.day %>-tab">
-                        <% for( let lesson of lessons_list ) { %>
-                        <% if (lesson.day_id.equals(day._id)) {%>
-                        <% for( let student of lesson.students ) { %>
-                        <a class="student_link" href="/admin/students/get/<%= student.student_id %>">
-
-                            <div class="student_name">
-                                <h4><%= student.student_name %> </h5>
-                            </div>
-                        </a>
-                        <% } %>
-                        <% } %>
-                        <% } %>
-                    </div>
-                    <% } %>
-
-                    <!-- Levels filter -->
-                    <% for (let level of levels_list) {%>
-                    <div class="tab-pane fade" id="v-pills-<%= level.name %>" role="tabpanel"
-                        aria-labelledby="v-pills-<%= level.name %>-tab">
-                        <% for( let student of students_list ) { %>
-                        <% if (student.level_id.equals(level._id)) {%>
-                        <a class="student_link" href="/admin/students/get/<%= student._id %>">
-
-                            <div class="student_name">
-                                <h4><%= student.fullname %> </h5>
-                            </div>
-                        </a>
-                        <% } %>
-                        <% } %>
-                    </div>
-                    <% } %>
 
                     <!-- All -->
                     <div class="tab-pane student_list fade show active" id="v-pills-all" role="tabpanel"
                         aria-labelledby="v-pills-all-tab">
-                        <% for( let student of students_list ) { %>
-                        <a class="student_link" href="/admin/students/get/<%= student._id %>">
+                        <% for( let group of group_list ) { %>
+                        <a class="student_link" href="/admin/students/get/<%= group._id %>">
 
                             <div class="student_name">
-                                <h4><%= student.fullname %> </h5>
+                                <h4><%= group.name %> </h5>
                             </div>
                         </a>
                         <% } %>
@@ -164,43 +89,19 @@
 
 
     <!-- Add Student Modal -->
-    <div class="modal fade" id="addStudentModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    <div class="modal fade" id="addGroupModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
         aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="add_student_modal_title modal-title" id="staticBackdropLabel">Add student</h5>
+                    <h5 class="add_group_modal_title modal-title" id="staticBackdropLabel">Add Group</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form id="addStudentForm" action="/admin/new_student" method="post">
+                    <form id="addGroupForm" action="/admin/new_group" method="post">
                         <div>
                             <label for="name">Full name</label>
-                            <input class="form-control" type="text" name="fullname" placeholder="Full name" required>
-                        </div>
-
-                        <div>
-                            <label for="phone">Phone <span style="color: gray;">(optional)</span></label>
-                            <input class="form-control" type="number" name="phone" placeholder="+998">
-                        </div>
-
-                        <div>
-                            <label for="telegram">Telegram username <span style="color: gray;">(optional)</span></label>
-                            <input class="form-control" type="text" name="telegram" placeholder="@examle">
-                        </div>
-
-                        <div>
-                            <label for="level">Level</label>
-                            <select class="form-control" type="text" name="level_id" placeholder="select" required>
-                                <% for (let level of levels_list) {%>
-                                <option value="<%= level._id %>"><%= level.name %></option>
-                                <% } %>
-                            </select>
-                        </div>
-
-                        <div>
-                            <label for="telegram">Started date <span style="color: gray;">(optional)</span></label>
-                            <input class="form-control" type="date" name="started_at" placeholder="">
+                            <input class="form-control" type="text" name="name" placeholder="Name" required>
                         </div>
 
                         <div class="modal-footer">
@@ -250,11 +151,11 @@
 
     <script>
         const addTimeButtons = document.querySelectorAll(".add_time_btn")
-        const addStudentButton = document.querySelectorAll(".add_student_button")
-        const addStudentModal = document.querySelector("#addStudentModal")
-        const addStudentModalTitle = document.querySelector(".add_student_modal_title")
-        const dayName = document.querySelector("#dayName")
-        const dayId = document.querySelector("#dayId")
+        const addGroupButton = document.querySelectorAll(".add_group_button")
+        const addGroupModal = document.querySelector("#addGroupModal")
+        const addGroupModalTitle = document.querySelector(".add_group_modal_title")
+        // const dayName = document.querySelector("#dayName")
+        // const dayId = document.querySelector("#dayId")
 
         document.addEventListener("DOMContentLoaded", event => {
             const date = new Date().getDay()

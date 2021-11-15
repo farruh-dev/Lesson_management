@@ -8,6 +8,7 @@ require("../models/AdminModel")
 require("../models/ScheduleModel")
 require("../models/LessonModel")
 require("../models/LevelsModel")
+require("../models/GroupModel")
 
 async function mongo(){
     try {
