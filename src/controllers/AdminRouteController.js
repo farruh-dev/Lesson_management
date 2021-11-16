@@ -371,4 +371,65 @@ module.exports = class AdminRoute {
         }
     }
 
+    static async AdminUpdateGroupPostController(req, res){
+        try {
+            console.log(req.body)
+            const group_id = req.params?.group_id
+
+            const selected_students = []
+
+            if(Array.isArray(req.body.students)){
+                for(let i of req.body.students){
+                    selected_students.push(i)
+                }
+            }else{
+                selected_students.push(req.body.students)
+            }
+
+            const request = {
+                name: req.body.name,
+                students: selected_students
+            }
+
+            console.log(request)
+
+            const data = await AdminCreateGroupValidation(request)
+
+            if(!data) throw new Error("Group not found")
+
+            const group = await groups.findOne({
+                _id: group_id
+            })
+
+            if(!group) throw new Error("Group not found")
+
+            const updated_group = await groups.findOneAndUpdate({
+                _id: group._id
+            }, {
+                name: data.name,
+            })
+
+            await students.findOneAndUpdate({
+                student_group_id: group_id
+            }, {
+                $set: {
+                    student_group_id: null 
+                }
+            })
+
+            for (const id of data.students) {
+                const student = await students.findOneAndUpdate({
+                    _id: id,
+                }, {
+                    student_group_id: group._id 
+                })
+            }
+
+            res.redirect('/admin/groups')
+        } catch (error) {
+            console.log("UPDATE_GROUP_ERROR", error);
+            res.redirect('/admin/groups')
+        }
+    }
+
 }

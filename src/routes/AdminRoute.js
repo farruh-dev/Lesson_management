@@ -11,7 +11,8 @@ const {
     AdminUpdateSchedulePostController,
     AdminUpdateStudentPostController,
     AdminGroupsGetController,
-    AdminCreateGroupPostController
+    AdminCreateGroupPostController,
+    AdminUpdateGroupPostController
 } = require("../controllers/AdminRouteController")
 const {
     AdminSigUpMiddleware,
@@ -39,6 +40,7 @@ router.post('/new_student', AdminAuthMiddleware, AdminAddStudentPostController)
 router.post('/new_group', AdminAuthMiddleware, AdminCreateGroupPostController)
 router.post('/students/update/:id', AdminAuthMiddleware, AdminUpdateStudentPostController)
 router.post('/schedule/update', AdminAuthMiddleware, AdminUpdateSchedulePostController)
+router.post('/groups/update/:group_id', AdminAuthMiddleware, AdminUpdateGroupPostController)
 
 module.exports = {
     path: "/admin",
