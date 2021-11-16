@@ -39,7 +39,7 @@ router.post('/schedule', AdminAuthMiddleware, AdminAddLessonTimeController)
 router.post('/new_student', AdminAuthMiddleware, AdminAddStudentPostController)
 router.post('/new_group', AdminAuthMiddleware, AdminCreateGroupPostController)
 router.post('/students/update/:id', AdminAuthMiddleware, AdminUpdateStudentPostController)
-router.post('/schedule/update', AdminAuthMiddleware, AdminUpdateSchedulePostController)
+router.post('/schedule/update/:lesson_id', AdminAuthMiddleware, AdminUpdateSchedulePostController)
 router.post('/groups/update/:group_id', AdminAuthMiddleware, AdminUpdateGroupPostController)
 
 module.exports = {

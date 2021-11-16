@@ -76,7 +76,7 @@
                                     <h6>Time</h6>
                                 </div>
                                 <div>
-                                    <h6>Students</h6>
+                                    <h6>Group</h6>
                                 </div>
                                 <div>
                                     <h6>Actions</h6>
@@ -91,8 +91,12 @@
                                         <div><%= lesson.group_name %></div>
                                     </div>
                                     <div class="lesson_actions">
-                                        <button data-id="<%= lesson._id %>" data-dayname="<%= item.day %>"
-                                            data-dayid="<%= item._id %>" data-time="<%= lesson.time %>"
+                                        <button data-lessonid="<%= lesson._id %>" 
+                                            data-dayname="<%= item.day %>"
+                                            data-dayid="<%= item._id %>"
+                                            data-time="<%= lesson.time %>"
+                                            data-groupid="<%= lesson.group %>"
+
                                             data-bs-toggle="modal" data-bs-target="#editLessonModal"
                                             class="edit_lesson_button btn btn-secondary">Edit</button>
                                     </div>
@@ -131,7 +135,7 @@
                         </div>
 
                         <div>
-                            <label for="">Select groups</label>
+                            <label for="">Select group</label>
                             <select class="form-control" name="group" id="">
                                 <% for (let group of group_list) {%>
                                     <option value="<%= group._id %>"><%= group.name %></option>
@@ -171,20 +175,13 @@
                         </div>
 
                         <div>
-                            <label for="">Students</label>
-                            <div class="students_select_list">
-                                <% for (let student of students_list) {%>
-                                <label for="<%= student._id %>"><%= student.fullname %></label>
-                                <input class="edit_lesson_student_checkbox" type="checkbox" name="students"
-                                    value="<%= student._id %>" id="<%= student._id %>"
-                                    data-studentName="<%= student.fullname %>"><br>
+                            <label for="">Select group</label>
+                            <select class="form-control edit_lesson_modal_group_select" name="group" id="">
+                                <% for (let group of group_list) {%>
+                                    <option value="<%= group._id %>" class="edit_lesson_modal_group_option"><%= group.name %></option>
                                 <% } %>
-                            </div>
+                            </select>
                         </div>
-
-                        <input id="editLessondayId" name="day_id" type="hidden">
-                        <input id="editLessondayName" name="day_name" type="hidden">
-                        <input id="editLessonlessonId" name="lesson_id" type="hidden">
 
                         <div class="modal-footer">
                             <button type="button" class="close_modal btn btn-secondary"
@@ -203,19 +200,18 @@
 
     <script>
         const closeModalButtons = document.querySelectorAll(".close_modal")
-        const forms = document.getElementsByTagName("form")
         const addTimeButtons = document.querySelectorAll(".add_time_btn")
         const editTimeButtons = document.querySelectorAll(".edit_lesson_button")
         const addTimeModal = document.querySelector("#addTimeModal")
         const addTimeModalTitle = document.querySelector(".add_time_modal_title")
+
+        const editLessonForm = document.querySelector("#editLessonForm")
         const editTimeModalTitle = document.querySelector(".edit_lesson_modal_title")
         const editTimeModalTimeInput = document.querySelector(".edit_lesson_time_input")
-        const editTimeModalStudentCheckboxes = document.querySelectorAll(".edit_lesson_student_checkbox")
+        const editTimeModalGroupSelect = document.querySelector(".edit_lesson_modal_group_select")
+        const editTimeModalGroupOptions = document.querySelectorAll(".edit_lesson_modal_group_option")
         const dayName = document.querySelector("#dayName")
         const dayId = document.querySelector("#dayId")
-        const editLessondayName = document.querySelector("#editLessondayName")
-        // const editLessondayId = document.querySelector("#editLessondayId")
-        const editLessonLessonId = document.querySelector("#editLessonlessonId")
         const weekDays = document.querySelectorAll(".col")
 
         document.addEventListener("DOMContentLoaded", event => {
@@ -249,33 +245,23 @@
         })
         editTimeButtons.forEach(button => {
             button.addEventListener("click", event => {
+                editLessonForm.action = `/admin/schedule/update/${event.target.dataset.lessonid}`
                 editTimeModalTitle.textContent =
                     `${event.target.dataset.dayname}: ${event.target.dataset.time}`
                 editTimeModalTimeInput.value = `${event.target.dataset.time}`
-                editLessonLessonId.value = event.target.dataset.id
-                editLessondayId.value = event.target.dataset.dayid
-                editLessondayName.value = event.target.dataset.dayname
 
-                console.log(editLessondayId.value, editLessondayName.value);
-
-                let event_students = event.path[2].children[1].children
-
-                for (let checkbox of editTimeModalStudentCheckboxes) {
-
-                    for (let std of event_students) {
-                        if (checkbox.dataset.studentname == std.textContent) {
-                            checkbox.checked = true;
-                        }
+                for(let opt of editTimeModalGroupOptions){
+                    if(opt.value == event.target.dataset.groupid){
+                        opt.selected = true
                     }
                 }
-
             })
         })
 
-        closeModalButtons.forEach(button => {
-            button.addEventListener("click", event => {
-                for (let checkbox of editTimeModalStudentCheckboxes) {
-                    checkbox.checked = false;
+        closeModalButtons.forEach(btn => {
+            btn.addEventListener("click", event => {
+                for(let opt of editTimeModalGroupOptions){
+                    opt.selected = false
                 }
             })
         })

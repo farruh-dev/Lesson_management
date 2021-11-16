@@ -40,8 +40,7 @@ module.exports = class Validations{
     static async AdminEditLessonTimeValidation(data){
         return await joi.object({
             time: joi.string().required().error(new Error("Time is not valid!")),
-            students: joi.array().required().error(new Error("Students list is not valid!")),
-            lesson_id: joi.string().required().error(new Error("Something went wrong!")),
+            group: joi.string().required().error(new Error("Group is not valid!")),
         }).validateAsync(data)
     }
     static async AdminAddStudentValidation(data){

@@ -257,42 +257,27 @@ module.exports = class AdminRoute {
 
             console.log(req.body);
 
-            let selected_students = []
-            let students_array = []
-
-            if(Array.isArray(req.body.students)){
-                for (const student of req.body.students) {
-                    selected_students.push(student)
-                }
-            }else{
-                selected_students.push(req.body.students)
-            }
+            const lesson_id = req.params?.lesson_id
 
             let request = {
                 time: req.body.time,
-                students: selected_students,
-                lesson_id: req.body.lesson_id
+                group: req.body.group,
             }
 
             const data = await AdminEditLessonTimeValidation(request)
 
             if (!data) throw new Error("Given information is not valid!");
 
-            for (const id of data.students) {
-                const student = await students.findOne({
-                    _id: id
-                })
-                students_array.push({
-                    student_id: student._id,
-                    student_name: student.fullname,
-                })
-            }
+            const group = await groups.findOne({
+                _id: data.group
+            })
 
              const updated_lesson = await lessons.findOneAndUpdate({
-                 _id: data.lesson_id,
+                 _id: lesson_id,
              },{
                 time: data.time,
-                students: students_array,
+                group: data.group,
+                group_name: group.name
              })
 
              console.log(updated_lesson);
@@ -409,12 +394,10 @@ module.exports = class AdminRoute {
                 name: data.name,
             })
 
-            await students.findOneAndUpdate({
+            await students.updateMany({
                 student_group_id: group_id
             }, {
-                $set: {
-                    student_group_id: null 
-                }
+                student_group_id: null 
             })
 
             for (const id of data.students) {

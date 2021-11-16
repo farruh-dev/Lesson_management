@@ -95,19 +95,21 @@
 
                 <div class="students tab-content" id="v-pills-tabContent">
 
-                    <!-- Days filter -->
+                    <!-- Groups filter -->
                     <% for (let group of groups_list) {%>
                     <div class="tab-pane fade" id="v-pills-<%= group._id %>" role="tabpanel"
                         aria-labelledby="v-pills-<%= group._id %>-tab">
                         <% for( let student of students_list ) { %>
-                        <% if (student.student_group_id.equals(group._id)) {%>
-                        <a class="student_link" href="/admin/students/get/<%= student._id %>">
-
-                            <div class="student_name">
-                                <h4><%= student.fullname %></h5>
-                            </div>
-                        </a>
-                        <% } %>
+                        <% if (student.student_group_id != null) {%>
+                            <% if (student.student_group_id.equals(group._id)) {%>
+                                <a class="student_link" href="/admin/students/get/<%= student._id %>">
+        
+                                    <div class="student_name">
+                                        <h4><%= student.fullname %></h5>
+                                    </div>
+                                </a>
+                                <% } %>
+                        <% } %> 
                         <% } %>
                     </div>
                     <% } %>
