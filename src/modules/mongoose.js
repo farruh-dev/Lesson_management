@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
-const levels = require('../models/LevelsModel');
-const schedule = require('../models/ScheduleModel');
+const init = require('./init');
+const admins = require('../models/AdminModel');
 require("dotenv").config()
 
 require("../models/UsersModel")
@@ -13,6 +13,8 @@ require("../models/GroupModel")
 async function mongo(){
     try {
         await mongoose.connect(process.env.MONGODB_URL)
+        
+        await init(admins)
 
     } catch (error) {
         console.log("MONGO_ERROR: ", error);

@@ -14,9 +14,11 @@ const {
     AdminCreateGroupPostController
 } = require("../controllers/AdminRouteController")
 const {
-    AdminAuthMiddleware,
-    AdminSigUpMiddleware
+    AdminSigUpMiddleware,
+    AdminAuthMiddleware
 } = require("../middlewares/AdminMiddleware")
+
+const AuthMiddleware = require("../middlewares/AuthMiddleware")
 
 const router = require("express").Router()
 
@@ -32,11 +34,11 @@ router.get('/students/get/:id', AdminAuthMiddleware, AdminStudentPreviewGetContr
 // post
 router.post('/registration', AdminSignUpPostController)
 router.post('/login', AdminLoginPostController)
-router.post('/schedule', AdminAddLessonTimeController)
-router.post('/new_student', AdminAddStudentPostController)
-router.post('/new_group', AdminCreateGroupPostController)
-router.post('/students/update/:id', AdminUpdateStudentPostController)
-router.post('/schedule/update', AdminUpdateSchedulePostController)
+router.post('/schedule', AdminAuthMiddleware, AdminAddLessonTimeController)
+router.post('/new_student', AdminAuthMiddleware, AdminAddStudentPostController)
+router.post('/new_group', AdminAuthMiddleware, AdminCreateGroupPostController)
+router.post('/students/update/:id', AdminAuthMiddleware, AdminUpdateStudentPostController)
+router.post('/schedule/update', AdminAuthMiddleware, AdminUpdateSchedulePostController)
 
 module.exports = {
     path: "/admin",

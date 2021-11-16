@@ -29,7 +29,7 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                     <li class="nav-item me-2">
-                        <button class="add_student_button btn btn-primary" data-bs-toggle="modal"
+                        <button class="add_group_button btn btn-primary" data-bs-toggle="modal"
                             data-bs-target="#addGroupModal">Add Group</button>
                     </li>
                     <li class="nav-item">
@@ -62,33 +62,73 @@
 
     <section id="students_section">
         <div class="container" style="padding: 50px 10px;">
-            <h1 class="text-center mb-5">Students</h1>
+            <h1 class="text-center mb-5">Groups</h1>
 
-            <div class="students_wrapper">
-
-                <div class="students tab-content" id="v-pills-tabContent">
-
-                    <!-- All -->
-                    <div class="tab-pane student_list fade show active" id="v-pills-all" role="tabpanel"
-                        aria-labelledby="v-pills-all-tab">
-                        <% for( let group of group_list ) { %>
-                        <a class="student_link" href="/admin/students/get/<%= group._id %>">
-
-                            <div class="student_name">
-                                <h4><%= group.name %> </h5>
-                            </div>
-                        </a>
-                        <% } %>
+                <div class="students_wrapper">
+                    <div class="overal_wrapper">
+                        <h2>Filter</h2>
+                        <div class="nav flex-column nav-pills me-3" id="v-pills-tab" role="tablist"
+                            aria-orientation="vertical">
+                                <button style="text-align: start;" class="nav-link active" id="v-pills-all-tab"
+                                    data-bs-toggle="pill" data-bs-target="#v-pills-all" type="button" role="tab"
+                                    aria-controls="v-pills-all" aria-selected="true">
+                                    All <span><%= group_list.length %></span>
+                                </button>
+            
+                            <h4>Days</h4>
+                            <% for (let day of schedule_list) {%>
+                            <button style="text-align: start;" class="nav-link" id="v-pills-<%= day.day %>>-tab"
+                                data-bs-toggle="pill" data-bs-target="#v-pills-<%= day.day %>" type="button" role="tab"
+                                aria-controls="v-pills-<%= day.day %>">
+                                <%= day.day %>
+                            </button>
+                            <% } %>
+            
+            
+                        </div>
+            
+                        <!-- 
+                         -->
                     </div>
+            
+                    <div class="students tab-content" id="v-pills-tabContent">
+            
+                        <!-- Days filter -->
+                        <% for (let day of schedule_list) {%>
+                        <div class="tab-pane fade" id="v-pills-<%= day.day %>" role="tabpanel"
+                            aria-labelledby="v-pills-<%= day.day %>-tab">
+                            <% for( let lesson of lessons_list ) { %>
+                            <% if (lesson.day_id.equals(day._id)) {%>
+                                <div class="student_link">
+                                    <h4><%= lesson.group_name %> </h4>
+                                    <button class="edit_group_button ms-auto btn btn-secondary" data-groupname="<%= group.name %>" data-groupid="<%= group._id %>>Edit</button>
+                                </div>
+                            <% } %>
+                            <% } %>
+                        </div>
+                        <% } %>
+            
+                        <!-- All -->
+                        <div class="tab-pane student_list fade show active" id="v-pills-all" role="tabpanel"
+                            aria-labelledby="v-pills-all-tab">
+                            <% for( let group of group_list ) { %>
+            
+                                <div class="student_link">
+                                    <h4><%= group.name %> </h4>
+                                    <button class="edit_group_button ms-auto btn btn-secondary" data-groupname="<%= group.name %>" data-groupid="<%= group._id %>">Edit</button>
+                                </div>
+                            <% } %>
+                        </div>
+                    </div>
+            
                 </div>
-
-            </div>
 
         </div>
     </section>
 
 
-    <!-- Add Student Modal -->
+
+    <!-- Add Group Modal -->
     <div class="modal fade" id="addGroupModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
         aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div class="modal-dialog">
@@ -100,8 +140,19 @@
                 <div class="modal-body">
                     <form id="addGroupForm" action="/admin/new_group" method="post">
                         <div>
-                            <label for="name">Full name</label>
+                            <label for="name">Name</label>
                             <input class="form-control" type="text" name="name" placeholder="Name" required>
+                        </div>
+
+                        <div>
+                            <label for="">Select students</label>
+                            <div class="students_select_list">
+                                <% for (let student of students_list) {%>
+                                <label for="<%= student._id %>"><%= student.fullname %></label>
+                                <input type="checkbox" name="students" value="<%= student._id %>"
+                                    id="<%= student._id %>"><br>
+                                <% } %>
+                            </div>
                         </div>
 
                         <div class="modal-footer">
@@ -114,17 +165,17 @@
         </div>
     </div>
 
-    <!-- Edit Lesson Modal -->
-    <div class="modal fade" id="editLessonModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    <!-- Edit Group Modal -->
+    <div class="modal fade" id="editGroupModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
         aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="edit_lesson_modal_title modal-title" id="staticBackdropLabel"></h5>
+                    <h5 class="edit_group_modal_title modal-title" id="staticBackdropLabel"></h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form id="editLessonForm" action="/lessons/new">
+                    <form id="editGroupForm" action="/lessons/new">
                         <div>
                             <label for="time">Time</label>
                             <input class="form-control" type="time" name="time" placeholder="Time" required>
@@ -150,15 +201,16 @@
     </script>
 
     <script>
-        const addTimeButtons = document.querySelectorAll(".add_time_btn")
+        const editGroupButtons = document.querySelectorAll(".edit_group_button")
         const addGroupButton = document.querySelectorAll(".add_group_button")
-        const addGroupModal = document.querySelector("#addGroupModal")
-        const addGroupModalTitle = document.querySelector(".add_group_modal_title")
+        const editGroupModalTitle = document.querySelector(".edit_group_modal_title")
         // const dayName = document.querySelector("#dayName")
         // const dayId = document.querySelector("#dayId")
 
-        document.addEventListener("DOMContentLoaded", event => {
-            const date = new Date().getDay()
+        editGroupButtons.forEach(btn => {
+            btn.addEventListener("click", event => {
+                editGroupModalTitle.textContent = event.target.dataset.groupname
+            })
         })
     </script>
 </body>

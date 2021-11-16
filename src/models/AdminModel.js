@@ -13,7 +13,7 @@ const adminSchema = new mongoose.Schema({
         min: [3, "The surname must be at least 3 letters long"],
         max: [36, "The surname must consist of 36 letters"],
     },
-    email: {
+    username: {
         type: String,
         required: true,
         unique: true,

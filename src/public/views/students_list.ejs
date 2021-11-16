@@ -77,24 +77,12 @@
                                 All <span><%= students_list.length %></span>
                             </button>
 
-                            <h4>Levels</h4>
-
-                            <% for (let level of levels_list) {%>
-
-                            <button style="text-align: start;" class="nav-link" id="v-pills-<%= level.name %>-tab"
-                                data-bs-toggle="pill" data-bs-target="#v-pills-<%= level.name %>" type="button"
-                                role="tab" aria-controls="v-pills-<%= level.name %>">
-                                <%= level.name %>
-                            </button>
-
-                            <% } %>
-
-                        <h4>Days</h4>
-                        <% for (let day of schedule_list) {%>
-                        <button style="text-align: start;" class="nav-link" id="v-pills-<%= day.day %>>-tab"
-                            data-bs-toggle="pill" data-bs-target="#v-pills-<%= day.day %>" type="button" role="tab"
-                            aria-controls="v-pills-<%= day.day %>">
-                            <%= day.day %>
+                        <h4>Groups</h4>
+                        <% for (let group of groups_list) {%>
+                        <button style="text-align: start;" class="nav-link" id="v-pills-<%= group._id %>>-tab"
+                            data-bs-toggle="pill" data-bs-target="#v-pills-<%= group._id %>" type="button" role="tab"
+                            aria-controls="v-pills-<%= group._id %>">
+                            <%= group.name %>
                         </button>
                         <% } %>
 
@@ -108,34 +96,15 @@
                 <div class="students tab-content" id="v-pills-tabContent">
 
                     <!-- Days filter -->
-                    <% for (let day of schedule_list) {%>
-                    <div class="tab-pane fade" id="v-pills-<%= day.day %>" role="tabpanel"
-                        aria-labelledby="v-pills-<%= day.day %>-tab">
-                        <% for( let lesson of lessons_list ) { %>
-                        <% if (lesson.day_id.equals(day._id)) {%>
-                        <% for( let student of lesson.students ) { %>
-                        <a class="student_link" href="/admin/students/get/<%= student.student_id %>">
-
-                            <div class="student_name">
-                                <h4><%= student.student_name %> </h5>
-                            </div>
-                        </a>
-                        <% } %>
-                        <% } %>
-                        <% } %>
-                    </div>
-                    <% } %>
-
-                    <!-- Levels filter -->
-                    <% for (let level of levels_list) {%>
-                    <div class="tab-pane fade" id="v-pills-<%= level.name %>" role="tabpanel"
-                        aria-labelledby="v-pills-<%= level.name %>-tab">
+                    <% for (let group of groups_list) {%>
+                    <div class="tab-pane fade" id="v-pills-<%= group._id %>" role="tabpanel"
+                        aria-labelledby="v-pills-<%= group._id %>-tab">
                         <% for( let student of students_list ) { %>
-                        <% if (student.level_id.equals(level._id)) {%>
+                        <% if (student.student_group_id.equals(group._id)) {%>
                         <a class="student_link" href="/admin/students/get/<%= student._id %>">
 
                             <div class="student_name">
-                                <h4><%= student.fullname %> </h5>
+                                <h4><%= student.fullname %></h5>
                             </div>
                         </a>
                         <% } %>

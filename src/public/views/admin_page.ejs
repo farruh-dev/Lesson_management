@@ -17,6 +17,7 @@
     <% var lessonsList %>
     <% var lesson_schedule %>
     <% var students_list %>
+    <% var group_list %>
 
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container">
@@ -87,9 +88,7 @@
                                 <div class="lessons_table_item">
                                     <div class="lesson_time"><%= lesson.time %> </div>
                                     <div class="lesson_students">
-                                        <% for (let student of lesson.students) {%>
-                                        <div><%= student.student_name %></div>
-                                        <% } %>
+                                        <div><%= lesson.group_name %></div>
                                     </div>
                                     <div class="lesson_actions">
                                         <button data-id="<%= lesson._id %>" data-dayname="<%= item.day %>"
@@ -132,14 +131,12 @@
                         </div>
 
                         <div>
-                            <label for="">Select students</label>
-                            <div class="students_select_list">
-                                <% for (let student of students_list) {%>
-                                <label for="<%= student._id %>"><%= student.fullname %></label>
-                                <input type="checkbox" name="students" value="<%= student._id %>"
-                                    id="<%= student._id %>"><br>
+                            <label for="">Select groups</label>
+                            <select class="form-control" name="group" id="">
+                                <% for (let group of group_list) {%>
+                                    <option value="<%= group._id %>"><%= group.name %></option>
                                 <% } %>
-                            </div>
+                            </select>
                         </div>
 
                         <input id="dayName" name="day_name" type="hidden">

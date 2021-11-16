@@ -26,7 +26,8 @@ module.exports = class UserRoute{
                  name: data.name,
                  surname: data.surname,
                  username: data.username,
-                 password: await createCrypt(data.password)
+                 password: await createCrypt(data.password),
+                 user_role: "user"
              })
 
              res.redirect('/users/login')
@@ -48,15 +49,25 @@ module.exports = class UserRoute{
                  username: data.username,
              })
 
+             console.log(user);
+
              if(!user) throw new Error("User not found")
 
              if(!(await compareCrypt(data.password, user.password))){
                  throw new Error("Password is incorrect")
              }
 
-             res.cookie("token", await createToken({
-                 _id: user._id
-             })).redirect('/')
+             console.log(user);
+
+             if(user.user_role == "user"){
+                res.cookie("token", await createToken({
+                    _id: user._id
+                })).redirect('/')
+             }else if(user.user_role == "admin"){
+                res.cookie("token", await createToken({
+                    _id: user._id
+                })).redirect('/admin/schedule')
+             }
 
          } catch (error) {
              console.log("LOGIN_ERROR:", error);

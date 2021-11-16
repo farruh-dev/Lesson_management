@@ -17,7 +17,8 @@ const {
     AdminLoginValidation,
     AdminAddLessonTimeValidation,
     AdminAddStudentValidation,
-    AdminEditLessonTimeValidation
+    AdminEditLessonTimeValidation,
+    AdminCreateGroupValidation
 } = require("../modules/validations");
 
 module.exports = class AdminRoute {
@@ -42,7 +43,7 @@ module.exports = class AdminRoute {
             const new_admin = await admins.create({
                 name: data.name,
                 surname: data.surname,
-                email: data.email,
+                username: data.username,
                 password: await createCrypt(data.password)
             })
 
@@ -62,14 +63,16 @@ module.exports = class AdminRoute {
             if (!data) throw new Error("Given information is not valid!")
 
             const admin = await admins.findOne({
-                email: data.email,
+                username: data.username,
             })
 
-            if (!admin) throw new Error("Not found!")
+            if (!admin) throw new Error("Not found!") 
 
             if (!(await compareCrypt(data.password, admin.password))) {
                 throw new Error("Password is incorrect!")
             }
+
+            console.log("ADMIN", admin);
 
             res.cookie("token", await createToken({
                 _id: admin._id
@@ -77,7 +80,7 @@ module.exports = class AdminRoute {
 
         } catch (error) {
             console.log("LOGIN_ERROR:", error);
-            res.render("login", {
+            res.render("admin_login", {
                 error: error.message
             })
         }
@@ -88,12 +91,14 @@ module.exports = class AdminRoute {
             const lessonsList = await lessons.find()
             const lesson_schedule = await schedule.find()
             const students_list = await students.find()
+            const group_list = await groups.find()
 
             res.render("admin_page", {
                 user: req.user,
                 lessonsList,
                 lesson_schedule,
-                students_list
+                students_list,
+                group_list
             })
         } catch (error) {
             console.log(error);
@@ -102,42 +107,21 @@ module.exports = class AdminRoute {
     }
     static async AdminAddLessonTimeController(req, res) {
         try {
+            let groups_array = []
+            console.log(req.body.group);
 
-            let selected_students = []
-            let students_array = []
-
-            if(Array.isArray(req.body.students)){
-                for (const student of req.body.students) {
-                    selected_students.push(student)
-                }
-            }else{
-                selected_students.push(req.body.students)
-            }
-
-            let request = {
-                time: req.body.time,
-                students: selected_students,
-                day_name: req.body.day_name,
-                day_id: req.body.day_id
-            }
-
-            const data = await AdminAddLessonTimeValidation(request)
+            const data = await AdminAddLessonTimeValidation(req.body)
 
             if (!data) throw new Error("Given information is not valid!");
 
-            for (const id of data.students) {
-                const student = await students.findOne({
-                    _id: id
-                })
-                students_array.push({
-                    student_id: student._id,
-                    student_name: student.fullname,
-                })
-            }
+            const group = await groups.findOne({
+                _id: data.group
+            })
 
              const new_lesson = await lessons.create({
                  time: data.time,
-                 students: students_array,
+                 group: data.group,
+                 group_name: group.name, 
                  day_id: data.day_id,
                  day: data.day_name,
              })
@@ -158,17 +142,19 @@ module.exports = class AdminRoute {
             const levels_list = await levels.find();
             const schedule_list = await schedule.find();
             const lessons_list = await lessons.find();
+            const groups_list = await groups.find();
 
             res.render("students_list", {
                 user: req.user,
                 students_list,
                 levels_list,
                 schedule_list,
-                lessons_list
+                lessons_list,
+                groups_list
             })
 
         } catch (error) {
-            console.log("ADD_LESSON_ERROR:", error);
+            console.log("GET_STUDENTS_ERROR:", error);
             res.redirect('/')
         }
     }
@@ -182,8 +168,7 @@ module.exports = class AdminRoute {
             if(!student) throw new Error("Student not found!")
 
             const lesson_times = await lessons.find({
-                "students.student_id": student._id,
-                "students.student_name": student.fullname,
+                group: student.student_group_id
             })
 
             const levels_list = await levels.find();
@@ -323,14 +308,16 @@ module.exports = class AdminRoute {
     static async AdminGroupsGetController(req, res){
         try {
 
+            const lessons_list = await lessons.find()
+            const schedule_list = await schedule.find()
+            const students_list = await students.find()
             const group_list = await groups.find()
 
-            if(!group_list) throw new Error("No groups found!")
-            
-            console.log(group_list);
-
             res.render("groups", {
-                group_list
+                group_list,
+                students_list,
+                lessons_list,
+                schedule_list
             });
 
         } catch (error) {
@@ -342,17 +329,41 @@ module.exports = class AdminRoute {
     static async AdminCreateGroupPostController(req, res){
         try {
 
-            const data = await AdminCreateGroupValidation(req.body);
+            let selected_students = []
+            let students_array = []
 
-            if(!data) throw new Error("Given information is not valid!")
+            if(Array.isArray(req.body.students)){
+                for (const student of req.body.students) {
+                    selected_students.push(student)
+                }
+            }else{
+                selected_students.push(req.body.students)
+            }
 
-            const group = await groups.create({
-                name: data.name,
-            })
+            let request = {
+                name: req.body.name ? req.body.name : `Group${Date().now()}`,
+                students: selected_students,
+            }
 
-            console.log(group);
+            const data = await AdminCreateGroupValidation(request)
 
-            res.redirect("/admin/groups");
+            if (!data) throw new Error("Given information is not valid!");
+
+             const new_group = await groups.create({
+                 name: data.name,
+             })
+
+             for (const id of data.students) {
+                const student = await students.findOneAndUpdate({
+                    _id: id
+                }, {
+                    $set: {
+                        student_group_id: new_group._id 
+                    }
+                })
+            }
+
+             res.redirect('/admin/groups')
 
         } catch (error) {
             console.log("ADD_GROUP_ERROR:", error);

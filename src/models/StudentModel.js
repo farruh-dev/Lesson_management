@@ -21,6 +21,10 @@ const studentSchema = new mongoose.Schema({
         type: mongoose.Types.ObjectId,
         required: true,
     },
+    student_group_id: {
+        type: mongoose.Types.ObjectId,
+        ref: "groups"
+    },
     started_at: {
         type: String,
         default: "-"

@@ -13,8 +13,12 @@ const lessonSchema = new mongoose.Schema({
         type: String,
         ref: "schedule"
     },
-    students: {
-        type: [{student_id: mongoose.Types.ObjectId, student_name: String}],
+    group: {
+        type: mongoose.Types.ObjectId,
+        required: true
+    },
+    group_name: {
+        type: String,
         required: true
     }
 })
