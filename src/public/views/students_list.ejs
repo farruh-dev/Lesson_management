@@ -138,7 +138,7 @@
     <!-- Add Student Modal -->
     <div class="modal fade" id="addStudentModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
         aria-labelledby="staticBackdropLabel" aria-hidden="true">
-        <div class="modal-dialog">
+        <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="add_student_modal_title modal-title" id="staticBackdropLabel">Add student</h5>
@@ -175,37 +175,6 @@
                             <input class="form-control" type="date" name="started_at" placeholder="">
                         </div>
 
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-primary">Add</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Edit Lesson Modal -->
-    <div class="modal fade" id="editLessonModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-        aria-labelledby="staticBackdropLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="edit_lesson_modal_title modal-title" id="staticBackdropLabel"></h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <form id="editLessonForm" action="/lessons/new">
-                        <div>
-                            <label for="time">Time</label>
-                            <input class="form-control" type="time" name="time" placeholder="Time" required>
-                        </div>
-
-                        <div>
-                            <label for="time">Students</label>
-                            <textarea class="form-control" name="students" id="students" cols="30" rows="2"
-                                placeholder="Students"></textarea>
-                        </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                             <button type="submit" class="btn btn-primary">Add</button>

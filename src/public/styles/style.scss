@@ -4,6 +4,10 @@
     box-sizing: border-box;
 }
 
+body{
+    padding: 0 !important;
+}
+
 $border_radius_big: 40px;
 $border_radius_medium: 26px;
 $border_radius_small: 10px;
