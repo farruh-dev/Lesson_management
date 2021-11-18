@@ -196,6 +196,58 @@
           justify-content: end;
 }
 
+#admin_account_section .container .account_props {
+  width: 50%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  margin: auto;
+  margin-top: 200px;
+  background-color: #fff;
+  -webkit-box-shadow: 0 0 30px -15px rgba(0, 0, 0, 0.4);
+          box-shadow: 0 0 30px -15px rgba(0, 0, 0, 0.4);
+}
+
+#admin_account_section .container .account_props .elem {
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  padding: 20px;
+  margin-bottom: 5px;
+}
+
+#admin_account_section .container .account_props .psw {
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
+  padding: 20px;
+  margin-bottom: 5px;
+}
+
 .student_link {
   width: 100%;
   padding: 20px;

@@ -597,4 +597,12 @@ module.exports = class AdminRoute {
         }
     }
 
+    static async AdminExitController(req, res){
+        try{
+            res.clearCookie("token").redirect('/')
+        }catch(error){
+            console.log(error)
+        }
+    }
+
 }

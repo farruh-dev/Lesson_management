@@ -146,6 +146,41 @@
     }
 }
 
+#admin_account_section{
+    .container{
+        .account_props{
+            width: 50%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            margin: auto;
+            margin-top: 200px;
+
+            background-color: #fff;
+            box-shadow: 0 0 30px -15px rgba($color: #000000, $alpha: 0.4);
+
+            .elem{
+                width: 100%;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                padding: 20px;
+                margin-bottom: 5px;
+            }
+
+            .psw{
+                width: 100%;
+                display: flex;
+                align-items: center;
+                justify-content: flex-end;
+                padding: 20px;
+                margin-bottom: 5px;
+            }
+        }
+    }
+}
+
 .student_link {
     width: 100%;
     padding: 20px;

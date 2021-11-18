@@ -16,7 +16,8 @@ const {
     AdminAccountGetController,
     AdminUpdateNamePostController,
     AdminUpdateUsernamePostController,
-    AdminUpdatePasswordPostController
+    AdminUpdatePasswordPostController,
+    AdminExitController
 } = require("../controllers/AdminRouteController")
 const {
     AdminSigUpMiddleware,
@@ -28,7 +29,6 @@ const AuthMiddleware = require("../middlewares/AuthMiddleware")
 const router = require("express").Router()
 
 // get
-router.get('/', (req, res) => {res.redirect("/admin/schedule")})
 router.get('/registration', AdminSigUpMiddleware, AdminSignUpGetController)
 router.get('/login', AdminLoginGetController)
 router.get('/account', AdminAuthMiddleware, AdminAccountGetController)
@@ -36,6 +36,8 @@ router.get('/schedule', AdminAuthMiddleware, AdminSchedulePageGetController)
 router.get('/students', AdminAuthMiddleware, AdminStudentsGetController)
 router.get('/groups', AdminAuthMiddleware, AdminGroupsGetController)
 router.get('/students/get/:id', AdminAuthMiddleware, AdminStudentPreviewGetController)
+router.get("/exit", AdminExitController)
+
 
 // post
 router.post('/registration', AdminSignUpPostController)
