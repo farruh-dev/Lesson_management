@@ -18,7 +18,10 @@ const {
     AdminAddLessonTimeValidation,
     AdminAddStudentValidation,
     AdminEditLessonTimeValidation,
-    AdminCreateGroupValidation
+    AdminCreateGroupValidation,
+    AdminUpdateNameValidation,
+    AdminUpdateUsernameValidation,
+    AdminUpdatePasswordValidation
 } = require("../modules/validations");
 
 module.exports = class AdminRoute {
@@ -30,6 +33,7 @@ module.exports = class AdminRoute {
         res.render("admin_login")
     }
     static async AdminAccountGetController(req, res) {
+        console.log(req.user)
         res.render("admin_account", {
             user: req.user
         })
@@ -87,6 +91,179 @@ module.exports = class AdminRoute {
             console.log("LOGIN_ERROR:", error);
             res.render("admin_login", {
                 error: error.message
+            })
+        }
+    }
+    static async AdminUpdateNamePostController(req, res) {
+        try {
+            const admin_id = req.params?.admin_id;
+
+            const data = await AdminUpdateNameValidation(req.body)
+
+            if (!data) {
+                res.status(400).json({
+                ok: false,
+                message: "Given information is not valid!"
+            })
+                return
+            }
+
+            const admin = await admins.findOne({
+                _id: admin_id,
+            })
+
+            if (!admin) {
+                res.status(400).json({
+                ok: false,
+                message: "Admin not found!"
+            })
+                return
+            }
+
+            if (!(await compareCrypt(data.password, admin.password))) {
+                res.status(400).json({
+                ok: false,
+                message: "Password is incorrect!"
+            })
+                return
+            }
+
+            await admins.findOneAndUpdate({
+                _id: admin._id
+            },{
+                name: data.name,
+                surname: data.surname
+            }
+            )
+
+            res.status(200).json({
+                ok: true,
+                message: "Name updated successfully"
+            })
+
+        } catch (error) {
+            console.log("UPDATE_NAME_ERROR:", error);
+            res.status(400).json({
+                ok: false,
+                message: error.message
+            })
+        }
+    }
+    static async AdminUpdateUsernamePostController(req, res) {
+        try {
+            const admin_id = req.params?.admin_id;
+
+            const data = await AdminUpdateUsernameValidation(req.body)
+
+            if (!data) {
+                res.status(400).json({
+                ok: false,
+                message: "Given information is not valid!"
+            })
+                return
+            }
+
+            const admin = await admins.findOne({
+                _id: admin_id,
+            })
+
+            if (!admin){
+                res.status(400).json({
+                ok: false,
+                message: "Admin not found!"
+            })
+                return
+            }
+
+            if (!(await compareCrypt(data.password, admin.password))) {
+                res.status(400).json({
+                ok: false,
+                message: "Password is incorrect!"
+            })
+                return
+            }
+
+            await admins.findOneAndUpdate({
+                _id: admin._id
+            },{
+                username: data.username
+            }
+            )
+
+            res.status(200).json({
+                ok: true,
+                message: "Username updated successfully"
+            })
+
+        } catch (error) {
+            console.log("UPDATE_USERNAME_ERROR:", error);
+            res.status(400).json({
+                ok: false,
+                message: error.message
+            })
+        }
+    }
+
+    static async AdminUpdatePasswordPostController(req, res) {
+        try {
+            const admin_id = req.params?.admin_id;
+            console.log(req.body)
+
+            const data = await AdminUpdatePasswordValidation(req.body)
+
+            if (!data){
+                res.status(400).json({
+                ok: false,
+                message: "Given information is not valid!"
+            })
+                return
+            }
+
+            const admin = await admins.findOne({
+                _id: admin_id,
+            })
+
+            if (!admin) {
+                res.status(400).json({
+                ok: false,
+                message: "Admin not found!"
+            })
+                return
+            }
+
+            if (!(await compareCrypt(data.old_password, admin.password))) {
+                res.status(400).json({
+                ok: false,
+                message: "Password is incorrect!"
+            })
+                return
+            }
+
+            if(!(data.new_password == data.confirm_password)){
+                res.status(400).json({
+                ok: false,
+                message: "Confirmation password is incorrect!"
+            })
+                return
+            }
+
+            await admins.findOneAndUpdate({
+                _id: admin._id
+            },{
+                password: await createCrypt(data.new_password)
+            }
+            )
+
+            res.status(200).json({
+                ok: true,
+                message: "Password updated successfully"
+            })
+
+        } catch (error) {
+            console.log("UPDATE_PASSWORD_ERROR:", error);
+            res.status(400).json({
+                ok: false,
+                message: error.message
             })
         }
     }
