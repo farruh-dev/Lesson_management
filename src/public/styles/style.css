@@ -13,6 +13,18 @@ button {
   transition: all 0.3s;
 }
 
+input,
+select {
+  width: 100%;
+  padding: 0.5rem;
+  outline: none;
+  border: double 2px transparent;
+  border-radius: 26px;
+  background-image: linear-gradient(white, white), linear-gradient(45deg, #0cebeb, #20e3b2, #29ffc6);
+  background-origin: border-box;
+  background-clip: padding-box, border-box;
+}
+
 .button_outline_primary {
   background: linear-gradient(45deg, #0cebeb, #20e3b2, #29ffc6);
 }
@@ -49,6 +61,26 @@ button {
 .current_day {
   -webkit-box-shadow: 0 0 30px -15px rgba(100, 255, 146, 0.8) !important;
           box-shadow: 0 0 30px -15px rgba(100, 255, 146, 0.8) !important;
+}
+
+.modal {
+  -webkit-transition: -webkit-backdrop-filter 0.05s;
+  transition: -webkit-backdrop-filter 0.05s;
+  transition: backdrop-filter 0.05s;
+  transition: backdrop-filter 0.05s, -webkit-backdrop-filter 0.05s;
+  -webkit-backdrop-filter: blur(10px) !important;
+          backdrop-filter: blur(10px) !important;
+}
+
+.modal .modal-dialog .modal-content {
+  border-radius: 40px !important;
+  border: none !important;
+  -webkit-box-shadow: 0 0 30px -15px black !important;
+          box-shadow: 0 0 30px -15px black !important;
+}
+
+.modal .modal-dialog .modal-content .modal-header, .modal .modal-dialog .modal-content .modal-footer {
+  border: none !important;
 }
 
 .card_own {

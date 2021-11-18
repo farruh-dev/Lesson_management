@@ -122,7 +122,7 @@
     <!-- Add Lesson Modal -->
     <div class="modal fade" id="addTimeModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
         aria-labelledby="staticBackdropLabel" aria-hidden="true">
-        <div class="modal-dialog">
+        <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="add_time_modal_title modal-title" id="staticBackdropLabel"></h5>
@@ -132,12 +132,12 @@
                     <form id="addTimeForm" action="/admin/schedule" method="post">
                         <div>
                             <label for="time">Time</label>
-                            <input class="form-control" type="time" name="time" placeholder="Time" required>
+                            <input class="input" type="time" name="time" placeholder="Time" required>
                         </div>
 
                         <div>
                             <label for="">Select group</label>
-                            <select class="form-control" name="group" id="">
+                            <select class="select" name="group" id="">
                                 <% for (let group of group_list) {%>
                                     <option value="<%= group._id %>"><%= group.name %></option>
                                 <% } %>
@@ -147,7 +147,7 @@
                         <input id="dayName" name="day_name" type="hidden">
                         <input id="dayId" name="day_id" type="hidden">
 
-                        <div class="modal-footer">
+                        <div class="mt-3 modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                             <button type="submit" class="btn btn-primary">Add</button>
                         </div>
@@ -160,7 +160,7 @@
     <!-- Edit Lesson Modal -->
     <div class="modal fade" id="editLessonModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
         aria-labelledby="staticBackdropLabel" aria-hidden="true">
-        <div class="modal-dialog">
+        <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="edit_lesson_modal_title modal-title" id="staticBackdropLabel"></h5>
@@ -171,13 +171,13 @@
                     <form id="editLessonForm" action="/admin/schedule/update" method="post">
                         <div>
                             <label for="time">Time</label>
-                            <input class="edit_lesson_time_input form-control" type="time" name="time"
+                            <input class="edit_lesson_time_input" type="time" name="time"
                                 placeholder="Time" required>
                         </div>
 
                         <div>
                             <label for="">Select group</label>
-                            <select class="form-control edit_lesson_modal_group_select" name="group" id="">
+                            <select class="edit_lesson_modal_group_select" name="group" id="">
                                 <% for (let group of group_list) {%>
                                     <option value="<%= group._id %>" class="edit_lesson_modal_group_option"><%= group.name %></option>
                                 <% } %>

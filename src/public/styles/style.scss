@@ -17,40 +17,56 @@ $third_gradient: linear-gradient(to left, #bac2e5, #aaffef);
 $primary_color: purple;
 $secondary_color: green;
 
-button{
+button {
     outline: none;
     border: none;
     padding: 10px 20px;
     transition: all 0.3s;
 }
 
-.button_outline_primary{
+input,
+select {
+    width: 100%;
+    padding: 0.5rem;
+    outline: none;
+    border: double 2px transparent;
+    border-radius: $border_radius_medium;
+    background-image: linear-gradient(white, white),
+        $primary_gradient;
+    background-origin: border-box;
+    background-clip: padding-box, border-box;
+
+}
+
+.button_outline_primary {
     background: $primary_gradient;
 }
-.button_fill_primary{
+
+.button_fill_primary {
     background: $primary_gradient;
     color: #fff;
 
-    &:hover{
+    &:hover {
         transform: scale(1.1);
     }
 }
 
-.button_outline_secondary{
+.button_outline_secondary {
     background: $secondary_gradient;
 }
-.button_fill_secondary{
+
+.button_fill_secondary {
     background: $secondary_gradient;
     color: #fff;
 
-    &:hover{
+    &:hover {
         transform: scale(1.1);
     }
 }
 
 .navbar-light {
     .navbar-nav {
-        .nav-link.active{
+        .nav-link.active {
             font-weight: 900;
             color: $primary_color;
         }
@@ -59,6 +75,22 @@ button{
 
 .current_day {
     box-shadow: 0 0 30px -15px rgba($color: #64ff92, $alpha: 0.8) !important;
+}
+
+.modal{
+    transition: backdrop-filter 0.05s;
+    backdrop-filter: blur(10px) !important;
+    .modal-dialog {
+        .modal-content {
+            border-radius: $border_radius_big !important;
+            border: none !important;
+            box-shadow: 0 0 30px -15px rgba($color: #000000, $alpha: 1) !important;
+    
+            .modal-header, .modal-footer{
+                border: none !important;
+            }
+        }
+    }
 }
 
 .card_own {
@@ -116,9 +148,10 @@ button{
                     font-size: 20px;
                 }
 
-                .lesson_actions{
+                .lesson_actions {
                     padding: 0 !important;
-                    .edit_lesson_button{
+
+                    .edit_lesson_button {
                         height: auto;
                         border-radius: $border_radius_medium;
                     }
@@ -133,7 +166,7 @@ button{
         border-bottom-left-radius: $border_radius_medium !important;
         border-bottom-right-radius: $border_radius_medium !important;
 
-        .add_time_btn{
+        .add_time_btn {
             height: auto;
             border-radius: $border_radius_medium;
         }
@@ -217,9 +250,9 @@ button{
     }
 }
 
-#admin_account_section{
-    .container{
-        .account_props{
+#admin_account_section {
+    .container {
+        .account_props {
             width: 50%;
             display: flex;
             flex-direction: column;
@@ -231,7 +264,7 @@ button{
             background-color: #fff;
             box-shadow: 0 0 30px -15px rgba($color: #000000, $alpha: 0.4);
 
-            .elem{
+            .elem {
                 width: 100%;
                 display: flex;
                 align-items: center;
@@ -240,7 +273,7 @@ button{
                 margin-bottom: 5px;
             }
 
-            .psw{
+            .psw {
                 width: 100%;
                 display: flex;
                 align-items: center;
