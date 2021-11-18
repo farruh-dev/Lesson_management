@@ -6,6 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <%- include("parts/favicon") %>
+    <%- include("parts/css_links") %> 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <link rel="stylesheet" href="/styles/style.css">
@@ -65,7 +66,7 @@
             <div class="row row-cols-1 row-cols-md-3 g-5">
                 <% for( let item of lesson_schedule ) { %>
                 <div class="col">
-                    <div class="card" style="height: 100%;">
+                    <div class="card card_own" style="height: 100%;">
                         <div class="card-header">
                             <h4><%= item.day %></h4>
                         </div>
@@ -88,7 +89,7 @@
                                 <div class="lessons_table_item">
                                     <div class="lesson_time"><%= lesson.time %> </div>
                                     <div class="lesson_students">
-                                        <div><%= lesson.group_name %></div>
+                                        <%= lesson.group_name %>
                                     </div>
                                     <div class="lesson_actions">
                                         <button data-lessonid="<%= lesson._id %>" 
@@ -98,7 +99,7 @@
                                             data-groupid="<%= lesson.group %>"
 
                                             data-bs-toggle="modal" data-bs-target="#editLessonModal"
-                                            class="edit_lesson_button btn btn-secondary">Edit</button>
+                                            class="button_fill_secondary edit_lesson_button">Edit</button>
                                     </div>
                                 </div>
                                 <% } %>
@@ -109,7 +110,7 @@
 
                         <div class="card-footer d-flex justify-content-end align-items-center">
                             <button data-id="<%= item._id %>" data-dayname="<%= item.day %>" data-bs-toggle="modal"
-                                data-bs-target="#addTimeModal" class="add_time_btn btn btn-primary">Add</button>
+                                data-bs-target="#addTimeModal" class="button_fill_primary add_time_btn">Add</button>
                         </div>
                     </div>
                 </div>
@@ -230,7 +231,7 @@
                 let current_day_text = day.children[0].children[0].textContent.trim().toLowerCase();
                 if (current_day_text == r.trim().toLowerCase()) {
                     day.childNodes[1].classList.add("current_day");
-                    day.childNodes[1].childNodes[1].style.backgroundColor = "#64ff92";
+                    day.childNodes[1].childNodes[1].style.background = "linear-gradient(45deg, #64ff92, #a4ffbf)";
                 }
             }
         })

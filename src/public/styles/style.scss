@@ -4,19 +4,78 @@
     box-sizing: border-box;
 }
 
+$border_radius_big: 40px;
+$border_radius_medium: 26px;
+$border_radius_small: 10px;
+$border_radius_tiny: 6px;
+
+$primary_gradient: linear-gradient(45deg, #0cebeb, #20e3b2, #29ffc6);
+$secondary_gradient: linear-gradient(45deg, rgb(0, 225, 255), rgb(185, 247, 255));
+$third_gradient: linear-gradient(to left, #bac2e5, #aaffef);
+
+
+$primary_color: purple;
+$secondary_color: green;
+
+button{
+    outline: none;
+    border: none;
+    padding: 10px 20px;
+    transition: all 0.3s;
+}
+
+.button_outline_primary{
+    background: $primary_gradient;
+}
+.button_fill_primary{
+    background: $primary_gradient;
+    color: #fff;
+
+    &:hover{
+        transform: scale(1.1);
+    }
+}
+
+.button_outline_secondary{
+    background: $secondary_gradient;
+}
+.button_fill_secondary{
+    background: $secondary_gradient;
+    color: #fff;
+
+    &:hover{
+        transform: scale(1.1);
+    }
+}
+
+.navbar-light {
+    .navbar-nav {
+        .nav-link.active{
+            font-weight: 900;
+            color: $primary_color;
+        }
+    }
+}
+
 .current_day {
     box-shadow: 0 0 30px -15px rgba($color: #64ff92, $alpha: 0.8) !important;
 }
 
-.card {
+.card_own {
     box-shadow: 0 0 30px -15px rgba($color: #000000, $alpha: 0.4);
+    border: none !important;
+    border-radius: $border_radius_big !important;
+
 
     .card-header {
-        background-color: #fff;
+        background: rgb(186, 247, 255);
+        border: none !important;
+        border-top-left-radius: $border_radius_medium !important;
+        border-top-right-radius: $border_radius_medium !important;
     }
 
     .card-body {
-        background-color: rgb(241, 241, 241);
+        background-color: #ffffff;
 
         .lessons_table_headers {
             width: 100%;
@@ -40,8 +99,8 @@
                 margin: 5px 0;
                 padding: 10px;
                 background-color: #fff;
-                border-radius: 5px;
                 box-shadow: 0 0 10px -5px rgba($color: #000000, $alpha: 0.4);
+                border-radius: $border_radius_medium;
 
                 div {
                     padding: 5px;
@@ -53,12 +112,16 @@
 
                 .lesson_students {
                     height: 100%;
-                    flex-grow: 2;
-                    padding: 5px 20px;
                     margin: 0 10px;
-                    font-size: 18px;
-                    border-radius: 3px;
-                    box-shadow: inset 0 0 5px 3px rgba($color: #000000, $alpha: 0.1);
+                    font-size: 20px;
+                }
+
+                .lesson_actions{
+                    padding: 0 !important;
+                    .edit_lesson_button{
+                        height: auto;
+                        border-radius: $border_radius_medium;
+                    }
                 }
             }
         }
@@ -66,6 +129,14 @@
 
     .card-footer {
         background-color: #fff;
+        border: none !important;
+        border-bottom-left-radius: $border_radius_medium !important;
+        border-bottom-right-radius: $border_radius_medium !important;
+
+        .add_time_btn{
+            height: auto;
+            border-radius: $border_radius_medium;
+        }
     }
 }
 

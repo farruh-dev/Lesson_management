@@ -601,7 +601,7 @@ module.exports = class AdminRoute {
         try{
             res.clearCookie("token").redirect('/')
         }catch(error){
-            console.log(error)
+            res.redirect('/')
         }
     }
 

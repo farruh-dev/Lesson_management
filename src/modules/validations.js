@@ -14,7 +14,7 @@ module.exports = class Validations{
             name: joi.string().required().trim().min(3).max(36).error(new Error("Name is not valid!")),
             surname: joi.string().required().trim().min(3).max(36).error(new Error("Surname is not valid!")),
             username: joi.string().required().error(new Error("Username is not valid!")),
-            password: joi.string().required().min(4).error(new Error("Password is not valid!")),
+            password: joi.string().required().min(6).error(new Error("Password is not valid!")),
         }).validateAsync(data)
     }
     static async LoginValidation(data){

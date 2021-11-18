@@ -5,25 +5,71 @@
           box-sizing: border-box;
 }
 
+button {
+  outline: none;
+  border: none;
+  padding: 10px 20px;
+  -webkit-transition: all 0.3s;
+  transition: all 0.3s;
+}
+
+.button_outline_primary {
+  background: linear-gradient(45deg, #0cebeb, #20e3b2, #29ffc6);
+}
+
+.button_fill_primary {
+  background: linear-gradient(45deg, #0cebeb, #20e3b2, #29ffc6);
+  color: #fff;
+}
+
+.button_fill_primary:hover {
+  -webkit-transform: scale(1.1);
+          transform: scale(1.1);
+}
+
+.button_outline_secondary {
+  background: linear-gradient(45deg, #00e1ff, #b9f7ff);
+}
+
+.button_fill_secondary {
+  background: linear-gradient(45deg, #00e1ff, #b9f7ff);
+  color: #fff;
+}
+
+.button_fill_secondary:hover {
+  -webkit-transform: scale(1.1);
+          transform: scale(1.1);
+}
+
+.navbar-light .navbar-nav .nav-link.active {
+  font-weight: 900;
+  color: purple;
+}
+
 .current_day {
   -webkit-box-shadow: 0 0 30px -15px rgba(100, 255, 146, 0.8) !important;
           box-shadow: 0 0 30px -15px rgba(100, 255, 146, 0.8) !important;
 }
 
-.card {
+.card_own {
   -webkit-box-shadow: 0 0 30px -15px rgba(0, 0, 0, 0.4);
           box-shadow: 0 0 30px -15px rgba(0, 0, 0, 0.4);
+  border: none !important;
+  border-radius: 40px !important;
 }
 
-.card .card-header {
-  background-color: #fff;
+.card_own .card-header {
+  background: #baf7ff;
+  border: none !important;
+  border-top-left-radius: 26px !important;
+  border-top-right-radius: 26px !important;
 }
 
-.card .card-body {
-  background-color: #f1f1f1;
+.card_own .card-body {
+  background-color: #ffffff;
 }
 
-.card .card-body .lessons_table_headers {
+.card_own .card-body .lessons_table_headers {
   width: 100%;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -36,7 +82,7 @@
           justify-content: space-between;
 }
 
-.card .card-body .lessons_table {
+.card_own .card-body .lessons_table {
   width: 100%;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -53,7 +99,7 @@
           justify-content: start;
 }
 
-.card .card-body .lessons_table .lessons_table_item {
+.card_own .card-body .lessons_table .lessons_table_item {
   width: 100%;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -67,34 +113,44 @@
   margin: 5px 0;
   padding: 10px;
   background-color: #fff;
-  border-radius: 5px;
   -webkit-box-shadow: 0 0 10px -5px rgba(0, 0, 0, 0.4);
           box-shadow: 0 0 10px -5px rgba(0, 0, 0, 0.4);
+  border-radius: 26px;
 }
 
-.card .card-body .lessons_table .lessons_table_item div {
+.card_own .card-body .lessons_table .lessons_table_item div {
   padding: 5px;
 }
 
-.card .card-body .lessons_table .lessons_table_item .lesson_time {
+.card_own .card-body .lessons_table .lessons_table_item .lesson_time {
   font-size: 20px;
 }
 
-.card .card-body .lessons_table .lessons_table_item .lesson_students {
+.card_own .card-body .lessons_table .lessons_table_item .lesson_students {
   height: 100%;
-  -webkit-box-flex: 2;
-      -ms-flex-positive: 2;
-          flex-grow: 2;
-  padding: 5px 20px;
   margin: 0 10px;
-  font-size: 18px;
-  border-radius: 3px;
-  -webkit-box-shadow: inset 0 0 5px 3px rgba(0, 0, 0, 0.1);
-          box-shadow: inset 0 0 5px 3px rgba(0, 0, 0, 0.1);
+  font-size: 20px;
 }
 
-.card .card-footer {
+.card_own .card-body .lessons_table .lessons_table_item .lesson_actions {
+  padding: 0 !important;
+}
+
+.card_own .card-body .lessons_table .lessons_table_item .lesson_actions .edit_lesson_button {
+  height: auto;
+  border-radius: 26px;
+}
+
+.card_own .card-footer {
   background-color: #fff;
+  border: none !important;
+  border-bottom-left-radius: 26px !important;
+  border-bottom-right-radius: 26px !important;
+}
+
+.card_own .card-footer .add_time_btn {
+  height: auto;
+  border-radius: 26px;
 }
 
 #students_section .container .students_wrapper {
