@@ -59,15 +59,9 @@ module.exports = class UserRoute{
 
              console.log(user);
 
-             if(user.user_role == "user"){
-                res.cookie("token", await createToken({
+             res.cookie("token", await createToken({
                     _id: user._id
                 })).redirect('/')
-             }else if(user.user_role == "admin"){
-                res.cookie("token", await createToken({
-                    _id: user._id
-                })).redirect('/admin/schedule')
-             }
 
          } catch (error) {
              console.log("LOGIN_ERROR:", error);

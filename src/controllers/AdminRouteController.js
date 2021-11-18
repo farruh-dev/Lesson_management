@@ -29,6 +29,11 @@ module.exports = class AdminRoute {
     static async AdminLoginGetController(req, res) {
         res.render("admin_login")
     }
+    static async AdminAccountGetController(req, res) {
+        res.render("admin_account", {
+            user: req.user
+        })
+    }
 
     static async AdminSignUpPostController(req, res) {
         try {
