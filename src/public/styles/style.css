@@ -13,11 +13,13 @@ button {
   outline: none;
   border: none;
   padding: 10px 20px;
-  -webkit-transition: all 0.3s;
-  transition: all 0.3s;
+  -webkit-transition: all 0.3s !important;
+  transition: all 0.3s !important;
 }
 
-input,
+input[type=text],
+input[type=number],
+input[type=text],
 select {
   width: 100%;
   padding: 0.5rem;
@@ -30,21 +32,33 @@ select {
 }
 
 .button_outline_primary {
+  border: 2px solid #29ffc6;
+  border-radius: 26px;
+  color: #29ffc6;
+}
+
+.button_outline_primary:hover {
   background: linear-gradient(45deg, #0cebeb, #20e3b2, #29ffc6);
+  border-width: 1px;
+  color: #fff;
 }
 
 .button_fill_primary {
   background: linear-gradient(45deg, #0cebeb, #20e3b2, #29ffc6);
+  border-radius: 26px;
   color: #fff;
 }
 
-.button_fill_primary:hover {
-  -webkit-transform: scale(1.1);
-          transform: scale(1.1);
+.button_outline_secondary {
+  border: 1px solid #0cebeb;
+  border-radius: 26px;
+  color: #0cebeb;
 }
 
-.button_outline_secondary {
+.button_outline_secondary:hover {
   background: linear-gradient(45deg, #00e1ff, #b9f7ff);
+  border-width: 1px;
+  color: #fff;
 }
 
 .button_fill_secondary {
@@ -52,9 +66,16 @@ select {
   color: #fff;
 }
 
-.button_fill_secondary:hover {
-  -webkit-transform: scale(1.1);
-          transform: scale(1.1);
+.button_danger {
+  background: linear-gradient(45deg, #e44e80, #ffced9);
+  border-radius: 26px;
+  color: #fff;
+}
+
+.button_danger_outline {
+  border: 1px solid #e44e80;
+  border-radius: 26px;
+  color: #fff;
 }
 
 .navbar-light .navbar-nav .nav-link.active {
@@ -202,15 +223,31 @@ select {
 }
 
 #students_section .container .students_wrapper .overal_wrapper {
+  width: 220px;
   padding: 20px;
   background-color: #fff;
-  -webkit-box-shadow: 0 0 10px -5px rgba(0, 0, 0, 0.4);
-          box-shadow: 0 0 10px -5px rgba(0, 0, 0, 0.4);
-  border-radius: 7px;
+  -webkit-box-shadow: 0 0 30px -15px rgba(0, 0, 0, 0.4);
+          box-shadow: 0 0 30px -15px rgba(0, 0, 0, 0.4);
+  border-radius: 40px;
 }
 
-#students_section .container .students_wrapper .overal_wrapper .filter {
-  margin-left: 10px;
+#students_section .container .students_wrapper .overal_wrapper .nav {
+  margin: 0 !important;
+}
+
+#students_section .container .students_wrapper .overal_wrapper .nav button {
+  text-align: start;
+  border-radius: 26px;
+  color: #000000;
+}
+
+#students_section .container .students_wrapper .overal_wrapper .nav button:hover {
+  background-color: #b9f7ff;
+}
+
+#students_section .container .students_wrapper .overal_wrapper .nav .active {
+  background: linear-gradient(45deg, #00e1ff, #b9f7ff) !important;
+  color: #fff;
 }
 
 #students_section .container .students_wrapper .students {
@@ -354,7 +391,7 @@ select {
       -ms-flex-pack: center;
           justify-content: center;
   text-decoration: none;
-  border-radius: 10px;
+  border-radius: 40px;
   background-color: #fff;
   -webkit-box-shadow: 0 0 10px -5px rgba(0, 0, 0, 0.4);
           box-shadow: 0 0 10px -5px rgba(0, 0, 0, 0.4);

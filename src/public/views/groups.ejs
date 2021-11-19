@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <%- include("parts/favicon") %>
-    <%- include("parts/css_links") %> 
+    <%- include("parts/css_links") %>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <link rel="stylesheet" href="/styles/style.css">
@@ -21,7 +21,7 @@
 
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container">
-            <a class="navbar-brand mb-0 h1" href="/admin">Lesson Management</a>
+            <a class="navbar-brand mb-0 h1" href="/admin/schedule">Lesson Management</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                 data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
                 aria-label="Toggle navigation">
@@ -43,8 +43,8 @@
                         <a class="nav-link" href="/admin/students">Students</a>
                     </li>
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button"
-                            data-bs-toggle="dropdown" aria-expanded="false">
+                        <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">
                             Account
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -70,16 +70,16 @@
                     <h2>Filter</h2>
                     <div class="nav flex-column nav-pills me-3" id="v-pills-tab" role="tablist"
                         aria-orientation="vertical">
-                        <button style="text-align: start;" class="nav-link active" id="v-pills-all-tab"
-                            data-bs-toggle="pill" data-bs-target="#v-pills-all" type="button" role="tab"
-                            aria-controls="v-pills-all" aria-selected="true">
+                        <button class="button nav-link active" id="v-pills-all-tab" data-bs-toggle="pill"
+                            data-bs-target="#v-pills-all" type="button" role="tab" aria-controls="v-pills-all"
+                            aria-selected="true">
                             All <span><%= group_list.length %></span>
                         </button>
 
                         <h4>Days</h4>
                         <% for (let day of schedule_list) {%>
-                        <button style="text-align: start;" class="nav-link" id="v-pills-<%= day.day %>>-tab"
-                            data-bs-toggle="pill" data-bs-target="#v-pills-<%= day.day %>" type="button" role="tab"
+                        <button class="nav-link" id="v-pills-<%= day.day %>>-tab" data-bs-toggle="pill"
+                            data-bs-target="#v-pills-<%= day.day %>" type="button" role="tab"
                             aria-controls="v-pills-<%= day.day %>">
                             <%= day.day %>
                         </button>
@@ -96,13 +96,13 @@
 
                     <!-- Days filter -->
                     <% for (let day of schedule_list) {%>
-                    <div class="tab-pane fade" id="v-pills-<%= day.day %>" role="tabpanel"
+                    <div class="tab-pane student_list fade" id="v-pills-<%= day.day %>" role="tabpanel"
                         aria-labelledby="v-pills-<%= day.day %>-tab">
                         <% for( let lesson of lessons_list ) { %>
                         <% if (lesson.day_id.equals(day._id)) {%>
                         <div class="student_link">
                             <h4><%= lesson.group_name %> </h4>
-                            <button class="edit_group_button ms-auto btn btn-secondary"
+                            <button class="edit_group_button ms-auto button button_outline_secondary"
                                 data-groupname="<%= lesson.group_name %>" data-groupid="<%= lesson.group %>"
                                 data-bs-toggle="modal" data-bs-target="#editGroupModal">
                                 Edit
@@ -120,7 +120,7 @@
 
                         <div class="student_link">
                             <h4><%= group.name %> </h4>
-                            <button class="edit_group_button ms-auto btn btn-secondary"
+                            <button class="edit_group_button ms-auto button button_outline_secondary"
                                 data-groupname="<%= group.name %>" data-groupid="<%= group._id %>"
                                 data-bs-toggle="modal" data-bs-target="#editGroupModal">
                                 Edit
@@ -146,18 +146,19 @@
                 </div>
                 <div class="modal-body">
                     <form id="addGroupForm" action="/admin/new_group" method="post">
-                        <div>
+                        <div class="input-field col s6">
+                            <input class="input" type="text" name="name" required>
                             <label for="name">Name</label>
-                            <input class="form-control" type="text" name="name" placeholder="Name" required>
                         </div>
 
                         <div>
                             <label for="">Select students</label>
                             <div class="students_select_list">
                                 <% for (let student of students_list) {%>
-                                <label for="<%= student._id %>"><%= student.fullname %></label>
-                                <input type="checkbox" name="students" value="<%= student._id %>"
-                                    id="<%= student._id %>"><br>
+                                <label>
+                                    <input type="checkbox" name="students" value="<%= student._id %>">
+                                    <span><%= student.fullname %></span>
+                                </label><br>
                                 <% } %>
                             </div>
                         </div>
@@ -179,13 +180,15 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="edit_group_modal_title modal-title" id="staticBackdropLabel"></h5>
-                    <button type="button" class="close_modal btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <button type="button" class="close_modal btn-close" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     <form id="editGroupForm" action="/admin/groups/update/" method="post">
                         <div>
                             <label for="name">Name</label>
-                            <input class="form-control edit_group_modal_name_input" type="text" name="name" placeholder="Name" required>
+                            <input class="form-control edit_group_modal_name_input" type="text" name="name"
+                                placeholder="Name" required>
                         </div>
 
                         <div>
@@ -193,13 +196,15 @@
                             <div class="students_select_list">
                                 <% for (let student of students_list) {%>
                                 <label for="<%= student._id %>"><%= student.fullname %></label>
-                                <input class="edit_group_student_checkbox" type="checkbox" name="students" value="<%= student._id %>"
-                                    id="<%= student._id %>" data-studentgroupid="<%= student.student_group_id %>"><br>
+                                <input class="edit_group_student_checkbox" type="checkbox" name="students"
+                                    value="<%= student._id %>" id="<%= student._id %>"
+                                    data-studentgroupid="<%= student.student_group_id %>"><br>
                                 <% } %>
                             </div>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="close_modal btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="button" class="close_modal btn btn-secondary"
+                                data-bs-dismiss="modal">Close</button>
                             <button type="submit" class="btn btn-primary">Add</button>
                         </div>
                     </form>
@@ -207,10 +212,6 @@
             </div>
         </div>
     </div>
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous">
-    </script>
 
     <script>
         const editGroupButtons = document.querySelectorAll(".edit_group_button")
@@ -228,14 +229,14 @@
                 editGroupModalTitle.textContent = event.target.dataset.groupname
                 editGroupModalNameInput.value = event.target.dataset.groupname
 
-                console.log( editGroupForm.action);
+                console.log(editGroupForm.action);
 
                 for (let checkbox of editGroupModalStudentCheckboxes) {
 
-                        if (checkbox.dataset.studentgroupid == event.target.dataset.groupid) {
-                            checkbox.checked = true;
+                    if (checkbox.dataset.studentgroupid == event.target.dataset.groupid) {
+                        checkbox.checked = true;
 
-                        }
+                    }
                 }
             })
         })

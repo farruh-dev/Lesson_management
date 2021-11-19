@@ -16,19 +16,24 @@ $border_radius_tiny: 6px;
 $primary_gradient: linear-gradient(45deg, #0cebeb, #20e3b2, #29ffc6);
 $secondary_gradient: linear-gradient(45deg, rgb(0, 225, 255), rgb(185, 247, 255));
 $third_gradient: linear-gradient(to left, #bac2e5, #aaffef);
+$danger_gradient: linear-gradient(45deg, #e44e80, #ffced9);
 
+$box_shadow_big: 0 0 30px -15px rgba($color: #000000, $alpha: 0.4);
 
 $primary_color: purple;
 $secondary_color: green;
+$hover_color: rgb(185, 247, 255);
 
 button {
     outline: none;
     border: none;
     padding: 10px 20px;
-    transition: all 0.3s;
+    transition: all 0.3s !important;
 }
 
-input,
+input[type=text],
+input[type=number],
+input[type=text],
 select {
     width: 100%;
     padding: 0.5rem;
@@ -43,29 +48,49 @@ select {
 }
 
 .button_outline_primary {
-    background: $primary_gradient;
+    border: 2px solid #29ffc6; 
+    border-radius: $border_radius_medium;
+    color: #29ffc6;
+
+    &:hover{
+        background: $primary_gradient;
+        border-width: 1px;
+        color: #fff;
+    }
 }
 
 .button_fill_primary {
     background: $primary_gradient;
+    border-radius: $border_radius_medium;
     color: #fff;
-
-    &:hover {
-        transform: scale(1.1);
-    }
 }
 
 .button_outline_secondary {
-    background: $secondary_gradient;
+    border: 1px solid #0cebeb;
+    border-radius: $border_radius_medium;
+    color: #0cebeb;
+
+    &:hover{
+        background: $secondary_gradient;
+        border-width: 1px;
+        color: #fff;
+    }
 }
 
 .button_fill_secondary {
     background: $secondary_gradient;
     color: #fff;
+}
 
-    &:hover {
-        transform: scale(1.1);
-    }
+.button_danger{
+    background: $danger_gradient;
+    border-radius: $border_radius_medium;
+    color: #fff;
+}
+.button_danger_outline{
+    border: 1px solid #e44e80;
+    border-radius: $border_radius_medium;
+    color: #fff;
 }
 
 .navbar-light {
@@ -98,7 +123,7 @@ select {
 }
 
 .card_own {
-    box-shadow: 0 0 30px -15px rgba($color: #000000, $alpha: 0.4);
+    box-shadow: $box_shadow_big;
     border: none !important;
     border-radius: $border_radius_big !important;
 
@@ -185,13 +210,29 @@ select {
             justify-content: space-evenly;
 
             .overal_wrapper {
+                width: 220px;
                 padding: 20px;
                 background-color: #fff;
-                box-shadow: 0 0 10px -5px rgba($color: #000000, $alpha: 0.4);
-                border-radius: 7px;
+                box-shadow: $box_shadow_big;
+                border-radius: $border_radius_big;
 
-                .filter {
-                    margin-left: 10px;
+                .nav{
+                    margin: 0 !important;
+
+                    button{
+                        text-align: start;
+                        border-radius: $border_radius_medium;
+                        color: #000000;
+
+                        &:hover{
+                            background-color: $hover_color;
+                        }
+                    }
+
+                    .active{
+                        background: $secondary_gradient !important;
+                        color: #fff;
+                    }
                 }
             }
 
@@ -228,7 +269,7 @@ select {
             padding: 30px;
             margin: auto;
             background-color: #fff;
-            box-shadow: 0 0 30px -15px rgba($color: #000000, $alpha: 0.4);
+            box-shadow: $box_shadow_big;
             border-radius: 10px;
 
             .student_props {
@@ -266,7 +307,7 @@ select {
             margin-top: 200px;
 
             background-color: #fff;
-            box-shadow: 0 0 30px -15px rgba($color: #000000, $alpha: 0.4);
+            box-shadow: $box_shadow_big;
 
             .elem {
                 width: 100%;
@@ -297,7 +338,7 @@ select {
     align-items: center;
     justify-content: center;
     text-decoration: none;
-    border-radius: 10px;
+    border-radius: $border_radius_big;
     background-color: #fff;
     box-shadow: 0 0 10px -5px rgba($color: #000000, $alpha: 0.4);
 
