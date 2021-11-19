@@ -18,47 +18,55 @@
     <% var students_list %>
     <% var levels_list %>
 
+    <div class="navbar-fixed">
+        <nav class="my_navbar">
+            <div class="nav-wrapper container">
+                <a class="brand-logo" href="/admin/schedule"><img src="../favicon-32x32.png" alt=""></a>
+                <a data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+                <ul class="right hide-on-med-and-down">
+                    <li>
+                        <a class="add_group_button button button_fill_primary no_border" data-bs-toggle="modal"
+                            data-bs-target="#addGroupModal">Add Group</a>
+                    </li>
+                    <li>
+                        <a href="/admin/schedule">Schedule</a>
+                    </li>
 
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <div class="container">
-            <a class="navbar-brand mb-0 h1" href="/admin/schedule">Lesson Management</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
-                aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                    <li class="nav-item me-2">
-                        <button class="add_group_button btn btn-primary" data-bs-toggle="modal"
-                            data-bs-target="#addGroupModal">Add Group</button>
+                    <li class="active">
+                        <a href="/admin/groups">Groups</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/admin/schedule">Schedule</a>
+
+                    <li>
+                        <a href="/admin/students">Students</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="/admin/groups">Groups</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/admin/students">Students</a>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
-                            aria-expanded="false">
-                            Account
-                        </a>
-                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item" href="/admin/account">Account</a></li>
-                            <li>
-                                <hr class="dropdown-divider">
-                            </li>
-                            <li><a class="dropdown-item" href="/admin/exit">Logout</a></li>
-                        </ul>
-                    </li>
+                    <li><a href="/admin/account">Account</a></li>
+                    
+                    <li><a href="/admin/exit">Logout</a></li>
                 </ul>
             </div>
-        </div>
-    </nav>
+        </nav>
+    </div>
+
+    <ul class="sidenav" id="mobile-demo">
+        <li>
+            <a class="add_group_button button button_fill_primary no_border" data-bs-toggle="modal"
+                data-bs-target="#addGroupModal">Add Group</a>
+        </li>
+        <li>
+            <a href="/admin/schedule">Schedule</a>
+        </li>
+
+        <li class="active">
+            <a href="/admin/groups">Groups</a>
+        </li>
+
+        <li>
+            <a href="/admin/students">Students</a>
+        </li>
+        <li><a href="/admin/account">Account</a></li>
+        <li class="divider"></li>
+        <li><a href="/admin/exit">Logout</a></li>
+    </ul>
 
 
     <section id="students_section">
@@ -138,7 +146,7 @@
     <!-- Add Group Modal -->
     <div class="modal fade" id="addGroupModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
         aria-labelledby="staticBackdropLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="add_group_modal_title modal-title" id="staticBackdropLabel">Add Group</h5>
@@ -164,8 +172,8 @@
                         </div>
 
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-primary">Add</button>
+                            <button type="button" class="button button_danger" data-bs-dismiss="modal">Close</button>
+                            <button type="submit" class="button button_fill_primary">Add</button>
                         </div>
                     </form>
                 </div>

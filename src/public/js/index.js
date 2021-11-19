@@ -5,9 +5,14 @@ document.addEventListener('DOMContentLoaded', function () {
         classes: "select"
     });
 
+    var dropdowns = document.querySelectorAll('.dropdown-trigger');
+    var dropdownInstances = M.Dropdown.init(dropdowns, {
+        alignment: "right",
+        coverTrigger: false
+    });
+
     var sidenavs = document.querySelectorAll('.sidenav');
     var sidenavInstances = M.Sidenav.init(sidenavs, {
-        edge: "right",
         draggable: true,
         preventScrolling: true,
         onOpenEnd: disableBodyScroll(),
@@ -22,7 +27,21 @@ function enableBodyScroll(){
     document.body.style.overflow = "auto"
 }
 
-var dropdowns = document.querySelectorAll('.dropdown-trigger')
-for (var i = 0; i < dropdowns.length; i++) {
-    M.Dropdown.init(dropdowns[i]);
-}
+
+// $(document).ready(function() {
+
+//     $(window).scroll(function() {
+
+//         console.log("WORKING")
+
+//         var height = '50';
+//         var scrollTop = $(window).scrollTop();
+
+//         if (scrollTop >= height - 40) {
+//             $('.my_navbar').addClass('solid-nav');
+//         } else {
+//             $('.my_navbar').removeClass('solid-nav');
+//         }
+
+//     });
+// });

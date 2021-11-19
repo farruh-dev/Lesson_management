@@ -98,8 +98,17 @@ select {
     color: #fff;
 }
 
+.no_border{
+    border-radius: 0 !important;
+}
+
 .current_day {
     box-shadow: 0 0 30px -15px rgba($color: #64ff92, $alpha: 0.8) !important;
+}
+
+.glass{
+    background-color: rgba(255, 255, 255, 0.4);
+    backdrop-filter: blur(10px);    
 }
 
 .modal{

@@ -20,32 +20,33 @@
     <% var students_list %>
     <% var group_list %>
 
-    <nav>
-        <div class="nav-wrapper container">
-            <a class="brand-logo" href="/admin/schedule">Lesson Management</a>
-            <a data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
-            <ul class="right hide-on-med-and-down">
-                <li>
-                    <a href="/admin/schedule">Schedule</a>
-                </li>
+    <div class="navbar-fixed">
+        <nav class="my_navbar">
+            <div class="nav-wrapper container">
+                <a class="brand-logo" href="/admin/schedule"><img src="../favicon-32x32.png" alt=""></a>
+                <a data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+                <ul class="right hide-on-med-and-down">
+                    <li class="active">
+                        <a href="/admin/schedule">Schedule</a>
+                    </li>
 
-                <li>
-                    <a href="/admin/groups">Groups</a>
-                </li>
+                    <li>
+                        <a href="/admin/groups">Groups</a>
+                    </li>
 
-                <li>
-                    <a href="/admin/students">Students</a>
-                </li>
-                <li>
-                    <a class="dropdown-trigger" data-target="dropdown1">Account<i
-                            class="material-icons right">arrow_drop_down</i></a>
-                </li>
-            </ul>
-        </div>
-    </nav>
+                    <li>
+                        <a href="/admin/students">Students</a>
+                    </li>
+                    <li><a href="/admin/account">Account</a></li>
+                    
+                    <li><a href="/admin/exit">Logout</a></li>
+                </ul>
+            </div>
+        </nav>
+    </div>
 
     <ul class="sidenav" id="mobile-demo">
-        <li>
+        <li class="active">
             <a href="/admin/schedule">Schedule</a>
         </li>
 
@@ -56,16 +57,9 @@
         <li>
             <a href="/admin/students">Students</a>
         </li>
-        <li>
-            <a class="dropdown-trigger" data-target="dropdown1">Account<i
-                    class="material-icons right">arrow_drop_down</i></a>
-        </li>
-    </ul>
-
-    <ul id="dropdown1" class="dropdown-content">
-        <li><a class="dropdown-item" href="/admin/account">Account</a></li>
+        <li><a href="/admin/account">Account</a></li>
         <li class="divider"></li>
-        <li><a class="dropdown-item" href="/admin/exit">Logout</a></li>
+        <li><a href="/admin/exit">Logout</a></li>
     </ul>
 
 
@@ -142,7 +136,7 @@
                         </div>
 
                         <div class="input-field col s12">
-                            <select name="group">
+                            <select name="group" class="browser-default">
                                 <option value="" disabled selected>Choose group</option>
                                 <% for (let group of group_list) {%>
                                 <option value="<%= group._id %>"><%= group.name %></option>
@@ -182,7 +176,7 @@
 
                         <div>
                             <label for="">Select group</label>
-                            <select class="edit_lesson_modal_group_select" name="group" id="">
+                            <select class="edit_lesson_modal_group_select browser-default" name="group" id="">
                                 <% for (let group of group_list) {%>
                                 <option value="<%= group._id %>" class="edit_lesson_modal_group_option">
                                     <%= group.name %></option>
