@@ -31,6 +31,10 @@ button {
     transition: all 0.3s !important;
 }
 
+a{
+    text-decoration: none;
+}
+
 input[type=text],
 input[type=number],
 input[type=text],
@@ -68,6 +72,7 @@ select {
 .button_outline_secondary {
     border: 1px solid #0cebeb;
     border-radius: $border_radius_medium;
+    background-color: transparent !important;
     color: #0cebeb;
 
     &:hover{
@@ -91,15 +96,6 @@ select {
     border: 1px solid #e44e80;
     border-radius: $border_radius_medium;
     color: #fff;
-}
-
-.navbar-light {
-    .navbar-nav {
-        .nav-link.active {
-            font-weight: 900;
-            color: $primary_color;
-        }
-    }
 }
 
 .current_day {

@@ -195,10 +195,12 @@
                             <label for="">Select students</label>
                             <div class="students_select_list">
                                 <% for (let student of students_list) {%>
-                                <label for="<%= student._id %>"><%= student.fullname %></label>
-                                <input class="edit_group_student_checkbox" type="checkbox" name="students"
+                                <label>
+                                    <input class="edit_group_student_checkbox" type="checkbox" name="students"
                                     value="<%= student._id %>" id="<%= student._id %>"
-                                    data-studentgroupid="<%= student.student_group_id %>"><br>
+                                    data-studentgroupid="<%= student.student_group_id %>">
+                                    <span><%= student.fullname %></span>
+                                </label><br>
                                 <% } %>
                             </div>
                         </div>
@@ -212,6 +214,8 @@
             </div>
         </div>
     </div>
+
+    <%- include("parts/js_links") %>
 
     <script>
         const editGroupButtons = document.querySelectorAll(".edit_group_button")
