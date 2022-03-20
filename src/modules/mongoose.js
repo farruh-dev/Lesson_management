@@ -12,7 +12,7 @@ require("../models/GroupModel")
 
 async function mongo(){
     try {
-        await mongoose.connect(process.env.MONGODB_URL)
+        await mongoose.connect(process.env.TEST_DB_URL)
         
         await init(admins)
 

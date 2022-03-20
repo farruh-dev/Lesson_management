@@ -118,6 +118,68 @@ select {
   border: none !important;
 }
 
+.nav_toggle {
+  display: none;
+  width: 50px;
+  height: 33px !important;
+  position: relative;
+  -webkit-transform: rotate(0deg);
+          transform: rotate(0deg);
+  -webkit-transition: 0.5s ease-in-out;
+  transition: 0.5s ease-in-out;
+  cursor: url("../icons/cursors/pointer-cursor-svgrepo-com.svg") 5 1, auto;
+}
+
+.nav_toggle span {
+  display: block;
+  position: absolute;
+  height: 4px;
+  width: 100%;
+  background: #fff;
+  border-radius: 4px;
+  opacity: 1;
+  left: 0;
+  -webkit-transform: rotate(0deg);
+          transform: rotate(0deg);
+  -webkit-transition: 0.25s ease-in-out;
+  transition: 0.25s ease-in-out;
+}
+
+.nav_toggle span:nth-child(1) {
+  top: 0;
+}
+
+.nav_toggle span:nth-child(2),
+.nav_toggle span:nth-child(3) {
+  top: 14px;
+}
+
+.nav_toggle span:nth-child(4) {
+  top: 28px;
+}
+
+.nav_toggle.open span:nth-child(1) {
+  top: 18px;
+  width: 0%;
+  left: 50%;
+}
+
+.nav_toggle.open span:nth-child(2) {
+  -webkit-transform: rotate(45deg);
+          transform: rotate(45deg);
+}
+
+.nav_toggle.open span:nth-child(3) {
+  -webkit-transform: rotate(-45deg);
+          transform: rotate(-45deg);
+}
+
+.nav_toggle.open span:nth-child(4) {
+  top: 18px;
+  width: 0%;
+  left: 50%;
+}
+
 .card_own {
   -webkit-box-shadow: 0 0 30px -15px rgba(0, 0, 0, 0.4);
           box-shadow: 0 0 30px -15px rgba(0, 0, 0, 0.4);
@@ -422,6 +484,22 @@ select {
   border-radius: 3px;
   -webkit-box-shadow: inset 0 0 5px 3px rgba(0, 0, 0, 0.1);
           box-shadow: inset 0 0 5px 3px rgba(0, 0, 0, 0.1);
+}
+
+@media (max-width: 992px) {
+  nav .nav-wrapper {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+  }
+  nav .nav-wrapper .nav_toggle {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+  }
 }
 
 @media (max-width: 600px) {
