@@ -3,6 +3,7 @@ const groups = require("../models/GroupModel");
 const lessons = require("../models/LessonModel");
 const schedule = require("../models/ScheduleModel");
 const students = require("../models/StudentModel");
+const videos = require("../models/VideosModel");
 
 
 module.exports = class HomeRoute{
@@ -20,7 +21,6 @@ module.exports = class HomeRoute{
                 group_list
             })
         } catch (error) {
-            console.log(error);
             res.redirect("/")
         }
     }
@@ -37,8 +37,35 @@ module.exports = class HomeRoute{
             });
 
         } catch (error) {
-            console.log("ADD_GROUP_ERROR:", error);
-            res.redirect('/admin/groups');
+            res.redirect('/groups');
+        }
+    }
+
+    static async VideosGetController(req, res){
+        try {
+            const videos_list = await videos.find()
+
+            res.render("videos_user", {
+                videos_list
+            });
+
+        } catch (error) {
+            res.redirect('/videos');
+        }
+    }
+
+    static async VideoGetController(req, res){
+        try {
+            const video = await videos.findOne({
+                _id: req.params.video_id
+            })
+
+            res.render("video", {
+                video
+            });
+
+        } catch (error) {
+            res.redirect('/videos');
         }
     }
 } 

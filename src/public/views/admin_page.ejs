@@ -42,6 +42,9 @@
                     <li>
                         <a href="/admin/students">Students</a>
                     </li>
+                    <li>
+                        <a href="/admin/videos">Videos</a>
+                    </li>
                     <li><a href="/admin/account">Account</a></li>
                     
                     <li><a href="/admin/exit">Logout</a></li>
@@ -61,6 +64,9 @@
 
         <li>
             <a href="/admin/students">Students</a>
+        </li>
+        <li>
+            <a href="/admin/videos">Videos</a>
         </li>
         <li><a href="/admin/account">Account</a></li>
         <li class="divider"></li>
@@ -259,7 +265,6 @@
                 for (let opt of editTimeModalGroupOptions) {
                     if (opt.value == event.target.dataset.groupid) {
                         opt.selected = true
-                        console.log(opt.selected);
                     }
                 }
             })

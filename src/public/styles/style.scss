@@ -35,6 +35,10 @@ a{
     text-decoration: none;
 }
 
+label{
+    pointer-events: none;
+}
+
 input[type=text],
 input[type=number],
 input[type=text],
@@ -49,6 +53,10 @@ select {
     background-origin: border-box;
     background-clip: padding-box, border-box;
 
+}
+
+iframe{
+    width: 100% !important;
 }
 
 .button_outline_primary {
@@ -443,6 +451,21 @@ select {
         }
     }
     
+}
+
+.single_video{
+    height: 700px;
+}
+
+@media (max-width: 1200px) {
+    .single_video{
+        height: 500px;
+    }
+}
+@media (max-width: 770px) {
+    .single_video{
+        height: 300px !important;
+    }
 }
 
 @media (max-width: 600px) {

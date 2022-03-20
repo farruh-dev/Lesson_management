@@ -28,7 +28,6 @@ async function AuthMiddleware(req, res, next) {
             res.redirect('/admin/schedule')
         }
     } catch (error) {
-        console.log(error);
         res.redirect('/')
     }
 }

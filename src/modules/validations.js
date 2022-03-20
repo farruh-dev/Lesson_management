@@ -78,4 +78,11 @@ module.exports = class Validations{
             confirm_password: joi.string().required().error(new Error("Confirmation passowrd is not valid!")),           
         }).validateAsync(data)
     }
+    static async AdminCreateVideoValidation(data){
+        return await joi.object({
+            title: joi.string().required().error(new Error("Title is not valid!")),     
+            description: joi.string().error(new Error("Description is not valid!")),
+            url: joi.string().required().error(new Error("URL is not valid!")),
+        }).validateAsync(data)
+    }
 }

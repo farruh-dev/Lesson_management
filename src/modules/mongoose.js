@@ -9,6 +9,7 @@ require("../models/ScheduleModel")
 require("../models/LessonModel")
 require("../models/LevelsModel")
 require("../models/GroupModel")
+require("../models/VideosModel")
 
 async function mongo(){
     try {

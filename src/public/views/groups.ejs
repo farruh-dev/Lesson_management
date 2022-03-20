@@ -45,6 +45,9 @@
                     <li>
                         <a href="/admin/students">Students</a>
                     </li>
+                    <li>
+                        <a href="/admin/videos">Videos</a>
+                    </li>
                     <li><a href="/admin/account">Account</a></li>
                     
                     <li><a href="/admin/exit">Logout</a></li>
@@ -68,6 +71,9 @@
 
         <li>
             <a href="/admin/students">Students</a>
+        </li>
+        <li>
+            <a href="/admin/videos">Videos</a>
         </li>
         <li><a href="/admin/account">Account</a></li>
         <li class="divider"></li>
@@ -132,13 +138,17 @@
                             aria-labelledby="v-pills-all-tab">
                             <% for( let group of group_list ) { %>
 
-                            <div class="student_link">
+                            <div class="student_link d-flex justify-content-between">
                                 <h4><%= group.name %> </h4>
-                                <button class="edit_group_button ms-auto button button_outline_secondary"
-                                    data-groupname="<%= group.name %>" data-groupid="<%= group._id %>"
-                                    data-bs-toggle="modal" data-bs-target="#editGroupModal">
-                                    Edit
-                                </button>
+                                <div>
+                                    <button data-id="<%= group._id %>" data-bs-toggle="modal"
+                                        data-bs-target="#confirmModal"  class="button_danger delete">Delete</button>
+                                    <button class="edit_group_button ms-auto button button_outline_secondary"
+                                        data-groupname="<%= group.name %>" data-groupid="<%= group._id %>"
+                                        data-bs-toggle="modal" data-bs-target="#editGroupModal">
+                                        Edit
+                                    </button>
+                                </div>
                             </div>
                             <% } %>
                         </div>
@@ -152,10 +162,25 @@
         </div>
     </section>
 
+    <div class="modal fade" id="confirmModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+        aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header d-flex justify-content-center">
+                    <h5 class="add_group_modal_title modal-title" id="staticBackdropLabel">Are you sure?</h5>
+                </div>
+                <div class="modal-body d-flex justify-content-center">
+                    <button type="button" class="m-3 button button_fill_primary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="m-3 button button_danger delete_video">Yes, delete</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Add Group Modal -->
     <div class="modal fade" id="addGroupModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
         aria-labelledby="staticBackdropLabel" aria-hidden="true">
-        <div class="modal-dialog">
+        <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="add_group_modal_title modal-title" id="staticBackdropLabel">Add Group</h5>
@@ -172,8 +197,8 @@
                             <label for="">Select students</label>
                             <div class="students_select_list">
                                 <% for (let student of students_list) {%>
-                                <label>
-                                    <input type="checkbox" name="students" value="<%= student._id %>">
+                                <label style="pointer-events: all !important;">
+                                    <input class="ds" type="checkbox" name="students" value="<%= student._id %>">
                                     <span><%= student.fullname %></span>
                                 </label><br>
                                 <% } %>
@@ -212,7 +237,7 @@
                             <label for="">Select students</label>
                             <div class="students_select_list">
                                 <% for (let student of students_list) {%>
-                                <label>
+                                <label style="pointer-events: all !important;">
                                     <input class="edit_group_student_checkbox" type="checkbox" name="students"
                                     value="<%= student._id %>" id="<%= student._id %>"
                                     data-studentgroupid="<%= student.student_group_id %>">
@@ -222,9 +247,8 @@
                             </div>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="close_modal btn btn-secondary"
-                                data-bs-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-primary">Add</button>
+                            <button type="button" class="button button_danger" data-bs-dismiss="modal">Close</button>
+                            <button type="submit" class="button button_fill_primary">Add</button>
                         </div>
                     </form>
                 </div>
@@ -237,20 +261,18 @@
     <script>
         const editGroupButtons = document.querySelectorAll(".edit_group_button")
         const addGroupButton = document.querySelector(".add_group_button")
+        const deleteVideoButton = document.querySelectorAll(".delete")
+        const confirmDeleteVideoButton = document.querySelector(".delete_video")
         const editGroupModalNameInput = document.querySelector(".edit_group_modal_name_input")
         const editGroupForm = document.querySelector("#editGroupForm")
         const editGroupModalTitle = document.querySelector(".edit_group_modal_title")
         const editGroupModalStudentCheckboxes = document.querySelectorAll(".edit_group_student_checkbox")
-        // const dayName = document.querySelector("#dayName")
-        // const dayId = document.querySelector("#dayId")
 
         editGroupButtons.forEach(btn => {
             btn.addEventListener("click", event => {
                 editGroupForm.action = `/admin/groups/update/${event.target.dataset.groupid}`
                 editGroupModalTitle.textContent = event.target.dataset.groupname
                 editGroupModalNameInput.value = event.target.dataset.groupname
-
-                console.log(editGroupForm.action);
 
                 for (let checkbox of editGroupModalStudentCheckboxes) {
 
@@ -260,6 +282,25 @@
                     }
                 }
             })
+        })
+
+        deleteVideoButton.forEach(btn => {
+            btn.addEventListener('click', async event => {
+            confirmDeleteVideoButton.dataset.id = event.target.dataset.id
+        })
+        })
+
+        confirmDeleteVideoButton.addEventListener('click', async event => {
+
+            let res = await fetch(`/admin/groups/${event.target.dataset.id}`, {
+                method: "DELETE",
+            })
+
+            if(res.ok){
+                location.reload()
+            }else{
+                alert("Something went wrong!")
+            }
         })
 
         const closeModalButtons = document.querySelectorAll(".close_modal")

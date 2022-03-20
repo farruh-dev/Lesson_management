@@ -14,7 +14,6 @@ async function AdminSigUpMiddleware(req, res, next) {
         }
 
     } catch (error) {
-        console.log(error);
         res.redirect('/')
     }
 }
@@ -46,7 +45,6 @@ async function AdminAuthMiddleware(req, res, next) {
             next()
         }
     } catch (error) {
-        console.log(error);
         res.redirect('/admin/login') 
 
     }

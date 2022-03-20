@@ -26,22 +26,3 @@ function disableBodyScroll(){
 function enableBodyScroll(){
     document.body.style.overflow = "auto"
 }
-
-
-// $(document).ready(function() {
-
-//     $(window).scroll(function() {
-
-//         console.log("WORKING")
-
-//         var height = '50';
-//         var scrollTop = $(window).scrollTop();
-
-//         if (scrollTop >= height - 40) {
-//             $('.my_navbar').addClass('solid-nav');
-//         } else {
-//             $('.my_navbar').removeClass('solid-nav');
-//         }
-
-//     });
-// });

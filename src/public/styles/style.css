@@ -21,6 +21,10 @@ a {
   text-decoration: none;
 }
 
+label {
+  pointer-events: none;
+}
+
 input[type=text],
 input[type=number],
 input[type=text],
@@ -33,6 +37,10 @@ select {
   background-image: linear-gradient(white, white), linear-gradient(45deg, #0cebeb, #20e3b2, #29ffc6);
   background-origin: border-box;
   background-clip: padding-box, border-box;
+}
+
+iframe {
+  width: 100% !important;
 }
 
 .button_outline_primary {
@@ -498,6 +506,22 @@ select {
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
+  }
+}
+
+.single_video {
+  height: 700px;
+}
+
+@media (max-width: 1200px) {
+  .single_video {
+    height: 500px;
+  }
+}
+
+@media (max-width: 770px) {
+  .single_video {
+    height: 300px !important;
   }
 }
 

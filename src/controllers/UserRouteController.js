@@ -33,7 +33,6 @@ module.exports = class UserRoute{
              res.redirect('/users/login')
 
          } catch (error) {
-             console.log("SIGNUP_ERROR:", error);
              res.render("signup", {
                  error: error.message
              })
@@ -49,22 +48,17 @@ module.exports = class UserRoute{
                  username: data.username,
              })
 
-             console.log(user);
-
              if(!user) throw new Error("User not found")
 
              if(!(await compareCrypt(data.password, user.password))){
                  throw new Error("Password is incorrect")
              }
 
-             console.log(user);
-
              res.cookie("token", await createToken({
                     _id: user._id
                 })).redirect('/')
 
          } catch (error) {
-             console.log("LOGIN_ERROR:", error);
              res.render("login", {
                 error: error.message
             })

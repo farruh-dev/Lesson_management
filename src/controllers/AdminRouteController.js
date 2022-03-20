@@ -5,10 +5,12 @@ const levels = require("../models/LevelsModel");
 const schedule = require("../models/ScheduleModel");
 const students = require("../models/StudentModel");
 const users = require("../models/UsersModel");
+const videos = require("../models/VideosModel");
 const {
     createCrypt,
     compareCrypt
 } = require("../modules/bcrypt");
+const getVideoLink = require("../modules/getVideoLink");
 const {
     createToken
 } = require("../modules/jwt");
@@ -21,7 +23,8 @@ const {
     AdminCreateGroupValidation,
     AdminUpdateNameValidation,
     AdminUpdateUsernameValidation,
-    AdminUpdatePasswordValidation
+    AdminUpdatePasswordValidation,
+    AdminCreateVideoValidation
 } = require("../modules/validations");
 
 module.exports = class AdminRoute {
@@ -33,7 +36,6 @@ module.exports = class AdminRoute {
         res.render("admin_login")
     }
     static async AdminAccountGetController(req, res) {
-        console.log(req.user)
         res.render("admin_account", {
             user: req.user
         })
@@ -59,7 +61,6 @@ module.exports = class AdminRoute {
             res.redirect('/admin/login')
 
         } catch (error) {
-            console.log("ADMIN_SIGNUP_ERROR:", error);
             res.render("admin_signup", {
                 error: error.message
             })
@@ -81,14 +82,11 @@ module.exports = class AdminRoute {
                 throw new Error("Password is incorrect!")
             }
 
-            console.log("ADMIN", admin);
-
             res.cookie("token", await createToken({
                 _id: admin._id
             })).redirect('/admin/schedule')
 
         } catch (error) {
-            console.log("LOGIN_ERROR:", error);
             res.render("admin_login", {
                 error: error.message
             })
@@ -142,7 +140,6 @@ module.exports = class AdminRoute {
             })
 
         } catch (error) {
-            console.log("UPDATE_NAME_ERROR:", error);
             res.status(400).json({
                 ok: false,
                 message: error.message
@@ -196,7 +193,6 @@ module.exports = class AdminRoute {
             })
 
         } catch (error) {
-            console.log("UPDATE_USERNAME_ERROR:", error);
             res.status(400).json({
                 ok: false,
                 message: error.message
@@ -207,7 +203,6 @@ module.exports = class AdminRoute {
     static async AdminUpdatePasswordPostController(req, res) {
         try {
             const admin_id = req.params?.admin_id;
-            console.log(req.body)
 
             const data = await AdminUpdatePasswordValidation(req.body)
 
@@ -260,7 +255,6 @@ module.exports = class AdminRoute {
             })
 
         } catch (error) {
-            console.log("UPDATE_PASSWORD_ERROR:", error);
             res.status(400).json({
                 ok: false,
                 message: error.message
@@ -283,14 +277,12 @@ module.exports = class AdminRoute {
                 group_list
             })
         } catch (error) {
-            console.log(error);
             res.redirect("/")
         }
     }
     static async AdminAddLessonTimeController(req, res) {
         try {
             let groups_array = []
-            console.log(req.body.group);
 
             const data = await AdminAddLessonTimeValidation(req.body)
 
@@ -308,12 +300,9 @@ module.exports = class AdminRoute {
                  day: data.day_name,
              })
 
-             console.log(new_lesson);
-
              res.redirect('/admin/schedule')
 
         } catch (error) {
-            console.log("ADD_LESSON_ERROR:", error);
             res.redirect('/')
         }
     }
@@ -336,7 +325,6 @@ module.exports = class AdminRoute {
             })
 
         } catch (error) {
-            console.log("GET_STUDENTS_ERROR:", error);
             res.redirect('/')
         }
     }
@@ -363,7 +351,6 @@ module.exports = class AdminRoute {
             })
 
         } catch (error) {
-            console.log("STUDENT_PREVIEW_ERROR:", error);
             res.redirect('/')
         }
     }
@@ -388,12 +375,25 @@ module.exports = class AdminRoute {
                 started_at: data.started_at.trim() == "" ? "-" : data.started_at
             })
 
-            console.log(new_student);
-
             res.redirect("/admin/students");
 
         } catch (error) {
-            console.log("ADD_STUDENT_ERROR:", error);
+            res.redirect('/admin/students');
+        }
+    }
+
+    static async AdminDeleteStudentController(req, res){
+        try {
+
+             await students.deleteOne({
+                 _id: req.params.student_id
+             })
+
+             res.status(200).json({
+                 ok: true
+             })
+
+        } catch (error) {
             res.redirect('/admin/students');
         }
     }
@@ -423,21 +423,15 @@ module.exports = class AdminRoute {
 
             if(!updated_student) throw new Error("Given information is not valid!")
 
-
-            console.log(updated_student);
-
             res.redirect(`/admin/students/get/${updated_student._id}`);
 
         } catch (error) {
-            console.log("UPDATE_STUDENT_ERROR:", error);
             res.redirect('/admin/students');
         }
     }
 
     static async AdminUpdateSchedulePostController(req, res) {
         try {
-
-            console.log(req.body);
 
             const lesson_id = req.params?.lesson_id
 
@@ -462,12 +456,9 @@ module.exports = class AdminRoute {
                 group_name: group.name
              })
 
-             console.log(updated_lesson);
-
              res.redirect('/admin/schedule')
 
         } catch (error) {
-            console.log("ADD_LESSON_ERROR:", error);
             res.redirect('/')
         }
     }
@@ -488,7 +479,6 @@ module.exports = class AdminRoute {
             });
 
         } catch (error) {
-            console.log("ADD_GROUP_ERROR:", error);
             res.redirect('/admin/groups');
         }
     }
@@ -533,14 +523,12 @@ module.exports = class AdminRoute {
              res.redirect('/admin/groups')
 
         } catch (error) {
-            console.log("ADD_GROUP_ERROR:", error);
             res.redirect('/admin/groups');
         }
     }
 
     static async AdminUpdateGroupPostController(req, res){
         try {
-            console.log(req.body)
             const group_id = req.params?.group_id
 
             const selected_students = []
@@ -557,8 +545,6 @@ module.exports = class AdminRoute {
                 name: req.body.name,
                 students: selected_students
             }
-
-            console.log(request)
 
             const data = await AdminCreateGroupValidation(request)
 
@@ -592,17 +578,128 @@ module.exports = class AdminRoute {
 
             res.redirect('/admin/groups')
         } catch (error) {
-            console.log("UPDATE_GROUP_ERROR", error);
             res.redirect('/admin/groups')
         }
     }
+    static async AdminDeleteGroupController(req, res){
+        try {
+             await groups.deleteOne({
+                 _id: req.params.group_id,
+             })
+
+             const student = await students.updateMany({
+                student_group_id: req.params.group_id
+            }, {
+                student_group_id: null 
+            })
+
+             const lesson = await lessons.deleteMany({
+                group: req.params.group_id
+            })
+
+            console.log(lesson);
+
+            res.status(200).json({
+                ok: true
+            })
+
+        } catch (error) {
+            console.log(error);
+            res.redirect('/admin/groups');
+        }
+    }
+
+    static async AdminVideosGetController(req, res){
+        try {
+
+            const videos_list = await videos.find()
+
+            res.render("videos", {
+               videos_list
+            });
+
+        } catch (error) {
+            res.redirect('/admin/videos');
+        }
+    }
+
+    static async AdminCreateVideoPostController(req, res){
+        try {
+            const data = await AdminCreateVideoValidation(req.body)
+
+            if (!data) throw new Error("Given information is not valid!");
+
+            const link = getVideoLink(data.url)
+
+            if(!link) {
+                throw new Error("Invalid url!")
+            }
+
+             const new_video = await videos.create({
+                 title: data.title,
+                 description: data.description,
+                 url: link,
+                 img: `https://img.youtube.com/vi/${link}/hqdefault.jpg`
+             })
+
+             res.redirect('/admin/videos')
+
+        } catch (error) {
+            res.redirect('/admin/videos');
+        }
+    }
+
+    static async AdminUpdateVideoController(req, res){
+        try {
+            const data = await AdminCreateVideoValidation(req.body)
+
+            if (!data) throw new Error("Given information is not valid!");
+
+            const link = getVideoLink(data.url)
+
+            if(!link) {
+                throw new Error("Invalid url!")
+            }
+
+             const video = await videos.updateOne({
+                 _id: req.params.video_id
+             },{
+                title: data.title,
+                description: data.description,
+                url: link,
+                img: `https://img.youtube.com/vi/${link}/hqdefault.jpg`
+            })
+
+             res.redirect('/admin/videos')
+
+        } catch (error) {
+            res.redirect('/admin/videos');
+        }
+    }
+
+    static async AdminDeleteVideoController(req, res){
+        try {
+
+             const new_video = await videos.deleteOne({
+                 _id: req.params.video_id
+             })
+
+             res.status(200).json({
+                 ok: true
+             })
+
+        } catch (error) {
+            res.redirect('/admin/videos');
+        }
+    }
+
+    
 
     static async AdminExitController(req, res){
         try{
             res.clearCookie("token").redirect('/')
         }catch(error){
             res.redirect('/')
-            console.log(error);
         }
     }
 

@@ -13,7 +13,6 @@ module.exports = async function init(admins){
                 username: process.env.USERNAME,
                 password: await createCrypt(process.env.PASSWORD),
             })
-            console.log(admin);
         }
     } catch (error) {
         console.log("INIT_ERROR",error);
