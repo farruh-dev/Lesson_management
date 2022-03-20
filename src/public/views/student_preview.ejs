@@ -23,43 +23,30 @@
 </head>
 
 <body>
+    <div class="navbar-fixed">
+    <nav class="my_navbar">
+        <div class="nav-wrapper container">
+            <a class="brand-logo" href="/admin/schedule">Lesson calendar</a>
+                <a data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
 
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <div class="container">
-            <a class="navbar-brand mb-0 h1" href="/admin">Lesson Management</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
-                aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                    <li class="nav-item">
-                        <a class="nav-link" href="/admin/schedule">Schedule</a>
+                <ul class="right hide-on-med-and-down">
+                    <li>
+                        <a href="/admin/schedule">Schedule</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/admin/groups">Groups</a>
+                    <li>
+                        <a href="/admin/groups">Groups</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="/admin/students">Students</a>
+                    <li class="active">
+                        <a aria-current="page" href="/admin/students">Students</a>
                     </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle"id="navbarDropdown" role="button"
-                            data-bs-toggle="dropdown" aria-expanded="false">
-                            Account
-                        </a>
-                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item" href="/admin/account">Account</a></li>
-                            <li>
-                                <hr class="dropdown-divider">
-                            </li>
-                            <li><a class="dropdown-item" href="/admin/exit">Logout</a></li>
-                        </ul>
-                    </li>
+                    <li><a href="/admin/account">Account</a></li>
+                    
+                    <li><a href="/admin/exit">Logout</a></li>
                 </ul>
-            </div>
+
         </div>
     </nav>
+    </div>
 
 
     <section id="student_section">

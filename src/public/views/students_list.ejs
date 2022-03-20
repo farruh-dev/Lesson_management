@@ -19,48 +19,34 @@
     <% var levels_list %>
 
 
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <div class="container">
-            <a class="navbar-brand mb-0 h1" href="/admin">Lesson Management</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
-                aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                    <li class="nav-item me-2">
-                        <button class="add_student_button btn btn-primary" data-bs-toggle="modal"
-                            data-bs-target="#addStudentModal">Add Student</button>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/admin/schedule">Schedule</a>
-                    </li>
+    <div class="navbar-fixed">
+        <nav class="my_navbar">
+            <div class="nav-wrapper container">
+                <a class="brand-logo" href="/admin/schedule">Lesson calendar</a>
+                <a data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+                    <ul class="right hide-on-med-and-down">
+                        <li>
+                            <a class="add_student_button button button_fill_primary no_border" data-bs-toggle="modal"
+                                data-bs-target="#addStudentModal">Add Student</a>
+                        </li>
+                        <li>
+                            <a href="/admin/schedule">Schedule</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/admin/groups">Groups</a>
+                        </li>
+    
+                        <li class="active">
+                            <a aria-current="page" href="/admin/students">Students</a>
+                        </li>
+                        <li><a href="/admin/account">Account</a></li>
                     
-                    <li class="nav-item">
-                        <a class="nav-link" href="/admin/groups">Groups</a>
-                    </li>
-
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="/admin/students">Students</a>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button"
-                            data-bs-toggle="dropdown" aria-expanded="false">
-                            Account
-                        </a>
-                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item" href="/admin/account">Account</a></li>
-                            <li>
-                                <hr class="dropdown-divider">
-                            </li>
-                            <li><a class="dropdown-item" href="/admin/exit">Logout</a></li>
-                        </ul>
-                    </li>
-                </ul>
+                        <li><a href="/admin/exit">Logout</a></li>
+                    </ul>
             </div>
-        </div>
-    </nav>
+        </nav>
+    </div>
 
 
     <section id="students_section">
@@ -80,7 +66,7 @@
 
                         <h4>Groups</h4>
                         <% for (let group of groups_list) {%>
-                        <button style="text-align: start;" class="nav-link" id="v-pills-<%= group._id %>>-tab"
+                        <button class="nav-link" id="v-pills-<%= group._id %>>-tab"
                             data-bs-toggle="pill" data-bs-target="#v-pills-<%= group._id %>" type="button" role="tab"
                             aria-controls="v-pills-<%= group._id %>">
                             <%= group.name %>
@@ -98,17 +84,18 @@
 
                     <!-- Groups filter -->
                     <% for (let group of groups_list) {%>
-                    <div class="tab-pane fade" id="v-pills-<%= group._id %>" role="tabpanel"
+                    <div class="tab-pane student_list fade" id="v-pills-<%= group._id %>" role="tabpanel"
                         aria-labelledby="v-pills-<%= group._id %>-tab">
                         <% for( let student of students_list ) { %>
                         <% if (student.student_group_id != null) {%>
                             <% if (student.student_group_id.equals(group._id)) {%>
-                                <a class="student_link" href="/admin/students/get/<%= student._id %>">
-        
-                                    <div class="student_name">
-                                        <h4><%= student.fullname %></h5>
-                                    </div>
-                                </a>
+                                <div class="student_link">
+                                    <h4><%= student.fullname %></h4>
+                                    <a style="transition: all 0.3s; padding: 10px 20px;" class="edit_group_button ms-auto button button_outline_secondary"
+                                    href="/admin/students/get/<%= student._id %>">
+                                        View
+                                    </a>
+                                </div>
                                 <% } %>
                         <% } %> 
                         <% } %>
@@ -119,12 +106,13 @@
                     <div class="tab-pane student_list fade show active" id="v-pills-all" role="tabpanel"
                         aria-labelledby="v-pills-all-tab">
                         <% for( let student of students_list ) { %>
-                        <a class="student_link" href="/admin/students/get/<%= student._id %>">
-
-                            <div class="student_name">
-                                <h4><%= student.fullname %> </h5>
+                            <div class="student_link">
+                                <h4><%= student.fullname %></h4>
+                                <a style="transition: all 0.3s; padding: 10px 20px;" class="edit_group_button ms-auto button button_outline_secondary"
+                                href="/admin/students/get/<%= student._id %>">
+                                    View
+                                </a>
                             </div>
-                        </a>
                         <% } %>
                     </div>
                 </div>
@@ -176,8 +164,8 @@
                         </div>
 
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-primary">Add</button>
+                            <button type="button" class="button button_danger" data-bs-dismiss="modal">Close</button>
+                            <button type="submit" class="button button_fill_primary">Add</button>
                         </div>
                     </form>
                 </div>

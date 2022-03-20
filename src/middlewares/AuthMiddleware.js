@@ -6,32 +6,30 @@ const { verifyToken } = require("../modules/jwt")
 async function AuthMiddleware(req, res, next) {
     try {
         if(!req.cookies.token){
-            console.log("NO TOKEN");
-            res.redirect("/users/login")
-            return
+            next()
         }else{
             const verify = await verifyToken(req.cookies.token)
 
             if(!verify) {
-                res.redirect('/users/login')
+                res.redirect('/')
                 return
             }
 
-            const user = await users.findOne({
+            const user = await admins.findOne({
                 _id: verify._id
             })
 
             if(!user){
-                res.redirect("/users/login")
+                res.redirect("/")
                 return
             }   
             
             req.user = user;
-            next()
+            res.redirect('/admin/schedule')
         }
     } catch (error) {
         console.log(error);
-        res.redirect('/users/login')
+        res.redirect('/')
     }
 }
 

@@ -23,7 +23,7 @@ async function AdminAuthMiddleware(req, res, next) {
     try {
         if(!req.cookies.token){
             console.log("NO TOKEN");
-            res.redirect("/users/login")
+            res.redirect("/admin/login")
             return
         }else{
             const verify = await verifyToken(req.cookies.token)

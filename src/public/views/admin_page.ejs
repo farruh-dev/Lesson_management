@@ -23,7 +23,7 @@
     <div class="navbar-fixed">
         <nav class="my_navbar">
             <div class="nav-wrapper container">
-                <a class="brand-logo" href="/admin/schedule"><img src="../favicon-32x32.png" alt=""></a>
+                <a class="brand-logo" href="/admin/schedule">Lesson calendar</a>
                 <a data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
                 <ul class="right hide-on-med-and-down">
                     <li class="active">
@@ -70,8 +70,10 @@
                 <% for( let item of lesson_schedule ) { %>
                 <div class="col day_item">
                     <div class="card card_own" style="height: 100%;">
-                        <div class="card-header">
+                        <div class="card-header d-flex justify-content-between align-items-center">
                             <h4><%= item.day %></h4>
+                            <button data-id="<%= item._id %>" data-dayname="<%= item.day %>" data-bs-toggle="modal"
+                                data-bs-target="#addTimeModal" class="button_fill_primary add_time_btn">Add</button>
                         </div>
 
                         <div class="card-body">
@@ -106,11 +108,6 @@
                                 <% } %>
                             </div>
 
-                        </div>
-
-                        <div class="card-footer d-flex justify-content-end align-items-center">
-                            <button data-id="<%= item._id %>" data-dayname="<%= item.day %>" data-bs-toggle="modal"
-                                data-bs-target="#addTimeModal" class="button_fill_primary add_time_btn">Add</button>
                         </div>
                     </div>
                 </div>

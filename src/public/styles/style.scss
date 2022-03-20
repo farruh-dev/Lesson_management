@@ -142,6 +142,8 @@ select {
 
     .card-body {
         background-color: #ffffff;
+        border-bottom-left-radius: $border_radius_medium;
+        border-bottom-right-radius: $border_radius_medium;
 
         .lessons_table_headers {
             width: 100%;
@@ -219,7 +221,7 @@ select {
                 padding: 20px;
                 background-color: #fff;
                 box-shadow: $box_shadow_big;
-                border-radius: $border_radius_big;
+                border-radius: $border_radius_medium;
 
                 .nav{
                     margin: 0 !important;
@@ -360,4 +362,24 @@ select {
     font-size: 18px;
     border-radius: 3px;
     box-shadow: inset 0 0 5px 3px rgba($color: #000000, $alpha: 0.1);
+}
+
+@media (max-width: 600px) {
+        .row {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            .day_item {
+                width: 90% !important;
+            }
+        }
+}
+
+@media (max-width: 525px) {
+    nav{
+        .brand-logo{
+            font-size: 22px;
+        }
+    }
 }
