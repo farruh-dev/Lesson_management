@@ -1,6 +1,5 @@
 <% var student %>
 <% var lesson_times %>
-<% var levels_list %>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -15,9 +14,6 @@
         integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <link rel="stylesheet" href="/styles/style.css">
 
-    <script>
-        const student_level = "<%= student.level_id %>"
-    </script>
 
     <title>Preview - <%= student.fullname %> </title>
 </head>
@@ -192,8 +188,6 @@
         const studentPhoneInput = document.querySelector(".student_phone_input");
         const studentTelegramInput = document.querySelector(".student_telegram_input");
         const studentStartedInput = document.querySelector(".student_started_input");
-        const studentLevelSelect = document.querySelector(".student_level_select");
-        const studentLevelOptions = document.querySelectorAll(".level_option");
         const deleteStudentButton = document.querySelector(".delete")
         const confirmDeleteStudentButton = document.querySelector(".delete_video")
 
