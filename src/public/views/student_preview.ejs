@@ -99,10 +99,6 @@
                         <h3><%= student.telegram %></h3>
                     </div>
                     <div>
-                        <span>level: </span><br>
-                        <h3><%= student.level %></h3>
-                    </div>
-                    <div>
                         <span>started date: </span><br>
                         <h3><%= student.started_at %></h3>
                     </div>
@@ -120,7 +116,6 @@
                     class="m-1 edit_student_button button button_fill_primary" data-bs-toggle="modal"
                     data-bs-target="#editStudentModal" data-fullname="<%= student.fullname %>"
                     data-phone="<%= student.phone %>" data-telegram="<%= student.telegram %>"
-                    data-level="<%= student.telegram %>" data-started="<%= student.started_at %>">
 
                     Edit
                     </button>
@@ -171,15 +166,6 @@
                             <label for="telegram">Telegram username <span style="color: gray;">(optional)</span></label>
                             <input class="student_telegram_input form-control" type="text" name="telegram"
                                 placeholder="@examle">
-                        </div>
-
-                        <div>
-                            <label for="level">Level</label>
-                            <select class="student_level_select form-control" type="text" name="level_id" placeholder="select" required>
-                                <% for (let level of levels_list) {%>
-                                    <option class="level_option" value="<%= level._id %>" selected ><%= level.name %> </option>
-                                <% } %>
-                            </select>
                         </div>
 
                         <div>
@@ -234,15 +220,6 @@
             studentPhoneInput.value = event.target.dataset.phone
             studentTelegramInput.value = event.target.dataset.telegram
             studentStartedInput.value = event.target.dataset.started
-
-            var itemList = Array.prototype.slice.call(studentLevelOptions);
-
-            for(let level of itemList){
-                if(level.value == student_level){
-                    let index = itemList.indexOf(level)
-                    studentLevelSelect.selectedIndex = `${index}`
-                }
-            }
         })
     </script>
 </body>

@@ -184,15 +184,6 @@
                         </div>
 
                         <div>
-                            <label for="level">Level</label>
-                            <select type="text" name="level_id" placeholder="select" required>
-                                <% for (let level of levels_list) {%>
-                                <option value="<%= level._id %>"><%= level.name %></option>
-                                <% } %>
-                            </select>
-                        </div>
-
-                        <div>
                             <label for="telegram">Started date <span style="color: gray;">(optional)</span></label>
                             <input class="form-control" type="date" name="started_at" placeholder="">
                         </div>
