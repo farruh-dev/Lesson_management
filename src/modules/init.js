@@ -1,5 +1,6 @@
 
 const {createCrypt} = require("./bcrypt")
+require('dotenv').config()
 
 module.exports = async function init(admins){
     try {
@@ -7,10 +8,10 @@ module.exports = async function init(admins){
 
         if(admins_list.length == 0){
             const admin = await admins.create({
-                name: "admin",
-                surname: "admin",
-                username: "admin",
-                password: await createCrypt("admin"),
+                name: "Adminjon",
+                surname: "Adminov",
+                username: process.env.PASSWORD,
+                password: await createCrypt(process.env.USERNAME),
             })
             console.log(admin);
         }
