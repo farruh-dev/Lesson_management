@@ -127,7 +127,6 @@ select {
           transform: rotate(0deg);
   -webkit-transition: 0.5s ease-in-out;
   transition: 0.5s ease-in-out;
-  cursor: url("../icons/cursors/pointer-cursor-svgrepo-com.svg") 5 1, auto;
 }
 
 .nav_toggle span {
