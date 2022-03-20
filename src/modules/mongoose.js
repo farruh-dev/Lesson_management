@@ -13,6 +13,8 @@ require("../models/VideosModel")
 async function mongo(){
     try {
         await mongoose.connect(process.env.MONGODB_URL)
+        
+        await init(admins)
 
     } catch (error) {
         console.log("MONGO_ERROR: ", error);
