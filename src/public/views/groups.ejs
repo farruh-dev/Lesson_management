@@ -73,73 +73,76 @@
     <section id="students_section">
         <div class="container" style="padding: 50px 10px;">
             <h1 class="text-center mb-5">Groups</h1>
+            <% if (group_list.length != 0) {%>
+                <div class="students_wrapper">
+                    <div class="overal_wrapper">
+                        <h2>Filter</h2>
+                        <div class="nav flex-column nav-pills me-3" id="v-pills-tab" role="tablist"
+                            aria-orientation="vertical">
+                            <button class="button nav-link active" id="v-pills-all-tab" data-bs-toggle="pill"
+                                data-bs-target="#v-pills-all" type="button" role="tab" aria-controls="v-pills-all"
+                                aria-selected="true">
+                                All <span><%= group_list.length %></span>
+                            </button>
 
-            <div class="students_wrapper">
-                <div class="overal_wrapper">
-                    <h2>Filter</h2>
-                    <div class="nav flex-column nav-pills me-3" id="v-pills-tab" role="tablist"
-                        aria-orientation="vertical">
-                        <button class="button nav-link active" id="v-pills-all-tab" data-bs-toggle="pill"
-                            data-bs-target="#v-pills-all" type="button" role="tab" aria-controls="v-pills-all"
-                            aria-selected="true">
-                            All <span><%= group_list.length %></span>
-                        </button>
+                            <h4>Days</h4>
+                            <% for (let day of schedule_list) {%>
+                            <button class="nav-link" id="v-pills-<%= day.day %>>-tab" data-bs-toggle="pill"
+                                data-bs-target="#v-pills-<%= day.day %>" type="button" role="tab"
+                                aria-controls="v-pills-<%= day.day %>">
+                                <%= day.day %>
+                            </button>
+                            <% } %>
 
-                        <h4>Days</h4>
+
+                        </div>
+
+                        <!-- 
+                            -->
+                    </div>
+
+                    <div class="students tab-content" id="v-pills-tabContent">
+
+                        <!-- Days filter -->
                         <% for (let day of schedule_list) {%>
-                        <button class="nav-link" id="v-pills-<%= day.day %>>-tab" data-bs-toggle="pill"
-                            data-bs-target="#v-pills-<%= day.day %>" type="button" role="tab"
-                            aria-controls="v-pills-<%= day.day %>">
-                            <%= day.day %>
-                        </button>
-                        <% } %>
-
-
-                    </div>
-
-                    <!-- 
-                         -->
-                </div>
-
-                <div class="students tab-content" id="v-pills-tabContent">
-
-                    <!-- Days filter -->
-                    <% for (let day of schedule_list) {%>
-                    <div class="tab-pane student_list fade" id="v-pills-<%= day.day %>" role="tabpanel"
-                        aria-labelledby="v-pills-<%= day.day %>-tab">
-                        <% for( let lesson of lessons_list ) { %>
-                        <% if (lesson.day_id.equals(day._id)) {%>
-                        <div class="student_link">
-                            <h4><%= lesson.group_name %> </h4>
-                            <button class="edit_group_button ms-auto button button_outline_secondary"
-                                data-groupname="<%= lesson.group_name %>" data-groupid="<%= lesson.group %>"
-                                data-bs-toggle="modal" data-bs-target="#editGroupModal">
-                                Edit
-                            </button>
+                        <div class="tab-pane student_list fade" id="v-pills-<%= day.day %>" role="tabpanel"
+                            aria-labelledby="v-pills-<%= day.day %>-tab">
+                            <% for( let lesson of lessons_list ) { %>
+                            <% if (lesson.day_id.equals(day._id)) {%>
+                            <div class="student_link">
+                                <h4><%= lesson.group_name %> </h4>
+                                <button class="edit_group_button ms-auto button button_outline_secondary"
+                                    data-groupname="<%= lesson.group_name %>" data-groupid="<%= lesson.group %>"
+                                    data-bs-toggle="modal" data-bs-target="#editGroupModal">
+                                    Edit
+                                </button>
+                            </div>
+                            <% } %>
+                            <% } %>
                         </div>
                         <% } %>
-                        <% } %>
-                    </div>
-                    <% } %>
 
-                    <!-- All -->
-                    <div class="tab-pane student_list fade show active" id="v-pills-all" role="tabpanel"
-                        aria-labelledby="v-pills-all-tab">
-                        <% for( let group of group_list ) { %>
+                        <!-- All -->
+                        <div class="tab-pane student_list fade show active" id="v-pills-all" role="tabpanel"
+                            aria-labelledby="v-pills-all-tab">
+                            <% for( let group of group_list ) { %>
 
-                        <div class="student_link">
-                            <h4><%= group.name %> </h4>
-                            <button class="edit_group_button ms-auto button button_outline_secondary"
-                                data-groupname="<%= group.name %>" data-groupid="<%= group._id %>"
-                                data-bs-toggle="modal" data-bs-target="#editGroupModal">
-                                Edit
-                            </button>
+                            <div class="student_link">
+                                <h4><%= group.name %> </h4>
+                                <button class="edit_group_button ms-auto button button_outline_secondary"
+                                    data-groupname="<%= group.name %>" data-groupid="<%= group._id %>"
+                                    data-bs-toggle="modal" data-bs-target="#editGroupModal">
+                                    Edit
+                                </button>
+                            </div>
+                            <% } %>
                         </div>
-                        <% } %>
                     </div>
-                </div>
 
-            </div>
+                </div>
+            <% } else { %>
+                <h4 style="color: rgba(0, 0, 0, 0.5);">Nothing yet..</h4>
+            <% } %> 
 
         </div>
     </section>

@@ -66,53 +66,57 @@
     <section id="schedule_section">
         <div class="container" style="padding: 50px 10px;">
             <h1 class="text-center mb-5">Schedule</h1>
-            <div class="row row-cols-1 row-cols-md-2 row-cols-xl-3 g-5">
-                <% for( let item of lesson_schedule ) { %>
-                <div class="col day_item">
-                    <div class="card card_own" style="height: 100%;">
-                        <div class="card-header d-flex justify-content-between align-items-center">
-                            <h4><%= item.day %></h4>
-                            <button data-id="<%= item._id %>" data-dayname="<%= item.day %>" data-bs-toggle="modal"
-                                data-bs-target="#addTimeModal" class="button_fill_primary add_time_btn">Add</button>
-                        </div>
-
-                        <div class="card-body">
-                            <div class="lessons_table_headers">
-                                <div>
-                                    <h6>Time</h6>
-                                </div>
-                                <div>
-                                    <h6>Group</h6>
-                                </div>
-                                <div>
-                                    <h6>Actions</h6>
-                                </div>
+            <% if (lesson_schedule.length != 0) {%>
+                <div class="row row-cols-1 row-cols-md-2 row-cols-xl-3 g-5">
+                    <% for( let item of lesson_schedule ) { %>
+                    <div class="col day_item">
+                        <div class="card card_own" style="height: 100%;">
+                            <div class="card-header d-flex justify-content-between align-items-center">
+                                <h4><%= item.day %></h4>
+                                <button data-id="<%= item._id %>" data-dayname="<%= item.day %>" data-bs-toggle="modal"
+                                    data-bs-target="#addTimeModal" class="button_fill_primary add_time_btn">Add</button>
                             </div>
-                            <div class="lessons_table">
-                                <% for (let lesson of lessonsList) { %>
-                                <% if (lesson.day_id.equals(item._id)) {%>
-                                <div class="lessons_table_item">
-                                    <div class="lesson_time"><%= lesson.time %> </div>
-                                    <div class="lesson_students">
-                                        <%= lesson.group_name %>
+    
+                            <div class="card-body">
+                                <div class="lessons_table_headers">
+                                    <div>
+                                        <h6>Time</h6>
                                     </div>
-                                    <div class="lesson_actions">
-                                        <button data-lessonid="<%= lesson._id %>" data-dayname="<%= item.day %>"
-                                            data-dayid="<%= item._id %>" data-time="<%= lesson.time %>"
-                                            data-groupid="<%= lesson.group %>" data-bs-toggle="modal"
-                                            data-bs-target="#editLessonModal"
-                                            class="button_fill_secondary edit_lesson_button">Edit</button>
+                                    <div>
+                                        <h6>Group</h6>
+                                    </div>
+                                    <div>
+                                        <h6>Actions</h6>
                                     </div>
                                 </div>
-                                <% } %>
-                                <% } %>
+                                <div class="lessons_table">
+                                    <% for (let lesson of lessonsList) { %>
+                                    <% if (lesson.day_id.equals(item._id)) {%>
+                                    <div class="lessons_table_item">
+                                        <div class="lesson_time"><%= lesson.time %> </div>
+                                        <div class="lesson_students">
+                                            <%= lesson.group_name %>
+                                        </div>
+                                        <div class="lesson_actions">
+                                            <button data-lessonid="<%= lesson._id %>" data-dayname="<%= item.day %>"
+                                                data-dayid="<%= item._id %>" data-time="<%= lesson.time %>"
+                                                data-groupid="<%= lesson.group %>" data-bs-toggle="modal"
+                                                data-bs-target="#editLessonModal"
+                                                class="button_fill_secondary edit_lesson_button">Edit</button>
+                                        </div>
+                                    </div>
+                                    <% } %>
+                                    <% } %>
+                                </div>
+    
                             </div>
-
                         </div>
                     </div>
+                    <% } %>
                 </div>
-                <% } %>
-            </div>
+            <% } else { %>
+                <h4 style="color: rgba(0, 0, 0, 0.5);">Nothing yet..</h4>
+            <% } %>  
         </div>
     </section>
 

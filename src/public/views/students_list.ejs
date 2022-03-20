@@ -52,43 +52,60 @@
     <section id="students_section">
         <div class="container" style="padding: 50px 10px;">
             <h1 class="text-center mb-5">Students</h1>
+            <% if (student_list.length != 0) {%>
+                <div class="students_wrapper">
+                    <div class="overal_wrapper">
+                        <h2>Filter</h2>
+                        <div class="nav flex-column nav-pills me-3" id="v-pills-tab" role="tablist"
+                            aria-orientation="vertical">
+                                <button style="text-align: start;" class="nav-link active" id="v-pills-all-tab"
+                                    data-bs-toggle="pill" data-bs-target="#v-pills-all" type="button" role="tab"
+                                    aria-controls="v-pills-all" aria-selected="true">
+                                    All <span><%= students_list.length %></span>
+                                </button>
 
-            <div class="students_wrapper">
-                <div class="overal_wrapper">
-                    <h2>Filter</h2>
-                    <div class="nav flex-column nav-pills me-3" id="v-pills-tab" role="tablist"
-                        aria-orientation="vertical">
-                            <button style="text-align: start;" class="nav-link active" id="v-pills-all-tab"
-                                data-bs-toggle="pill" data-bs-target="#v-pills-all" type="button" role="tab"
-                                aria-controls="v-pills-all" aria-selected="true">
-                                All <span><%= students_list.length %></span>
+                            <h4>Groups</h4>
+                            <% for (let group of groups_list) {%>
+                            <button class="nav-link" id="v-pills-<%= group._id %>>-tab"
+                                data-bs-toggle="pill" data-bs-target="#v-pills-<%= group._id %>" type="button" role="tab"
+                                aria-controls="v-pills-<%= group._id %>">
+                                <%= group.name %>
                             </button>
-
-                        <h4>Groups</h4>
-                        <% for (let group of groups_list) {%>
-                        <button class="nav-link" id="v-pills-<%= group._id %>>-tab"
-                            data-bs-toggle="pill" data-bs-target="#v-pills-<%= group._id %>" type="button" role="tab"
-                            aria-controls="v-pills-<%= group._id %>">
-                            <%= group.name %>
-                        </button>
-                        <% } %>
+                            <% } %>
 
 
+                        </div>
+
+                        <!-- 
+                        -->
                     </div>
 
-                    <!-- 
-                     -->
-                </div>
+                    <div class="students tab-content" id="v-pills-tabContent">
 
-                <div class="students tab-content" id="v-pills-tabContent">
+                        <!-- Groups filter -->
+                        <% for (let group of groups_list) {%>
+                        <div class="tab-pane student_list fade" id="v-pills-<%= group._id %>" role="tabpanel"
+                            aria-labelledby="v-pills-<%= group._id %>-tab">
+                            <% for( let student of students_list ) { %>
+                            <% if (student.student_group_id != null) {%>
+                                <% if (student.student_group_id.equals(group._id)) {%>
+                                    <div class="student_link">
+                                        <h4><%= student.fullname %></h4>
+                                        <a style="transition: all 0.3s; padding: 10px 20px;" class="edit_group_button ms-auto button button_outline_secondary"
+                                        href="/admin/students/get/<%= student._id %>">
+                                            View
+                                        </a>
+                                    </div>
+                                    <% } %>
+                            <% } %> 
+                            <% } %>
+                        </div>
+                        <% } %>
 
-                    <!-- Groups filter -->
-                    <% for (let group of groups_list) {%>
-                    <div class="tab-pane student_list fade" id="v-pills-<%= group._id %>" role="tabpanel"
-                        aria-labelledby="v-pills-<%= group._id %>-tab">
-                        <% for( let student of students_list ) { %>
-                        <% if (student.student_group_id != null) {%>
-                            <% if (student.student_group_id.equals(group._id)) {%>
+                        <!-- All -->
+                        <div class="tab-pane student_list fade show active" id="v-pills-all" role="tabpanel"
+                            aria-labelledby="v-pills-all-tab">
+                            <% for( let student of students_list ) { %>
                                 <div class="student_link">
                                     <h4><%= student.fullname %></h4>
                                     <a style="transition: all 0.3s; padding: 10px 20px;" class="edit_group_button ms-auto button button_outline_secondary"
@@ -96,29 +113,14 @@
                                         View
                                     </a>
                                 </div>
-                                <% } %>
-                        <% } %> 
-                        <% } %>
+                            <% } %>
+                        </div>
                     </div>
-                    <% } %>
 
-                    <!-- All -->
-                    <div class="tab-pane student_list fade show active" id="v-pills-all" role="tabpanel"
-                        aria-labelledby="v-pills-all-tab">
-                        <% for( let student of students_list ) { %>
-                            <div class="student_link">
-                                <h4><%= student.fullname %></h4>
-                                <a style="transition: all 0.3s; padding: 10px 20px;" class="edit_group_button ms-auto button button_outline_secondary"
-                                href="/admin/students/get/<%= student._id %>">
-                                    View
-                                </a>
-                            </div>
-                        <% } %>
-                    </div>
                 </div>
-
-            </div>
-
+            <% } else { %>
+                <h4 style="color: rgba(0, 0, 0, 0.5);">Nothing yet..</h4>
+            <% } %> 
         </div>
     </section>
 
