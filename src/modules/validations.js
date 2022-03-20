@@ -48,7 +48,6 @@ module.exports = class Validations{
             fullname: joi.string().required().error(new Error("Full name is not valid!")),
             phone: joi.string().trim().allow(null, ""),
             telegram: joi.string().trim().allow(null, ""),
-            level_id: joi.string().error(new Error("Level is not valid!")),
             started_at: joi.string().trim().allow(null, ""),
         }).validateAsync(data)
     }

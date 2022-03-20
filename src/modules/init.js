@@ -10,8 +10,8 @@ module.exports = async function init(admins){
             const admin = await admins.create({
                 name: "Adminjon",
                 surname: "Adminov",
-                username: process.env.USERNAME,
-                password: await createCrypt(process.env.PASSWORD),
+                username: process.env.ADMIN_USERNAME,
+                password: await createCrypt(process.env.ADMIN_PASSWORD),
             })
         }
     } catch (error) {

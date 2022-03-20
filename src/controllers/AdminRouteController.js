@@ -1,7 +1,6 @@
 const admins = require("../models/AdminModel");
 const groups = require("../models/GroupModel");
 const lessons = require("../models/LessonModel");
-const levels = require("../models/LevelsModel");
 const schedule = require("../models/ScheduleModel");
 const students = require("../models/StudentModel");
 const users = require("../models/UsersModel");
@@ -310,7 +309,6 @@ module.exports = class AdminRoute {
         try {
 
             const students_list = await students.find();
-            const levels_list = await levels.find();
             const schedule_list = await schedule.find();
             const lessons_list = await lessons.find();
             const groups_list = await groups.find();
@@ -318,7 +316,6 @@ module.exports = class AdminRoute {
             res.render("students_list", {
                 user: req.user,
                 students_list,
-                levels_list,
                 schedule_list,
                 lessons_list,
                 groups_list
@@ -341,13 +338,10 @@ module.exports = class AdminRoute {
                 group: student.student_group_id
             })
 
-            const levels_list = await levels.find();
-
             res.render("student_preview", {
                 user: req.user, 
                 student,
                 lesson_times,
-                levels_list
             })
 
         } catch (error) {
@@ -361,17 +355,12 @@ module.exports = class AdminRoute {
 
             if(!data) throw new Error("Given information is not valid!")
 
-            const level = await levels.findOne({
-                _id: data.level_id
-            })
 
             const new_student = await students.create({
                 fullname: data.fullname,
                 gender: data.gender,
                 phone: data.phone.trim() == "" ? "-" : data.phone,
                 telegram: data.telegram.trim() == "" ? "-" : data.telegram,
-                level: level.name,
-                level_id: level._id,
                 started_at: data.started_at.trim() == "" ? "-" : data.started_at
             })
 
@@ -405,10 +394,6 @@ module.exports = class AdminRoute {
 
             if(!data) throw new Error("Given information is not valid!")
 
-            const level = await levels.findOne({
-                _id: data.level_id
-            })
-
             const updated_student = await students.findOneAndUpdate({
                 _id: req.params.id
             },{
@@ -416,8 +401,6 @@ module.exports = class AdminRoute {
                 gender: data.gender,
                 phone: data.phone.trim() == "" ? "-" : data.phone,
                 telegram: data.telegram.trim() == "" ? "-" : data.telegram,
-                level: level.name,
-                level_id: level._id,
                 started_at: data.started_at.trim() == "" ? "-" : data.started_at
             })
 

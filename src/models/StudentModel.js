@@ -13,14 +13,6 @@ const studentSchema = new mongoose.Schema({
         type: String,
         default: "-"
     },
-    level: {
-        type: String,
-        required: true,
-    },
-    level_id: {
-        type: mongoose.Types.ObjectId,
-        required: true,
-    },
     student_group_id: {
         type: mongoose.Types.ObjectId,
         ref: "groups"
