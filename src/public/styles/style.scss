@@ -386,6 +386,7 @@ iframe{
             align-items: center;
             justify-content: center;
             margin: auto;
+            margin-top: 20px;
 
             background-color: #fff;
             box-shadow: $box_shadow_big;
@@ -473,7 +474,7 @@ iframe{
     #admin_account_section {
         .container {
             .account_props {
-                width: 70%;
+                width: 80%;
             }
         }
     }
@@ -487,13 +488,6 @@ iframe{
             justify-content: center;
             .day_item {
                 width: 90% !important;
-            }
-        }
-        #admin_account_section {
-            .container {
-                .account_props {
-                    width: 90%;
-                }
             }
         }
 }
