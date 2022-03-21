@@ -372,6 +372,7 @@ iframe {
 }
 
 #student_section .container .student .student_props {
+  width: 100%;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -550,6 +551,9 @@ iframe {
     height: 300px !important;
   }
   #admin_account_section .container .account_props {
+    width: 80%;
+  }
+  #student_section .container .student {
     width: 80%;
   }
 }
