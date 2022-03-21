@@ -1,4 +1,3 @@
-const { ObjectId } = require("mongodb");
 const admins = require("../models/AdminModel");
 const groups = require("../models/GroupModel");
 const lessons = require("../models/LessonModel");
@@ -565,7 +564,7 @@ module.exports = class AdminRoute {
             await students.updateMany({
                 student_group_id: group_id
             }, {
-                student_group_id: ObjectId() 
+                student_group_id: null 
             })
 
             for (const id of data.students) {

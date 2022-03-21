@@ -78,13 +78,15 @@
                         <div class="card-body">
                             <div class="lessons_table">
                                 <% for (let student of students_list) { %>
-                                <% if (student.student_group_id.equals(item._id)) {%>
-                                <div class="lessons_table_item">
-                                    <div class="lesson_students">
-                                        <%= student.fullname %>
-                                    </div>
-                                </div>
-                                <% } %>
+                                    <% if (student.student_group_id != null) {%>
+                                        <% if (student.student_group_id.equals(item._id)) {%>
+                                            <div class="lessons_table_item">
+                                                <div class="lesson_students">
+                                                    <%= student.fullname %>
+                                                </div>
+                                            </div>
+                                        <% } %>
+                                    <% } %>
                                 <% } %>
                             </div>
 
