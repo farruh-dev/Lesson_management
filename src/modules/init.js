@@ -25,7 +25,6 @@ module.exports = async function init(admins, days){
             "Saturday",
             "Sunday",
         ]
-
         if(days_list.length == 0){
             for (const day of day_data) {
                 await days.create({
