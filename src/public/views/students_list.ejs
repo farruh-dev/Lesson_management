@@ -94,11 +94,6 @@
                                     aria-controls="v-pills-all" aria-selected="true">
                                     All <span><%= students_list.length %></span>
                                 </button>
-                                <button style="text-align: start;" class="nav-link active" id="v-pills-groupless-tab"
-                                    data-bs-toggle="pill" data-bs-target="#v-pills-groupless" type="button" role="tab"
-                                    aria-controls="v-pills-groupless">
-                                    Groupless
-                                </button>
 
                             <h4>Groups</h4>
                             <% for (let group of groups_list) {%>
@@ -133,22 +128,6 @@
                                         </a>
                                     </div>
                                     <% } %>
-                            <% } %> 
-                            <% } %>
-                        </div>
-                        
-                        <% } %><% for (let group of groups_list) {%>
-                        <div class="tab-pane student_list fade" id="v-pills-groupless" role="tabpanel"
-                            aria-labelledby="v-pills-groupless-tab">
-                            <% for( let student of students_list ) { %>
-                            <% if (student.student_group_id == null) {%>
-                                    <div class="student_link">
-                                        <h4><%= student.fullname %></h4>
-                                        <a style="transition: all 0.3s; padding: 10px 20px;" class="edit_group_button ms-auto button button_outline_secondary"
-                                        href="/admin/students/get/<%= student._id %>">
-                                            View
-                                        </a>
-                                    </div>
                             <% } %> 
                             <% } %>
                         </div>
