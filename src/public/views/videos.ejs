@@ -157,7 +157,7 @@
 
                         <div class="modal-footer">
                             <button type="button" class="button button_danger" data-bs-dismiss="modal">Close</button>
-                            <button type="submit" class="button button_fill_primary">Add</button>
+                            <button type="submit" class="button button_fill_primary">Save</button>
                         </div>
                     </form>
                 </div>
@@ -174,20 +174,23 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form id="editVideoForm" action="/admin/new_video" method="post">
+                    <form id="editVideoForm" method="post">
                         <div class="input-field col s6">
-                            <input class="input edit_video_modal_name_input" type="text" name="title" required>
+                            <input class="input" type="text" name="title" required>
+                            <label for="title">Title</label>
                         </div>
                         <div class="input-field col s6">
-                            <input class="input edit_video_modal_desc_input" type="text" name="description" required>
+                            <textarea id="textarea1" class="materialize-textarea" name="description"></textarea>
+                            <label for="textarea1">Description (optional)</label>
                         </div>
                         <div class="input-field col s6">
-                            <input class="input edit_video_modal_url_input" type="text" name="url" required>
+                            <input class="input" type="text" name="url" required>
+                            <label for="url">Video URL</label>
                         </div>
 
                         <div class="modal-footer">
                             <button type="button" class="button button_danger" data-bs-dismiss="modal">Close</button>
-                            <button type="submit" class="button button_fill_primary">Add</button>
+                            <button type="submit" class="button button_fill_primary">Save</button>
                         </div>
                     </form>
                 </div>
