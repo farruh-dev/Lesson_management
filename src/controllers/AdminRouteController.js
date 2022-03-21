@@ -305,6 +305,55 @@ module.exports = class AdminRoute {
             res.redirect('/')
         }
     }
+    
+    static async AdminUpdateSchedulePostController(req, res) {
+        try {
+
+            const lesson_id = req.params?.lesson_id
+
+            let request = {
+                time: req.body.time,
+                group: req.body.group,
+            }
+
+            const data = await AdminEditLessonTimeValidation(request)
+
+            if (!data) throw new Error("Given information is not valid!");
+
+            const group = await groups.findOne({
+                _id: data.group
+            })
+
+             const updated_lesson = await lessons.findOneAndUpdate({
+                 _id: lesson_id,
+             },{
+                time: data.time,
+                group: data.group,
+                group_name: group.name
+             })
+
+             res.redirect('/admin/schedule')
+
+        } catch (error) {
+            res.redirect('/')
+        }
+    }
+
+    static async AdminDeleteLessonTimeController(req, res){
+        try {
+
+             await lessons.deleteOne({
+                 _id: req.params.lesson_id
+             })
+
+             res.status(200).json({
+                 ok: true
+             })
+
+        } catch (error) {
+            res.redirect('/admin/schedule');
+        }
+    }
     static async AdminStudentsGetController(req, res) {
         try {
 
@@ -410,39 +459,6 @@ module.exports = class AdminRoute {
 
         } catch (error) {
             res.redirect('/admin/students');
-        }
-    }
-
-    static async AdminUpdateSchedulePostController(req, res) {
-        try {
-
-            const lesson_id = req.params?.lesson_id
-
-            let request = {
-                time: req.body.time,
-                group: req.body.group,
-            }
-
-            const data = await AdminEditLessonTimeValidation(request)
-
-            if (!data) throw new Error("Given information is not valid!");
-
-            const group = await groups.findOne({
-                _id: data.group
-            })
-
-             const updated_lesson = await lessons.findOneAndUpdate({
-                 _id: lesson_id,
-             },{
-                time: data.time,
-                group: data.group,
-                group_name: group.name
-             })
-
-             res.redirect('/admin/schedule')
-
-        } catch (error) {
-            res.redirect('/')
         }
     }
 

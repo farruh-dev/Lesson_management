@@ -197,8 +197,7 @@
                         </div>
 
                         <div class="modal-footer">
-                            <button type="button" class="close_modal button button_danger"
-                                data-bs-dismiss="modal">Close</button>
+                            <button type="button" class="button button_danger delete">Delete</button>
                             <button type="submit" class="button button_fill_primary">Save</button>
                         </div>
                     </form>
@@ -215,6 +214,7 @@
         const editTimeButtons = document.querySelectorAll(".edit_lesson_button")
         const addTimeModal = document.querySelector("#addTimeModal")
         const addTimeModalTitle = document.querySelector(".add_time_modal_title")
+        const deleteTime = document.querySelector(".delete")
 
         const editLessonForm = document.querySelector("#editLessonForm")
         const editTimeModalTitle = document.querySelector(".edit_lesson_modal_title")
@@ -261,6 +261,7 @@
                 editTimeModalTitle.textContent =
                     `${event.target.dataset.dayname}: ${event.target.dataset.time}`
                 editTimeModalTimeInput.value = `${event.target.dataset.time}`
+                deleteTime.dataset.id = button.dataset.lessonid
 
                 for (let opt of editTimeModalGroupOptions) {
                     if (opt.value == event.target.dataset.groupid) {
@@ -268,6 +269,19 @@
                     }
                 }
             })
+        })
+
+        deleteTime.addEventListener('click', async event => {
+
+            let res = await fetch(`/admin/schedule/${event.target.dataset.id}`, {
+                method: "DELETE",
+            })
+
+            if(res.ok){
+                location.reload()
+            }else{
+                alert("Something went wrong!")
+            }
         })
 
         closeModalButtons.forEach(btn => {

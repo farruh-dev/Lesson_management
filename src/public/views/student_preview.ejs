@@ -31,10 +31,6 @@
                 </div>
                 <ul class="right hide-on-med-and-down">
                     <li>
-                        <a class="add_group_button button button_fill_primary no_border" data-bs-toggle="modal"
-                            data-bs-target="#addVideoModal">Add Video</a>
-                    </li>
-                    <li>
                         <a href="/admin/schedule">Schedule</a>
                     </li>
 
@@ -111,7 +107,7 @@
                     <button 
                     class="m-1 edit_student_button button button_fill_primary" data-bs-toggle="modal"
                     data-bs-target="#editStudentModal" data-fullname="<%= student.fullname %>"
-                    data-phone="<%= student.phone %>" data-telegram="<%= student.telegram %>"
+                    data-phone="<%= student.phone %>" data-telegram="<%= student.telegram %>"></button>
 
                     Edit
                     </button>
@@ -141,7 +137,7 @@
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="edit_student_modal_title modal-title" id="staticBackdropLabel">Add student</h5>
+                    <h5 class="edit_student_modal_title modal-title" id="staticBackdropLabel">Edit student</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
@@ -171,8 +167,8 @@
                         </div>
 
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-primary">Add</button>
+                            <button type="button" class="button button_danger" data-bs-dismiss="modal">Close</button>
+                            <button type="submit" class="button button_fill_primary">Add</button>
                         </div>
                     </form>
                 </div>
