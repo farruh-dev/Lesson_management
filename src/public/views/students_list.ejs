@@ -94,8 +94,6 @@
                                     aria-controls="v-pills-all" aria-selected="true">
                                     All <span><%= students_list.length %></span>
                                 </button>
-
-                            <h4>Groups</h4>
                             <% for (let group of groups_list) {%>
                             <button class="nav-link" id="v-pills-<%= group._id %>>-tab"
                                 data-bs-toggle="pill" data-bs-target="#v-pills-<%= group._id %>" type="button" role="tab"

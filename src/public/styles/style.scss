@@ -455,12 +455,15 @@ iframe{
         flex-direction: column;
 
         .overal_wrapper{
-            width: 100%;
+            width: 100% !important;
         }
+    }
 
-        .students{
-            width: 100%;
-        }
+    #students_section .container .students_wrapper .students .tab-pane{
+        width: 100% !important;
+    }
+    #students_section .container .students_wrapper .overal_wrapper .nav{
+        flex-direction: row !important;
     }
     
 }
