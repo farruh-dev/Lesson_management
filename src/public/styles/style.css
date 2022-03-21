@@ -507,6 +507,18 @@ iframe {
     display: -ms-flexbox;
     display: flex;
   }
+  .students_wrapper {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+  }
+  .students_wrapper .overal_wrapper {
+    width: 100%;
+  }
+  .students_wrapper .students {
+    width: 100%;
+  }
 }
 
 .video_title {

@@ -450,6 +450,18 @@ iframe{
             }
         }
     }
+
+    .students_wrapper{
+        flex-direction: column;
+
+        .overal_wrapper{
+            width: 100%;
+        }
+
+        .students{
+            width: 100%;
+        }
+    }
     
 }
 
