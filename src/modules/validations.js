@@ -80,7 +80,7 @@ module.exports = class Validations{
     static async AdminCreateVideoValidation(data){
         return await joi.object({
             title: joi.string().required().error(new Error("Title is not valid!")),     
-            description: joi.string().error(new Error("Description is not valid!")),
+            description: joi.string().allow(null, "").error(new Error("Description is not valid!")),
             url: joi.string().required().error(new Error("URL is not valid!")),
         }).validateAsync(data)
     }
