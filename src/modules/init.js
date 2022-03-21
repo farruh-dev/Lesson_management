@@ -29,7 +29,7 @@ module.exports = async function init(admins, days){
         if(days_list.length == 0){
             for (const day of day_data) {
                 await days.create({
-                    day: "Adminjon"
+                    day: day
                 })
             }
         }
