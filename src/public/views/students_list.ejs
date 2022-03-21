@@ -96,7 +96,7 @@
                                 </button>
                                 <button style="text-align: start;" class="nav-link active" id="v-pills-groupless-tab"
                                     data-bs-toggle="pill" data-bs-target="#v-pills-groupless" type="button" role="tab"
-                                    aria-controls="v-pills-groupless" aria-selected="true">
+                                    aria-controls="v-pills-groupless">
                                     Groupless
                                 </button>
 
@@ -127,7 +127,7 @@
                                 <% if (student.student_group_id.equals(group._id)) {%>
                                     <div class="student_link">
                                         <h4><%= student.fullname %></h4>
-                                        <a style="transition: all 0.3s; padding: 10px 20px;" class="ms-auto button button_outline_secondary"
+                                        <a style="transition: all 0.3s; padding: 10px 20px;" class="edit_group_button ms-auto button button_outline_secondary"
                                         href="/admin/students/get/<%= student._id %>">
                                             View
                                         </a>
@@ -144,7 +144,7 @@
                             <% if (student.student_group_id == null) {%>
                                     <div class="student_link">
                                         <h4><%= student.fullname %></h4>
-                                        <a style="transition: all 0.3s; padding: 10px 20px;" class="ms-auto button button_outline_secondary"
+                                        <a style="transition: all 0.3s; padding: 10px 20px;" class="edit_group_button ms-auto button button_outline_secondary"
                                         href="/admin/students/get/<%= student._id %>">
                                             View
                                         </a>
@@ -160,7 +160,7 @@
                             <% for( let student of students_list ) { %>
                                 <div class="student_link">
                                     <h4><%= student.fullname %></h4>
-                                    <a style="transition: all 0.3s; padding: 10px 20px;" class="ms-auto button button_outline_secondary"
+                                    <a style="transition: all 0.3s; padding: 10px 20px;" class="edit_group_button ms-auto button button_outline_secondary"
                                     href="/admin/students/get/<%= student._id %>">
                                         View
                                     </a>
