@@ -31,6 +31,9 @@ module.exports = class HomeRoute{
             const students_list = await students.find()
             const group_list = await groups.find()
 
+            console.log(group_list)
+            console.log(students_list)
+
             res.render("groups_user", {
                 group_list,
                 students_list,
