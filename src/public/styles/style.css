@@ -422,7 +422,6 @@ iframe {
       -ms-flex-pack: center;
           justify-content: center;
   margin: auto;
-  margin-top: 200px;
   background-color: #fff;
   -webkit-box-shadow: 0 0 30px -15px rgba(0, 0, 0, 0.4);
           box-shadow: 0 0 30px -15px rgba(0, 0, 0, 0.4);
@@ -528,6 +527,9 @@ iframe {
   .single_video {
     height: 300px !important;
   }
+  #admin_account_section .container .account_props {
+    width: 70%;
+  }
 }
 
 @media (max-width: 600px) {
@@ -548,6 +550,9 @@ iframe {
   }
   .row .day_item {
     width: 90% !important;
+  }
+  #admin_account_section .container .account_props {
+    width: 90%;
   }
 }
 
