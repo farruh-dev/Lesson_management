@@ -210,7 +210,7 @@
         const editVideoModalUrlInput = document.querySelector(".edit_video_modal_url_input")
         const editGroupForm = document.querySelector("#editVideoForm")
 
-        if(editVideoButtons && deleteVideoButton && confirmDeleteVideoButton) {
+        if(editVideoButtons && deleteVideoButtons && confirmDeleteVideoButton) {
         editVideoButtons.forEach(btn => {
             btn.addEventListener("click", event => {
                 editGroupForm.action = `/admin/videos/update/${event.target.dataset.id}`
