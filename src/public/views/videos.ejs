@@ -99,9 +99,9 @@
                             <p class="video_title"><%= item.title %> </p>
                             <div class="w-100 d-flex justify-content-end align-items-center">
                                 <button data-id="<%= item._id %>" data-bs-toggle="modal"
-                                    data-bs-target="#confirmModal"  class="button_danger delete">Delete</button>
+                                    data-bs-target="#confirmModal"  class="m-1 button_danger delete">Delete</button>
                                 <button data-id="<%= item._id %>" data-title="<%= item.title %>" data-description="<%= item.description %>"  data-url="<%= item.url %>"  data-bs-toggle="modal"
-                                    data-bs-target="#editVideoModal" class="button_outline_secondary edit_video_button">Edit
+                                    data-bs-target="#editVideoModal" class="m-1 button_outline_secondary edit_video_button">Edit
                                 </button>
                             </div>
                         </div>
@@ -203,7 +203,7 @@
     <script>
         const editVideoButtons = document.querySelectorAll(".edit_video_button")
         const addGroupButton = document.querySelector(".add_group_button")
-        const deleteVideoButton = document.querySelector(".delete")
+        const deleteVideoButtons = document.querySelectorAll(".delete")
         const confirmDeleteVideoButton = document.querySelector(".delete_video")
         const editVideoModalNameInput = document.querySelector(".edit_video_modal_name_input")
         const editVideoModalDescInput = document.querySelector(".edit_video_modal_desc_input")
