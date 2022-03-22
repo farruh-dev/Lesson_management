@@ -644,10 +644,14 @@ module.exports = class AdminRoute {
     static async AdminVideosGetController(req, res){
         try {
 
-            const videos_list = await videos.find().sort({createdAt: 'desc'})
+            const videos_list = await videos.find().sort({'createdAt': -1})
 
-            res.render("videos", {
-               videos_list
+            let promise = videos_list.exec();
+
+            promise.then(v => {
+                res.render("videos", {
+                    videos_list: v
+                });
             });
 
         } catch (error) {

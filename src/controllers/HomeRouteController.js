@@ -46,10 +46,14 @@ module.exports = class HomeRoute{
 
     static async VideosGetController(req, res){
         try {
-            const videos_list = await videos.find().sort({createdAt: 'desc'})
+            const videos_list = await videos.find().sort({'createdAt': -1})
 
-            res.render("videos_user", {
-                videos_list
+            let promise = videos_list.exec();
+
+            promise.then(v => {
+                res.render("videos_user", {
+                    videos_list: v
+                });
             });
 
         } catch (error) {
