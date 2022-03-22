@@ -671,7 +671,8 @@ module.exports = class AdminRoute {
                  title: data.title,
                  description: data.description,
                  url: link,
-                 img: `https://img.youtube.com/vi/${link}/hqdefault.jpg`
+                 img: `https://img.youtube.com/vi/${link}/hqdefault.jpg`,
+                 date: new Date()
              })
 
              res.redirect('/admin/videos')

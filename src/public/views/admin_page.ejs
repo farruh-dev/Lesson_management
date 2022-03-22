@@ -77,7 +77,6 @@
     <section id="schedule_section">
         <div class="container" style="padding: 50px 10px;">
             <h1 class="text-center mb-5">Schedule</h1>
-            <% if (lesson_schedule.length != 0) {%>
                 <div class="row row-cols-1 row-cols-md-2 row-cols-xl-3 g-5">
                     <% for( let item of lesson_schedule ) { %>
                     <div class="col day_item">
@@ -125,9 +124,6 @@
                     </div>
                     <% } %>
                 </div>
-            <% } else { %>
-                <h4 style="color: rgba(0, 0, 0, 0.5);">Nothing yet..</h4>
-            <% } %>  
         </div>
     </section>
 
