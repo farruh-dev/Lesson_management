@@ -314,11 +314,16 @@ module.exports = class AdminRoute {
             let request = {
                 time: req.body.time,
                 group: req.body.group,
+                day: req.body.day,
             }
 
             const data = await AdminEditLessonTimeValidation(request)
 
             if (!data) throw new Error("Given information is not valid!");
+
+            const day = await schedule.findOne({
+                _id: data.day
+            })
 
             const group = await groups.findOne({
                 _id: data.group
@@ -329,7 +334,9 @@ module.exports = class AdminRoute {
              },{
                 time: data.time,
                 group: data.group,
-                group_name: group.name
+                group_name: group.name,
+                day: data.day,
+                day_Id: day.day
              })
 
              res.redirect('/admin/schedule')
@@ -339,31 +346,31 @@ module.exports = class AdminRoute {
         }
     }
 
-    static async AdminReplaceLessonTimePostController(req, res) {
-        try {
+    // static async AdminReplaceLessonTimePostController(req, res) {
+    //     try {
 
-            const lesson_id = req.params?.lesson_id
-            const day_id = req.params?.day_id
+    //         const lesson_id = req.params?.lesson_id
+    //         const day_id = req.params?.day_id
 
-            const day = await schedule.findOne({
-                _id: day_id
-            })
+    //         const day = await schedule.findOne({
+    //             _id: day_id
+    //         })
 
-            if(!day) throw new Error("Day not found")
+    //         if(!day) throw new Error("Day not found")
 
-             await lessons.updateOne({
-                 _id: lesson_id,
-             },{
-                day_id: day._id,
-                day: day.day,
-             })
+    //          await lessons.updateOne({
+    //              _id: lesson_id,
+    //          },{
+    //             day_id: day._id,
+    //             day: day.day,
+    //          })
 
-             res.redirect('/admin/schedule')
+    //          res.redirect('/admin/schedule')
 
-        } catch (error) {
-            res.redirect('/')
-        }
-    }
+    //     } catch (error) {
+    //         res.redirect('/')
+    //     }
+    // }
 
     static async AdminDeleteLessonTimeController(req, res){
         try {

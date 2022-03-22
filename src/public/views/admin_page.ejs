@@ -196,8 +196,17 @@
                             </select>
                         </div>
 
+                        <div>
+                            <label for="">Select day</label>
+                            <select class="edit_lesson_modal_group_select browser-default" name="day" id="">
+                                <% for (let day of lesson_schedule) {%>
+                                <option value="<%= day._id %>" class="edit_lesson_modal_day_option">
+                                    <%= day.day %></option>
+                                <% } %>
+                            </select>
+                        </div>
+
                         <div class="modal-footer">
-                            <button type="button" class="button button_outline_primary replace">Replace</button>
                             <button type="button" class="button button_danger delete">Delete</button>
                             <button type="submit" class="button button_fill_primary">Save</button>
                         </div>
@@ -216,13 +225,13 @@
         const addTimeModal = document.querySelector("#addTimeModal")
         const addTimeModalTitle = document.querySelector(".add_time_modal_title")
         const deleteTime = document.querySelector(".delete")
-        const replaceTime = document.querySelector(".replace")
 
         const editLessonForm = document.querySelector("#editLessonForm")
         const editTimeModalTitle = document.querySelector(".edit_lesson_modal_title")
         const editTimeModalTimeInput = document.querySelector(".edit_lesson_time_input")
         const editTimeModalGroupSelect = document.querySelector(".edit_lesson_modal_group_select")
         const editTimeModalGroupOptions = document.querySelectorAll(".edit_lesson_modal_group_option")
+        const editTimeModalDayOptions = document.querySelectorAll(".edit_lesson_modal_day_option")
         const dayName = document.querySelector("#dayName")
         const dayId = document.querySelector("#dayId")
         const weekDays = document.querySelectorAll(".day_item")
@@ -264,28 +273,19 @@
                     `${event.target.dataset.dayname}: ${event.target.dataset.time}`
                 editTimeModalTimeInput.value = `${event.target.dataset.time}`
                 deleteTime.dataset.id = button.dataset.lessonid
-                replaceTime.dataset.lessonid = button.dataset.lessonid
-                replaceTime.dataset.dayid = button.dataset.dayid
 
                 for (let opt of editTimeModalGroupOptions) {
                     if (opt.value == event.target.dataset.groupid) {
                         opt.selected = true
                     }
                 }
+
+                for (let opt of editTimeModalDayOptions) {
+                    if (opt.value == event.target.dataset.dayid) {
+                        opt.selected = true
+                    }
+                }
             })
-        })
-
-        deleteTime.addEventListener('click', async event => {
-
-            let res = await fetch(`/admin/schedule/replace/${event.target.dataset.lessonid}/${event.target.dataset.dayid}`, {
-                method: "PUT",
-            })
-
-            // if(res.ok){
-            //     location.reload()
-            // }else{
-            //     alert("Something went wrong!")
-            // }
         })
 
         deleteTime.addEventListener('click', async event => {
