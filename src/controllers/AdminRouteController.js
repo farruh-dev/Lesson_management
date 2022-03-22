@@ -335,8 +335,8 @@ module.exports = class AdminRoute {
                 time: data.time,
                 group: data.group,
                 group_name: group.name,
-                day: data.day,
-                day_Id: day.day
+                day: day._id,
+                day_Id: data.day
              })
 
              res.redirect('/admin/schedule')
