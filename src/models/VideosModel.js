@@ -20,6 +20,8 @@ const videoSchema = new mongoose.Schema({
         type: String,
         required: true,
     }
+}, {
+    timestamps: true
 })
 
 const users = mongoose.model("videos", videoSchema);
