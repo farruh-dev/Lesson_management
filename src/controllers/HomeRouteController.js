@@ -46,7 +46,7 @@ module.exports = class HomeRoute{
 
     static async VideosGetController(req, res){
         try {
-            const videos_list = await videos.find()
+            const videos_list = await videos.find().sort({createdAt: 'desc'})
 
             res.render("videos_user", {
                 videos_list

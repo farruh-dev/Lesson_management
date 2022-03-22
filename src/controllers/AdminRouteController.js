@@ -644,7 +644,7 @@ module.exports = class AdminRoute {
     static async AdminVideosGetController(req, res){
         try {
 
-            const videos_list = await videos.find()
+            const videos_list = await videos.find().sort({createdAt: 'desc'})
 
             res.render("videos", {
                videos_list
