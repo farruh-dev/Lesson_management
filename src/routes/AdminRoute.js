@@ -24,7 +24,8 @@ const {
     AdminUpdateVideoController,
     AdminDeleteVideoController,
     AdminDeleteStudentController,
-    AdminDeleteLessonTimeController
+    AdminDeleteLessonTimeController,
+    AdminReplaceLessonTimePostController
 } = require("../controllers/AdminRouteController")
 const {
     AdminSigUpMiddleware,
@@ -59,6 +60,7 @@ router.post('/username/:admin_id', AdminUpdateUsernamePostController)
 router.post('/password/:admin_id', AdminUpdatePasswordPostController)
 router.post('/students/update/:id', AdminAuthMiddleware, AdminUpdateStudentPostController)
 router.post('/schedule/update/:lesson_id', AdminAuthMiddleware, AdminUpdateSchedulePostController)
+router.put('/schedule/replace/:lesson_id/:day_id', AdminAuthMiddleware, AdminReplaceLessonTimePostController)
 router.post('/groups/update/:group_id', AdminAuthMiddleware, AdminUpdateGroupPostController)
 router.post('/videos/update/:video_id', AdminAuthMiddleware, AdminUpdateVideoController)
 

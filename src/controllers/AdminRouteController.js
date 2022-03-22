@@ -339,6 +339,32 @@ module.exports = class AdminRoute {
         }
     }
 
+    static async AdminReplaceLessonTimePostController(req, res) {
+        try {
+
+            const lesson_id = req.params?.lesson_id
+            const day_id = req.params?.day_id
+
+            const day = await schedule.findOne({
+                _id: day_id
+            })
+
+            if(!day) throw new Error("Day not found")
+
+             await lessons.updateOne({
+                 _id: lesson_id,
+             },{
+                day_id: day._id,
+                day: day.day,
+             })
+
+             res.redirect('/admin/schedule')
+
+        } catch (error) {
+            res.redirect('/')
+        }
+    }
+
     static async AdminDeleteLessonTimeController(req, res){
         try {
 
