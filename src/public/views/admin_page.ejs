@@ -269,10 +269,9 @@
         editTimeButtons.forEach(button => {
             button.addEventListener("click", event => {
                 editLessonForm.action = `/admin/schedule/update/${event.target.dataset.lessonid}`
-                editTimeModalTitle.textContent =
-                    `${event.target.dataset.dayname}: ${event.target.dataset.time}`
+                editTimeModalTitle.textContent =`${event.target.dataset.dayname}: ${event.target.dataset.time}`
                 editTimeModalTimeInput.value = `${event.target.dataset.time}`
-                deleteTime.dataset.id = button.dataset.lessonid
+                deleteTime.dataset.id = event.target.dataset.lessonid
 
                 for (let opt of editTimeModalGroupOptions) {
                     if (opt.value == event.target.dataset.groupid) {
@@ -280,9 +279,9 @@
                     }
                 }
 
-                for (let opt of editTimeModalDayOptions) {
-                    if (opt.value == event.target.dataset.dayid) {
-                        opt.selected = true
+                for (let day of editTimeModalDayOptions) {
+                    if (day.value == event.target.dataset.dayid) {
+                        day.selected = true
                     }
                 }
             })
